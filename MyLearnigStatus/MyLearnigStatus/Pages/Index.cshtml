@@ -4,7 +4,79 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<head>
+    <style>
+        body {
+            background-image: url("https://th.bing.com/th/id/R.24017519325cfcdeae008f36d7047624?rik=AfjxdcVQ3%2fZu8g&riu=http%3a%2f%2fgetwallpapers.com%2fwallpaper%2ffull%2f3%2f5%2fc%2f632244.jpg&ehk=TL51pinadYs4tu2uiGDD21UGNvYcqAuhskMeiMDro7k%3d&risl=&pid=ImgRaw&r=0");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+        }
+
+        hr {
+            border-top: 0.3em solid #ffffff;
+            box-shadow: 0 10px 20px #ff1493;
+        }
+
+        p {
+            background: #ff149390;
+            color: white;
+            font-size: x-large;
+            border-radius: 1em;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, .5);
+        }
+
+        .main-wrapper {
+            background-color: #B0E0E680;
+            border-radius: 1em;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, .5);
+        }
+
+        .title {
+            color: white;
+            text-shadow: 0 0 8px deeppink;
+        }
+
+        .context-wrapper {
+            padding: 1em 0;
+        }
+
+        .pic {
+            width: 20em;
+            height: 20em;
+            border-radius: 50%;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, .5);
+            filter: opacity(0.8);
+
+        }
+
+        .pic:hover {
+            filter: opacity(1);
+        }
+
+        .button {
+            margin: 2em 1em;
+        }
+
+        .btn-primary {
+            background-color: #ff149390;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="text-center main-wrapper">
+    <h1 class="display-4 title">Welcome</h1>
+    <hr />
+    <div class="context-wrapper">
+        <img class="pic" src="https://th.bing.com/th/id/R.006aed30c413803d5d4b0c3dd4a66ab1?rik=n7RzBtu2SsqbUg&riu=http%3a%2f%2fwww.touro.edu%2fmedia%2ftouro-college%2fcommunications%2fimages%2ffeatured%2f2020%2ftimemanagement.jpg&ehk=CZ9WhtUpho4ZGQd572eiliX5EK16s2SaR5UidWrmby8%3d&risl=&pid=ImgRaw&r=0" />
+        <hr />
+        <div class="button">
+            <p>Let's Do It'</p>
+            <button type="button" class="btn btn-primary btn-lg btn-block">Login</button>
+        </div>
+    </div>
 </div>
+</body>
