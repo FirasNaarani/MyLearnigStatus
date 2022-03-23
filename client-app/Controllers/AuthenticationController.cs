@@ -35,15 +35,15 @@ namespace LearnSchoolApp.Controllers
         {
             Console.WriteLine($"User login with {JsonConvert.SerializeObject(userAuth)}");
 
-            var token = _authenticationService.Authenticate(userAuth.Username, userAuth.Password , userAuth.UserType);
+            var token = _authenticationService.Authenticate(userAuth.Username, userAuth.Password);
 
             Console.WriteLine($"Token:  {token}");
 
             if (token == null)
                 return new UnauthorizedResult();
-            string key = "Token";
-            CookieOptions cookie = new CookieOptions();
-            Response.Cookies.Append(key, token);
+            //string key = "Token";
+            //CookieOptions cookie = new CookieOptions();
+            //Response.Cookies.Append(key, token);
             var userToken = new UserLoginToken();
             userToken.Token = token;
             return userToken;

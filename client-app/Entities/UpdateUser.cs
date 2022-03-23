@@ -5,7 +5,7 @@ namespace LearnSchoolApp.Entities
     public class UpdateUser
     {
         [Required(ErrorMessage = "User Type Required")]
-        public UserType type { get; set; }
+        public UserType userType { get; set; }
 
         [Required(ErrorMessage = "Username Required")]
         public string username { get; set; }

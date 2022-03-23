@@ -54,19 +54,18 @@
     <marquee behavior="scroll" direction="left" scrollamount="12">😎 | Learn School For You | 😎</marquee>
     <hr />
     <div>
-        <form>
-            @*asp-controller="Authentication" asp-action="authenticate"*@
+        <form asp-controller="Authentication" asp-action="authenticate">
             <input type="text" id="username" name="Username" placeholder="Username" />
             <input type="text" id="password" name="Password" placeholder="Password" />
             <br />
-            <label for="cars">Choose User Type:</label>
+            @*<label for="cars">Choose User Type:</label>
             <select name="userType" id="userType">
                 <option value="0">Student</option>
                 <option value="1">Guid</option>
                 <option value="2">HeadOfDeprament</option>
                 <option value="3">Admin</option>
             </select>
-            <br />
+            <br />*@
 
             <button type="submit">Login</button>
         </form>

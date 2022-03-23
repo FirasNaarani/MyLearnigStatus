@@ -17,15 +17,15 @@ namespace LearnSchoolApp.Services
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
             _managers = database.GetCollection<Manager>(settings.ManagerCollectionName);
-            //var x = _managers.Indexes;
-            //_managers.Indexes.CreateOne(
-            //    new CreateIndexModel<Manager>(Builders<Manager>.IndexKeys.Descending(model => model.username),
-            //    new CreateIndexOptions { Unique = true })
-            //);
-            //_managers.Indexes.CreateOne(
-            //    new CreateIndexModel<Manager>(Builders<Manager>.IndexKeys.Descending(model => model.email),
-            //    new CreateIndexOptions { Unique = true })
-            //);
+            var x = _managers.Indexes;
+            _managers.Indexes.CreateOne(
+                new CreateIndexModel<Manager>(Builders<Manager>.IndexKeys.Descending(model => model.username),
+                new CreateIndexOptions { Unique = true })
+            );
+            _managers.Indexes.CreateOne(
+                new CreateIndexModel<Manager>(Builders<Manager>.IndexKeys.Descending(model => model.email),
+                new CreateIndexOptions { Unique = true })
+            );
         }
         public List<Manager> Get()
         {

@@ -14,26 +14,32 @@ namespace LearnSchoolApp.Services
             this._managerService = managerService;
         }
 
-        public string Authenticate(string user, string password, UserType userType)
+        public string Authenticate(string user, string password)
         {
-            switch (userType)
-            {
-                case UserType.Student:
-                    return null;
-                case UserType.Guid:
-                    return null;
-                case UserType.HeadOfDeprament:
-                    if (!_managerService.isValidCredentials(user, password))
-                    {
-                        return null;
-                    }
-                    return this._jWTAuthenticationManager.prepareAuthenticationToken(user);
-                case UserType.Admin:
-                    return null;
-                default:
-                    throw new Exception("user type not supported");
+            //switch (userType)
+            //{
+            //    case UserType.Student:
+            //        return null;
+            //    case UserType.Guid:
+            //        return null;
+            //    case UserType.HeadOfDeprament:
+            //        if (!_managerService.isValidCredentials(user, password))
+            //        {
+            //            return null;
+            //        }
+            //        return this._jWTAuthenticationManager.prepareAuthenticationToken(user);
+            //    case UserType.Admin:
+            //        return null;
+            //    default:
+            //        throw new Exception("user type not supported");
 
+            //}
+
+            if (!_managerService.isValidCredentials(user, password))
+            {
+                return null;
             }
+            return this._jWTAuthenticationManager.prepareAuthenticationToken(user);
         }
 
     }
