@@ -27,6 +27,8 @@ namespace node.Controllers
 
             var token = _authenticationService.Authenticate(userAuth.Username, userAuth.Password);
 
+            Console.WriteLine($"Token:  {token}");
+
             if (token == null)
                 return new UnauthorizedResult();
 

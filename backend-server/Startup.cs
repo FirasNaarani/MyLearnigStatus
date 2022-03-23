@@ -34,16 +34,20 @@ namespace node
                        .AllowAnyHeader();
             }));
             services.Configure<StudentDBSettings>(
-            Configuration.GetSection(nameof(StudentService)));
+            Configuration.GetSection(nameof(ProjectDBSettings)));
             services.AddSingleton<IStudentDBSettings>(sp => sp.GetRequiredService<IOptions<StudentDBSettings>>().Value);
 
             services.Configure<ProjectDBSettings>(
-            Configuration.GetSection(nameof(ProjectService)));
+            Configuration.GetSection(nameof(ProjectDBSettings)));
             services.AddSingleton<IProjectDBSettings>(sp => sp.GetRequiredService<IOptions<ProjectDBSettings>>().Value);
 
             services.Configure<ManagerDBSettings>(
             Configuration.GetSection(nameof(ManagerDBSettings)));
             services.AddSingleton<IManagerDBSettings>(sp => sp.GetRequiredService<IOptions<ManagerDBSettings>>().Value);
+            
+            services.Configure<GuideDBSettings>(
+            Configuration.GetSection(nameof(GuideDBSettings)));
+            services.AddSingleton<IGuideDBSettings>(sp => sp.GetRequiredService<IOptions<GuideDBSettings>>().Value);
 
             services.AddSingleton<ManagerService>();
 

@@ -1,0 +1,62 @@
+﻿{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:7582",
+      "sslPort": 44312
+    }
+  },
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "LearnSchoolApp": {
+      "commandName": "Project",
+      "dotnetRunMessages": "true",
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  },
+  "TokenKey": "private key elias elias 123456 fifa cup",
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "HeadOfDepramentDBSettings": {
+    "GuideCollectionName": "HeadOfDeprament",
+    "ConnectionString": "mongodb://admin:pass@mongo-db:27017/?authSource=admin&readPreference=primary&directConnection=true&ssl=false",
+    "DatabaseName": "learnSchool"
+  },
+  "GuideDBSettings": {
+    "GuideCollectionName": "Guides",
+    "ConnectionString": "mongodb://admin:pass@mongo-db:27017/?authSource=admin&readPreference=primary&directConnection=true&ssl=false",
+    "DatabaseName": "learnSchool"
+  },
+  "ManagerDBSettings": {
+    "ManagerCollectionName": "Managers",
+    "ConnectionString": "mongodb://admin:pass@mongo-db:27017/?authSource=admin&readPreference=primary&directConnection=true&ssl=false",
+    "DatabaseName": "learnSchool"
+  },
+  "ProjectDBSettings": {
+    "ProjectCollectionName": "Projects",
+    "ConnectionString": "mongodb://admin:pass@mongo-db:27017/?authSource=admin&readPreference=primary&directConnection=true&ssl=false",
+    "DatabaseName": "learnSchool"
+  },
+  "StudentDBSettings": {
+    "StudentCollectionName": "Students",
+    "ConnectionString": "mongodb://admin:pass@mongo-db:27017/?authSource=admin&readPreference=primary&directConnection=true&ssl=false",
+    "DatabaseName": "learnSchool"
+  },
+  "AllowedHosts": "*"
+}
