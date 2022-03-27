@@ -18,7 +18,7 @@ namespace LearnSchoolApp.Controllers
     [ApiController]
     [Route("[controller]")]
     public class AuthenticationController : ControllerBase
-    { 
+    {
         private readonly AuthenticationService _authenticationService;
         private readonly ManagerService _managerService;
 
@@ -29,7 +29,7 @@ namespace LearnSchoolApp.Controllers
             _managerService = managerService;
         }
 
-    
+
         [HttpPost("authenticate")]
         public ActionResult<UserLoginToken> Authenticate([FromBody] UserAuth userAuth)
         {

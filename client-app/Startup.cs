@@ -80,6 +80,14 @@ namespace LearnSchoolApp
                     ValidateAudience = false
                 };
             });
+
+            //services.AddAuthorization(configure =>
+            //{
+            //    configure.AddPolicy(tokenKey, policyBuilder =>
+            //    {
+            //        policyBuilder.AddRequirements()
+            //    });
+            //});
             services.AddSingleton<IJWTAuthenticationManager>(new JWTAuthenticationManager(tokenKey));
             services.AddSingleton<AuthenticationService>();
             services.AddSingleton<StudentService>();
