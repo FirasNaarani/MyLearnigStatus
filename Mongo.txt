@@ -1,0 +1,205 @@
+Student
+--------------------------------------------------------------
+{
+    >>>>>> GET <<<<<<
+    http://localhost:8080/api/student
+    {
+        _id: ObjectId('626b5443b6404a91882d07d6'),
+        username: 'aya',
+        password: 'aya',
+        email: 'aya@gmail.com',
+        name: 'aya student',
+        userType: 0,
+        studyYear: {
+            From: '2020',
+            To: '2022'
+        },
+        phone: '0522222222',
+        isActive: true
+    }
+    {
+        _id: ObjectId('226b5443b6404a91882d07d6'),
+        username: 'firas',
+        password: 'firas',
+        email: 'firas@gmail.com',
+        name: 'firas student',
+        userType: 0,
+        studyYear: {
+            From: '2020',
+            To: '2022'
+        },
+        phone: '0522222222',
+        isActive: true
+    }
+
+    >>>>>> GET/ID <<<<<<
+    http://localhost:8080/api/student/62435d130820cedaa30b201f
+
+    >>>>>> POST <<<<<<
+    http://localhost:8080/api/student
+    {
+        "username" : "student",
+        "password" : "pass",
+        "email" : "student@gmail.com",
+        phone: '0522222222',
+        "name" : " Student Student",
+        "studyYear" : {
+            "From" : "2020",
+            "To": "2022"
+        }
+    }
+
+    >>>>>> PUT/ID <<<<<<
+    http://localhost:8080/api/student/62435d130820cedaa30b201f
+    {
+        "name" : "STUDENT TEST",
+        "email" : "StudentTest@gmail.com",
+        "username" : "STUDENT"
+    }
+
+    >>>>>> PUT/PASSWORD/ID <<<<<<
+    http://localhost:8080/api/student/password/62435d130820cedaa30b201f
+    {
+        "password": "test1234"
+    }
+
+    >>>>>> DELETE/ID <<<<<<
+    http://localhost:8080/api/student/62435d130820cedaa30b201f
+}
+--------------------------------------------------------------
+Managers
+--------------------------------------------------------------
+{
+    >>>>>> GET <<<<<<
+    http://localhost:8080/api/manager
+    {
+        _id: ObjectId('616b5be3b6404a91882d07d6'),
+        username: 'admin',
+        password: 'admin',
+        email: 'admin@gmail.com',
+        name: 'Admin Admin',
+        userType: 3,
+        phone: '0522222222',
+        isActive: true
+    }
+    {
+        _id: ObjectId('616b5443b6404a91882d07d6'),
+        username: 'aya',
+        password: 'aya',
+        email: 'aya@gmail.com',
+        name: 'aya Admin',
+        userType: 3,
+        phone: '0522222222',
+        isActive: true
+    }
+
+    >>>>>> GET/ID <<<<<<
+    http://localhost:8080/api/manager/62433ffc5d009988d3e3d034
+    
+    >>>>>> POST <<<<<<
+    http://localhost:8080/api/manager
+    {
+        "username" : "test",
+        "password" : "pass",
+        "email" : "test@gmail.com",
+        phone: '0522222222',
+        "name" : " Test Test"
+    }
+
+    >>>>>> PUT/ID <<<<<<
+    http://localhost:8080/api/manager/624350a6fa54ec4070dbbd46
+    {
+        "name" : "TEST TEST",
+        "email" : "TEST@gmail.com",
+        "username" : "TEST"
+    }
+
+    >>>>>> PUT/PASSWORD/ID <<<<<<
+    http://localhost:8080/api/manager/password/624350a6fa54ec4070dbbd46
+    {
+        "password": "test1234"
+    }
+
+    >>>>>> DELETE/ID <<<<<<
+    http://localhost:8080/api/manager/624350a6fa54ec4070dbbd46
+}
+--------------------------------------------------------------
+Guides
+--------------------------------------------------------------
+{
+    >>>>>> GET <<<<<<
+    http://localhost:8080/api/guide
+    {
+        _id: ObjectId('616b544226404a91882d07d6'),
+        username: 'ron',
+        password: 'ron',
+        email: 'ron@gmail.com',
+        phone: '0522222222',
+        name: 'ron ron',
+        userType: 2,
+        isHeadOfDepratment: true,
+        projects: [],
+        isActive: true
+    }
+    {
+        _id: ObjectId('516b544226404a91882d07d6'),
+        username: 'ofer',
+        password: 'ofer',
+        email: 'ofer@gmail.com',
+        phone: '0522222222',
+        name: 'ofer ofer',
+        userType: 1,
+        isHeadOfDepratment: false,
+        projects: [],
+        isActive: true
+    }
+
+    >>>>>> GET/ID <<<<<<
+    http://localhost:8080/api/guide/616b544226404a91882d07d6
+
+    >>>>>> POST <<<<<<
+    http://localhost:8080/api/guide
+    {
+        _id: ObjectId('62443b206b416208381af890'),
+        userType: 2,
+        username: 'test',
+        password: 'test',
+        name: 'Test Guide',
+        email: 'test@gmail.com',
+        phone: '0522222222',
+        isHeadOfDepratment: true,
+        projects: [],
+        isActive: true
+    }
+}
+--------------------------------------------------------------
+Projects
+--------------------------------------------------------------
+{
+    >>>>>> GET <<<<<<
+    http://localhost:8080/api/project
+    {
+        _id: ObjectId('624301427a2a1c79f8800c1e'),
+        name: 'Project 1',
+        guideId: '616b544226404a91882d07d6',
+        studentId: '626b5443b6404a91882d07d6',
+        assistantStudent: null,
+        isActive: true
+    }
+    {
+        _id: ObjectId('624301427a2a1c79f8800c12'),
+        name: 'Project 2',
+        guideId: '616b544226404a91882d07d6',
+        studentId: '226b5443b6404a91882d07d6',
+        assistantStudentId: null,
+        isActive: true
+    }
+
+    >>>>>> POST <<<<<<
+    http://localhost:8080/api/project
+    {
+        "name": "Project 3",
+        "studentId": "226b5443b6404a91882d07d6",
+        "assistantStudentId": null
+    }
+}

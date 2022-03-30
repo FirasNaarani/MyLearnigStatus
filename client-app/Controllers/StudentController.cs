@@ -37,21 +37,21 @@ namespace LearnSchoolApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Result<Manager>> Create(Student student)
+        public ActionResult<Result<Student>> Create(Student student)
         {
             try
             {
                 _studentService.Create(student);
-                return CreatedAtRoute("GetManager", new { id = student.Id.ToString() }, student);
+                return CreatedAtRoute("GetStudent", new { id = student.Id.ToString() }, student);
             }
             catch (Exception e)
             {
-                return StatusCode(500, new Result<Manager>(e.Message));
+                return StatusCode(500, new Result<Student>(e.Message));
             }
         }
 
         [HttpPut("{id:length(24)}")]
-        public IActionResult Update(string id, UpdateUser managerIn)
+        public IActionResult Update(string id, UpdateUser studentIn)
         {
             var book = _studentService.Get(id);
 
@@ -59,11 +59,12 @@ namespace LearnSchoolApp.Controllers
             {
                 return NotFound();
             }
-            _studentService.Update(id, managerIn);
-            return NoContent();
+            _studentService.Update(id, studentIn);
+            return Ok();
         }
+        
         [HttpPut("password/{id:length(24)}")]
-        public IActionResult UpdatePassword(string id, UpdatePassword managerIn)
+        public IActionResult UpdatePassword(string id, UpdatePassword studentIn)
         {
             var book = _studentService.Get(id);
 
@@ -71,11 +72,11 @@ namespace LearnSchoolApp.Controllers
             {
                 return NotFound();
             }
-            _studentService.UpdatePassword(id, managerIn);
-            return NoContent();
+            _studentService.UpdatePassword(id, studentIn);
+            return Ok();
         }
+       
         [HttpDelete("{id:length(24)}")]
-        [Authorize]
         public IActionResult Delete(string id)
         {
             var command = _studentService.Get(id);
@@ -85,7 +86,7 @@ namespace LearnSchoolApp.Controllers
                 return NotFound();
             }
             _studentService.Delete(id);
-            return NoContent();
+            return Ok();
         }
     }
 }

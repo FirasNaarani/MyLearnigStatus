@@ -11,10 +11,8 @@ namespace LearnSchoolApp.Entities
         public string Id { get; set; }
 
         [Required(ErrorMessage = "Study Year Required")]
-        public StudyYear StudyYear { get; set; }
+        public StudyYear studyYear { get; set; }
 
         public bool isActive { get; set; }
-
-
     }
 }

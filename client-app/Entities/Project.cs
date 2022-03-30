@@ -15,11 +15,23 @@ namespace LearnSchoolApp.Entities
         public string Id { get; set; }
 
         [Required(ErrorMessage = "Project Name Required")]
-        public string Name { get; set; }
+        public string name { get; set; }
+
+        public string guideId { get; set; }
 
         [Required(ErrorMessage = "Main Student ID Required")]
-        public string StudentId { get; set; }
+        public string studentId { get; set; }
 
-        public string AssistantStudent { get; set; }
+        public string assistantStudentId { get; set; }
+        
+        public bool isActive { get; set; }
+
+        public bool isPass { get; set; }
+
+        public List<Status> projectStatuses { get; set; }
+
+        public List<Status> guidingStatuses { get; set; }
+
+        public ProjectProposal projectProposal { get; set; }
     }
 }

@@ -4,13 +4,11 @@ namespace LearnSchoolApp.Entities
 {
     public class UpdateUser
     {
-        [Required(ErrorMessage = "User Type Required")]
         public UserType userType { get; set; }
 
         [Required(ErrorMessage = "Username Required")]
         public string username { get; set; }
 
-        [Required(ErrorMessage = "Password Required")]
         public string password { get; set; }
         
         [Required(ErrorMessage = "Name Required")]
@@ -18,6 +16,9 @@ namespace LearnSchoolApp.Entities
 
         [Required(ErrorMessage = "Email Required")]
         public string email { get; set; }
-       
+
+        [Required(ErrorMessage = "Phone Required")]
+        [MaxLength(10, ErrorMessage = "Incorrect Phone Number")]
+        public string phone { get; set; }
     }
 }

@@ -59,8 +59,9 @@ namespace LearnSchoolApp.Controllers
                 return NotFound();
             }
             _managerService.Update(id, managerIn);
-            return NoContent();
+            return Ok();
         }
+        
         [HttpPut("password/{id:length(24)}")]
         public IActionResult UpdatePassword(string id, UpdatePassword managerIn)
         {
@@ -71,10 +72,10 @@ namespace LearnSchoolApp.Controllers
                 return NotFound();
             }
             _managerService.UpdatePassword(id, managerIn);
-            return NoContent();
+            return Ok();
         }
+        
         [HttpDelete("{id:length(24)}")]
-        [Authorize]
         public IActionResult Delete(string id)
         {
             var command = _managerService.Get(id);
@@ -84,7 +85,7 @@ namespace LearnSchoolApp.Controllers
                 return NotFound();
             }
             _managerService.Delete(id);
-            return NoContent();
+            return Ok();
         }
     }
 }

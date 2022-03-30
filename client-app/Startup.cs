@@ -91,6 +91,7 @@ namespace LearnSchoolApp
             services.AddSingleton<IJWTAuthenticationManager>(new JWTAuthenticationManager(tokenKey));
             services.AddSingleton<AuthenticationService>();
             services.AddSingleton<StudentService>();
+            services.AddSingleton<GuideService>();
             services.AddSingleton<ProjectService>();
         }
 

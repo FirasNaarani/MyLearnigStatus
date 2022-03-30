@@ -1,5 +1,4 @@
 ﻿using LearnSchoolApp.Entities;
-using LearnSchoolApp.Infra;
 using LearnSchoolApp.Models;
 using MongoDB.Driver;
 using System;
@@ -27,10 +26,10 @@ namespace LearnSchoolApp.Services
                 new CreateIndexOptions { Unique = true })
             );
         }
+       
         public List<Manager> Get()
         {
             var managers = _managers.Find(m => m.isActive).ToList();
-            //managers.ForEach(m => m.password = "");
             return managers;
         }
 
@@ -43,13 +42,13 @@ namespace LearnSchoolApp.Services
         public Manager Get(string id)
         {
             var manager = _managers.Find<Manager>(manager => manager.Id == id).FirstOrDefault();
-            manager.password = "";
             return manager;
         }
+        
         public Manager Create(Manager manager)
         {
+            manager.userType = UserType.Admin;
             manager.isActive = true;
-            manager.password = EncryptDecryptPassword.EncryptPlainTextToCipherText(manager.password);
             try
             {
                 _managers.InsertOne(manager);
@@ -57,16 +56,14 @@ namespace LearnSchoolApp.Services
             {
                 if (ex.Message.Contains("duplicate"))
                 {
-                    throw new Exception("duplicate user");
+                    throw new Exception("duplicate manager");
                 }
             }
-            manager.password = "";
             return manager;
         }
 
         public void UpdatePassword(string id, UpdatePassword manager)
         {
-            manager.password = EncryptDecryptPassword.EncryptPlainTextToCipherText(manager.password);
             var filter = Builders<Manager>.Filter.Where(_ => _.Id == id);
             var update = Builders<Manager>.Update
                         .Set(_ => _.password, manager.password);

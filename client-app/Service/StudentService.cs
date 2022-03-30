@@ -1,11 +1,9 @@
 ﻿using LearnSchoolApp.Entities;
-using LearnSchoolApp.Infra;
 using LearnSchoolApp.Models;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace LearnSchoolApp.Services
 {
@@ -13,20 +11,22 @@ namespace LearnSchoolApp.Services
     {
         private readonly IMongoCollection<Student> _student;
 
-        public StudentService(IManagerDBSettings settings)
+        public StudentService(IStudentDBSettings settings)
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
-            _student = database.GetCollection<Student>(settings.ManagerCollectionName);
-            //_student.Indexes.CreateOne(
-            //    new CreateIndexModel<Student>(Builders<Student>.IndexKeys.Descending(model => model.username),
-            //    new CreateIndexOptions { Unique = true })
-            //);
-            //_student.Indexes.CreateOne(
-            //    new CreateIndexModel<Student>(Builders<Student>.IndexKeys.Descending(model => model.email),
-            //    new CreateIndexOptions { Unique = true })
-            //);
+            _student = database.GetCollection<Student>(settings.StudentCollectionName);
+            var x = _student.Indexes;
+            _student.Indexes.CreateOne(
+                new CreateIndexModel<Student>(Builders<Student>.IndexKeys.Descending(model => model.username),
+                new CreateIndexOptions { Unique = true })
+            );
+            _student.Indexes.CreateOne(
+                new CreateIndexModel<Student>(Builders<Student>.IndexKeys.Descending(model => model.email),
+                new CreateIndexOptions { Unique = true })
+            );
         }
+       
         public List<Student> Get()
         {
             var students = _student.Find(m => m.isActive).ToList();
@@ -45,10 +45,11 @@ namespace LearnSchoolApp.Services
             //student.password = "";
             return student;
         }
+       
         public Student Create(Student student)
         {
+            student.userType = UserType.Student;
             student.isActive = true;
-            student.password = EncryptDecryptPassword.EncryptPlainTextToCipherText(student.password);
             try
             {
                 _student.InsertOne(student);
@@ -57,19 +58,18 @@ namespace LearnSchoolApp.Services
             {
                 if (ex.Message.Contains("duplicate"))
                 {
-                    throw new Exception("duplicate user");
+                    throw new Exception("duplicate student");
                 }
             }
             student.password = "";
             return student;
         }
 
-        public void UpdatePassword(string id, UpdatePassword manager)
+        public void UpdatePassword(string id, UpdatePassword student)
         {
-            manager.password = EncryptDecryptPassword.EncryptPlainTextToCipherText(manager.password);
             var filter = Builders<Student>.Filter.Where(_ => _.Id == id);
             var update = Builders<Student>.Update
-                        .Set(_ => _.password, manager.password);
+                        .Set(_ => _.password, student.password);
             var options = new FindOneAndUpdateOptions<Student>();
             _student.FindOneAndUpdate(filter, update, options);
         }
@@ -83,13 +83,13 @@ namespace LearnSchoolApp.Services
             _student.FindOneAndUpdate(filter, update, options);
         }
 
-        public void Update(string id, UpdateUser manager)
+        public void Update(string id, UpdateUser student)
         {
             var filter = Builders<Student>.Filter.Where(_ => _.Id == id);
             var update = Builders<Student>.Update
-                        .Set(_ => _.email, manager.email)
-                        .Set(_ => _.name, manager.name)
-                        .Set(_ => _.username, manager.username);
+                        .Set(_ => _.email, student.email)
+                        .Set(_ => _.name, student.name)
+                        .Set(_ => _.username, student.username);
             var options = new FindOneAndUpdateOptions<Student>();
             _student.FindOneAndUpdate(filter, update, options);
         }

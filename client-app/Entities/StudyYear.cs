@@ -10,14 +10,10 @@ namespace LearnSchoolApp.Entities
 {
     public class StudyYear
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.Decimal128)]
-        public string Id { get; set; }
-
         [Required(ErrorMessage = "From Date Required")]
-        public DateTime From { get; set; }
+        public string From { get; set; }
 
         [Required(ErrorMessage = "To Date Required")]
-        public DateTime To { get; set; }
+        public string To { get; set; }
     }
 }
