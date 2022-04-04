@@ -81,17 +81,28 @@ namespace LearnSchoolApp
                 };
             });
 
+            //services.AddAuthorization(opt =>
+            //{
+            //    opt.AddPolicy(tokenKey, policy =>
+            //    policy.RequireRole("Admin", "Poweruser"));
+            //});
+
             //services.AddAuthorization(configure =>
             //{
-            //    configure.AddPolicy(tokenKey, policyBuilder =>
+            //    configure.AddPolicy(UserType.Admin, policyBuilder =>
             //    {
             //        policyBuilder.AddRequirements()
             //    });
             //});
+
             services.AddSingleton<IJWTAuthenticationManager>(new JWTAuthenticationManager(tokenKey));
+            services.AddSingleton<IJWTAuthenticationGuide>(new JWTAuthenticationGuide(tokenKey));
+            services.AddSingleton<IJWTAuthenticationStudent>(new JWTAuthenticationStudent(tokenKey));
+            services.AddSingleton<IJWTAuthenticationHeadOfDeprament>(new JWTAuthenticationHeadOfDeprament(tokenKey));
             services.AddSingleton<AuthenticationService>();
             services.AddSingleton<StudentService>();
             services.AddSingleton<GuideService>();
+            services.AddSingleton<HeadOfDepramentService>();
             services.AddSingleton<ProjectService>();
         }
 

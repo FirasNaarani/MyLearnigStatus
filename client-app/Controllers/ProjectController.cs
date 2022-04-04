@@ -37,12 +37,20 @@ namespace LearnSchoolApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Result<Project>> Create(Project Project)
+        public ActionResult<Result<Project>> Create(Project project)
         {
             try
             {
-                _projectService.Create(Project);
-                return CreatedAtRoute("GetProject", new { id = Project.Id.ToString() }, Project);
+                if (!_projectService.isDuplicateProject(project.name, project.studentId))
+                {
+
+                    _projectService.Create(project);
+                    return CreatedAtRoute("GetProject", new { id = project.Id.ToString() }, project);
+                }
+                else
+                {
+                    return StatusCode(403, "Duplicate Project");
+                }
             }
             catch (Exception e)
             {

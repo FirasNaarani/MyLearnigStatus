@@ -27,6 +27,10 @@ namespace LearnSchoolApp.Services
                 new CreateIndexModel<Guide>(Builders<Guide>.IndexKeys.Descending(model => model.email),
                 new CreateIndexOptions { Unique = true })
             );
+            _guide.Indexes.CreateOne(
+                new CreateIndexModel<Guide>(Builders<Guide>.IndexKeys.Descending(model => model.userId),
+                new CreateIndexOptions { Unique = true })
+            );
         }
         public List<Guide> Get()
         {

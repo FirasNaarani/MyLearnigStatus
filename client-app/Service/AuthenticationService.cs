@@ -8,39 +8,67 @@ namespace LearnSchoolApp.Services
     {
         private readonly IJWTAuthenticationManager _jWTAuthenticationManager; 
         private readonly ManagerService _managerService;
-        public AuthenticationService(ManagerService managerService, IJWTAuthenticationManager jWTAuthenticationManager)
+
+        private readonly IJWTAuthenticationHeadOfDeprament _jWTAuthenticationHeadOfDeprament;
+        private readonly HeadOfDepramentService _headOfDepramentService;
+
+        private readonly IJWTAuthenticationGuide _jWTAuthenticationGuide;
+        private readonly GuideService _guideService;
+        
+        private readonly IJWTAuthenticationStudent _jWTAuthenticationStudent;
+        private readonly StudentService _studentService;
+
+        public AuthenticationService(ManagerService managerService, IJWTAuthenticationManager jWTAuthenticationManager, GuideService guideService, IJWTAuthenticationGuide jWTAuthenticationGuide, StudentService studentService, IJWTAuthenticationStudent jWTAuthenticationStudent, HeadOfDepramentService headOfDepramentService, IJWTAuthenticationHeadOfDeprament jWTAuthenticationHeadOfDeprament)
         {
             this._jWTAuthenticationManager = jWTAuthenticationManager;
             this._managerService = managerService;
+
+            this._jWTAuthenticationGuide = jWTAuthenticationGuide;
+            this._guideService = guideService;
+
+            this._jWTAuthenticationStudent = jWTAuthenticationStudent;
+            this._studentService = studentService;
+
+            this._jWTAuthenticationHeadOfDeprament = jWTAuthenticationHeadOfDeprament;
+            this._headOfDepramentService = headOfDepramentService;
+
         }
 
-        public string Authenticate(string user, string password)
+        public string Authenticate(string user, string password,UserType userType)
         {
-            //switch (userType)
-            //{
-            //    case UserType.Student:
-            //        return null;
-            //    case UserType.Guid:
-            //        return null;
-            //    case UserType.HeadOfDeprament:
-            //        if (!_managerService.isValidCredentials(user, password))
-            //        {
-            //            return null;
-            //        }
-            //        return this._jWTAuthenticationManager.prepareAuthenticationToken(user);
-            //    case UserType.Admin:
-            //        return null;
-            //    default:
-            //        throw new Exception("user type not supported");
-
-            //}
-
-            if (!_managerService.isValidCredentials(user, password))
+            switch (userType)
             {
-                return null;
-            }
-            return this._jWTAuthenticationManager.prepareAuthenticationToken(user);
-        }
+                case UserType.Student:
+                    if (!_studentService.isValidCredentials(user, password))
+                    {
+                        return null;
+                    }
+                    return this._jWTAuthenticationStudent.prepareAuthenticationToken(user, userType.ToString());
 
+                case UserType.Guid:
+                    if (!_guideService.isValidCredentials(user, password))
+                    {
+                        return null;
+                    }
+                    return this._jWTAuthenticationGuide.prepareAuthenticationToken(user, userType.ToString());
+
+                case UserType.HeadOfDeprament:
+                    if (!_headOfDepramentService.isValidCredentials(user, password))
+                    {
+                        return null;
+                    }
+                    return this._jWTAuthenticationHeadOfDeprament.prepareAuthenticationToken(user, userType.ToString());
+
+                case UserType.Admin:
+                    if (!_managerService.isValidCredentials(user, password))
+                    {
+                        return null;
+                    }
+                    return this._jWTAuthenticationManager.prepareAuthenticationToken(user,userType.ToString());
+                default:
+                    throw new Exception("user type not supported");
+
+            }
+        }
     }
 }

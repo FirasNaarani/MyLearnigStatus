@@ -29,6 +29,12 @@ namespace LearnSchoolApp.Services
         //    return Project != null;
         //}
 
+        public Boolean isDuplicateProject(string name, string studentId)
+        {
+            Project Project = _project.Find(m => m.name == name || m.studentId == studentId && m.isActive == true).FirstOrDefault();
+            return Project != null;
+        }
+
         public Project Get(string id)
         {
             var Project = _project.Find<Project>(Project => Project.Id == id).FirstOrDefault();
@@ -76,15 +82,18 @@ namespace LearnSchoolApp.Services
             _project.FindOneAndUpdate(filter, update, options);
         }
 
-        //public void Update(string id, UpdateUser manager)
-        //{
-        //    var filter = Builders<Project>.Filter.Where(_ => _.Id == id);
-        //    var update = Builders<Project>.Update
-        //                .Set(_ => _.email, manager.email)
-        //                .Set(_ => _.name, manager.name)
-        //                .Set(_ => _.username, manager.username);
-        //    var options = new FindOneAndUpdateOptions<Project>();
-        //    _project.FindOneAndUpdate(filter, update, options);
-        //}
+        public void update(string id, Project project)
+        {
+            var filter = Builders<Project>.Filter.Where(_ => _.Id == id);
+            var update = Builders<Project>.Update
+                        .Set(_ => _.name, project.name)
+                        .Set(_ => _.studentId, project.studentId)
+                        .Set(_ => _.assistantStudentId, project.assistantStudentId)
+                        .Set(_ => _.assistantStudentId, project.assistantStudentId)
+                        .Set(_ => _.name, project.name);
+                        //.Set(_ => _.username, manager.username);
+            var options = new FindOneAndUpdateOptions<Project>();
+            _project.FindOneAndUpdate(filter, update, options);
+        }
     }
 }

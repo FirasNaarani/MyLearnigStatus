@@ -11,16 +11,16 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace node.Infra
 {
-    public interface IJWTAuthenticationManager
+    public interface IJWTAuthenticationGuide
     {
         string prepareAuthenticationToken(string username, string userType);
     }
 
-    public class JWTAuthenticationManager : IJWTAuthenticationManager
+    public class JWTAuthenticationGuide : IJWTAuthenticationGuide
     {
         private readonly string tokenKey;
 
-        public JWTAuthenticationManager(string tokenKey)
+        public JWTAuthenticationGuide(string tokenKey)
         {
             this.tokenKey = tokenKey;
         }
@@ -33,7 +33,7 @@ namespace node.Infra
                 {
                     new Claim(ClaimTypes.Name, username),
                     new Claim(ClaimTypes.Role, userType)
-    
+
             });
             var tokenDescriptor = new SecurityTokenDescriptor
             {

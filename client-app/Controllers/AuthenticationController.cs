@@ -35,7 +35,7 @@ namespace LearnSchoolApp.Controllers
         {
             Console.WriteLine($"User login with {JsonConvert.SerializeObject(userAuth)}");
 
-            var token = _authenticationService.Authenticate(userAuth.Username, userAuth.Password);
+            var token = _authenticationService.Authenticate(userAuth.Username, userAuth.Password, userAuth.UserType);
 
             Console.WriteLine($"Token:  {token}");
 

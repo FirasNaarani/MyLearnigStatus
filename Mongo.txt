@@ -4,31 +4,18 @@ Student
     >>>>>> GET <<<<<<
     http://localhost:8080/api/student
     {
-        _id: ObjectId('626b5443b6404a91882d07d6'),
-        username: 'aya',
-        password: 'aya',
-        email: 'aya@gmail.com',
-        name: 'aya student',
+        _id: ObjectId('62484a7827345bac8db290bd'),
         userType: 0,
+        username: 'student',
+        password: 'pass',
+        name: ' Student Student',
+        userId: '112233445',
+        email: 'student@gmail.com',
+        phone: '0522222222',
         studyYear: {
             From: '2020',
             To: '2022'
         },
-        phone: '0522222222',
-        isActive: true
-    }
-    {
-        _id: ObjectId('226b5443b6404a91882d07d6'),
-        username: 'firas',
-        password: 'firas',
-        email: 'firas@gmail.com',
-        name: 'firas student',
-        userType: 0,
-        studyYear: {
-            From: '2020',
-            To: '2022'
-        },
-        phone: '0522222222',
         isActive: true
     }
 
@@ -39,14 +26,15 @@ Student
     http://localhost:8080/api/student
     {
         "username" : "student",
+        "userId" : "112233445",
         "password" : "pass",
         "email" : "student@gmail.com",
-        phone: '0522222222',
         "name" : " Student Student",
         "studyYear" : {
             "From" : "2020",
             "To": "2022"
-        }
+        },
+        "phone" : "0522222222"
     }
 
     >>>>>> PUT/ID <<<<<<
@@ -75,6 +63,7 @@ Managers
     {
         _id: ObjectId('616b5be3b6404a91882d07d6'),
         username: 'admin',
+        userId: '207661844',
         password: 'admin',
         email: 'admin@gmail.com',
         name: 'Admin Admin',
@@ -85,6 +74,7 @@ Managers
     {
         _id: ObjectId('616b5443b6404a91882d07d6'),
         username: 'aya',
+        userId: '207661845',
         password: 'aya',
         email: 'aya@gmail.com',
         name: 'aya Admin',
@@ -99,11 +89,12 @@ Managers
     >>>>>> POST <<<<<<
     http://localhost:8080/api/manager
     {
-        "username" : "test",
+        "username" : "test1",
+        "userId" : "123456789",
         "password" : "pass",
-        "email" : "test@gmail.com",
-        phone: '0522222222',
-        "name" : " Test Test"
+        "email" : "test1@gmail.com",
+        "name" : " Test1 Test",
+        "phone" : "0522222222"
     }
 
     >>>>>> PUT/ID <<<<<<
@@ -130,25 +121,27 @@ Guides
     >>>>>> GET <<<<<<
     http://localhost:8080/api/guide
     {
-        _id: ObjectId('616b544226404a91882d07d6'),
-        username: 'ron',
-        password: 'ron',
-        email: 'ron@gmail.com',
-        phone: '0522222222',
-        name: 'ron ron',
+        _id: ObjectId('62485393ca04714016f476ca'),
         userType: 2,
+        username: 'ron',
+        password: 'test',
+        name: 'Test Guide',
+        userId: '000000000',
+        email: 'test1@gmail.com',
+        phone: '0522222222',
         isHeadOfDepratment: true,
         projects: [],
         isActive: true
     }
     {
-        _id: ObjectId('516b544226404a91882d07d6'),
+        _id: ObjectId('6248532cca04714016f476c8'),
+        userType: 1,
         username: 'ofer',
-        password: 'ofer',
+        password: 'test',
+        name: 'Ofer Guide',
+        userId: '111111111',
         email: 'ofer@gmail.com',
         phone: '0522222222',
-        name: 'ofer ofer',
-        userType: 1,
         isHeadOfDepratment: false,
         projects: [],
         isActive: true
@@ -160,16 +153,13 @@ Guides
     >>>>>> POST <<<<<<
     http://localhost:8080/api/guide
     {
-        _id: ObjectId('62443b206b416208381af890'),
-        userType: 2,
-        username: 'test',
-        password: 'test',
-        name: 'Test Guide',
-        email: 'test@gmail.com',
-        phone: '0522222222',
-        isHeadOfDepratment: true,
-        projects: [],
-        isActive: true
+        "username" : "ron",
+        "password" : "test",
+        "userId" : "000000000",
+        "email" : "test1@gmail.com",
+        "name" : "Test Guide",
+        "isHeadOfDepratment" : true,
+        "phone" : "0522222222"
     }
 }
 --------------------------------------------------------------

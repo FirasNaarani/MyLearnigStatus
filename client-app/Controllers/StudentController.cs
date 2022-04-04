@@ -21,6 +21,7 @@ namespace LearnSchoolApp.Controllers
         {
             _studentService = studentService;
         }
+
         [HttpGet]
         public ActionResult<List<Student>> Get() =>
             _studentService.Get();

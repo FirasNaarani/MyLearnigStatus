@@ -25,6 +25,10 @@ namespace LearnSchoolApp.Services
                 new CreateIndexModel<Student>(Builders<Student>.IndexKeys.Descending(model => model.email),
                 new CreateIndexOptions { Unique = true })
             );
+            _student.Indexes.CreateOne(
+                new CreateIndexModel<Student>(Builders<Student>.IndexKeys.Descending(model => model.userId),
+                new CreateIndexOptions { Unique = true })
+            );
         }
        
         public List<Student> Get()
@@ -34,6 +38,12 @@ namespace LearnSchoolApp.Services
         }
 
         public Boolean isValidCredentials(string username, string password)
+        {
+            Student student = _student.Find(m => m.password == password && m.username == username && m.isActive == true).FirstOrDefault();
+            return student != null;
+        }
+        
+        public Boolean isValidProject(string username, string password)
         {
             Student student = _student.Find(m => m.password == password && m.username == username && m.isActive == true).FirstOrDefault();
             return student != null;
@@ -61,7 +71,6 @@ namespace LearnSchoolApp.Services
                     throw new Exception("duplicate student");
                 }
             }
-            student.password = "";
             return student;
         }
 
