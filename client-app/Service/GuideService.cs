@@ -9,7 +9,17 @@ using System.Threading.Tasks;
 
 namespace LearnSchoolApp.Services
 {
-    public class GuideService
+    public interface IGuideService
+    {
+        List<Guide> Get();
+        Boolean isValidCredentials(string username, string password);
+        Guide Get(string id);
+        Guide Create(Guide student);
+        void UpdatePassword(string id, Guide student);
+        void Delete(string id);
+        void Update(string id, Guide student);
+    }
+    public class GuideService : IGuideService
     {
         private readonly IMongoCollection<Guide> _guide;
 
@@ -32,6 +42,7 @@ namespace LearnSchoolApp.Services
                 new CreateIndexOptions { Unique = true })
             );
         }
+        
         public List<Guide> Get()
         {
             var Guides = _guide.Find(m => m.isActive).ToList();
@@ -49,6 +60,7 @@ namespace LearnSchoolApp.Services
             var Guide = _guide.Find<Guide>(Guide => Guide.Id == id).FirstOrDefault();
             return Guide;
         }
+        
         public Guide Create(Guide guide)
         {
             guide.isActive = true;
@@ -71,16 +83,16 @@ namespace LearnSchoolApp.Services
             return guide;
         }
 
-        public void UpdatePassword(string id, UpdatePassword manager)
+        public void UpdatePassword(string id, Guide guide)
         {
             var filter = Builders<Guide>.Filter.Where(_ => _.Id == id);
             var update = Builders<Guide>.Update
-                        .Set(_ => _.password, manager.password);
+                        .Set(_ => _.password, guide.password);
             var options = new FindOneAndUpdateOptions<Guide>();
             _guide.FindOneAndUpdate(filter, update, options);
         }
 
-        internal void Delete(string id)
+        public void Delete(string id)
         {
             var filter = Builders<Guide>.Filter.Where(_ => _.Id == id);
             var update = Builders<Guide>.Update
@@ -89,13 +101,13 @@ namespace LearnSchoolApp.Services
             _guide.FindOneAndUpdate(filter, update, options);
         }
 
-        public void Update(string id, UpdateUser manager)
+        public void Update(string id, Guide guide)
         {
             var filter = Builders<Guide>.Filter.Where(_ => _.Id == id);
             var update = Builders<Guide>.Update
-                        .Set(_ => _.email, manager.email)
-                        .Set(_ => _.name, manager.name)
-                        .Set(_ => _.username, manager.username);
+                        .Set(_ => _.email, guide.email)
+                        .Set(_ => _.phone, guide.phone)
+                        .Set(_ => _.isHeadOfDepratment, guide.isHeadOfDepratment);
             var options = new FindOneAndUpdateOptions<Guide>();
             _guide.FindOneAndUpdate(filter, update, options);
         }

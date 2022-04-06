@@ -7,7 +7,11 @@ using System.Threading.Tasks;
 
 namespace LearnSchoolApp.Services
 {
-    public class ProjectService
+    public interface IProjectService
+    {
+
+    }
+    public class ProjectService : IProjectService
     {
         private readonly IMongoCollection<Project> _project;
 
@@ -73,7 +77,7 @@ namespace LearnSchoolApp.Services
         //    _project.FindOneAndUpdate(filter, update, options);
         //}
 
-        internal void Delete(string id)
+        public void Delete(string id)
         {
             var filter = Builders<Project>.Filter.Where(_ => _.Id == id);
             var update = Builders<Project>.Update
@@ -82,7 +86,7 @@ namespace LearnSchoolApp.Services
             _project.FindOneAndUpdate(filter, update, options);
         }
 
-        public void update(string id, Project project)
+        public void Update(string id, Project project)
         {
             var filter = Builders<Project>.Filter.Where(_ => _.Id == id);
             var update = Builders<Project>.Update

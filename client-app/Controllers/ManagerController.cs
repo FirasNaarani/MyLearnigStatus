@@ -1,47 +1,71 @@
 ﻿using LearnSchoolApp.Entities;
-using LearnSchoolApp.Services;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Authorization;
-using System;
 using LearnSchoolApp.Models;
+using LearnSchoolApp.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace LearnSchoolApp.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    [Authorize]
-    public class ManagerController : ControllerBase
+    public class ManagerController : Controller
     {
-        private readonly ManagerService _managerService;
+        private readonly IManagerService _managerService;
 
         public ManagerController(ManagerService managerService)
         {
             _managerService = managerService;
         }
 
-        [HttpGet]
-        public ActionResult<List<Manager>> Get() =>
-            _managerService.Get();
-
-        [HttpGet("{id:length(24)}", Name = "GetManager")]
-        public ActionResult<Result<Manager>> Get(string id)
+        // GET: CStudentController
+        [ActionName("Index")]
+        //[Authorize(Roles = "Admin")]
+        public ActionResult Index()
         {
-            var manager = _managerService.Get(id);
-            if (manager == null)
+            var ls = _managerService.Get();
+            if (ls == null)
             {
                 return NotFound();
             }
-            return new Result<Manager>(manager);
+            List<Manager> res = ls.ToList();
+            return View(res);
         }
 
+        // GET: CStudentController/Details/5
+        [ActionName("Details")]
+        //[Authorize(Roles = "Admin")]
+        public ActionResult Details(string id)
+        {
+            if (_managerService.Get(id) == null)
+                return NotFound();
+            return View(_managerService.Get(id));
+        }
+
+        // GET: CStudentController/Create
+        [ActionName("Create")]
+        //[Authorize(Roles = "Admin")]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: CStudentController/Create
         [HttpPost]
-        public ActionResult<Result<Manager>> Create(Manager manager)
+        [ActionName("Create")]
+        //[Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Manager collection)
         {
             try
             {
-                _managerService.Create(manager);
-                return CreatedAtRoute("GetManager", new { id = manager.Id.ToString() }, manager);
+                //if (ModelState.IsValid)
+                {
+                    _managerService.Create(collection);
+
+                }
+                return RedirectToAction("Index");
             }
             catch (Exception e)
             {
@@ -49,43 +73,111 @@ namespace LearnSchoolApp.Controllers
             }
         }
 
-        [HttpPut("{id:length(24)}")]
-        public IActionResult Update(string id, UpdateUser managerIn)
+        // GET: CStudentController/Edit/5
+        [ActionName("Edit")]
+        //[Authorize(Roles = "Admin")]
+        public ActionResult Edit(string id)
         {
-            var book = _managerService.Get(id);
+            if (id == null)
+                return BadRequest();
 
-            if (book == null)
-            {
+            Manager student = _managerService.Get(id);
+
+            if (student == null)
                 return NotFound();
-            }
-            _managerService.Update(id, managerIn);
-            return Ok();
+
+            return View(student);
         }
-        
-        [HttpPut("password/{id:length(24)}")]
-        public IActionResult UpdatePassword(string id, UpdatePassword managerIn)
+
+        // POST: CStudentController/Edit/5
+        [HttpPost]
+        [ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Manager collection)
         {
-            var book = _managerService.Get(id);
-
-            if (book == null)
+            try
             {
-                return NotFound();
+                //if (ModelState.IsValid)
+                {
+                    _managerService.Update(collection.Id, collection);
+                    Console.WriteLine("Updated");
+                }
+                return RedirectToAction("Index");
             }
-            _managerService.UpdatePassword(id, managerIn);
-            return Ok();
+            catch
+            {
+                return View(collection);
+            }
         }
-        
-        [HttpDelete("{id:length(24)}")]
-        public IActionResult Delete(string id)
+
+        [ActionName("EditPassword")]
+        //[Authorize(Roles = "Admin")]
+        public ActionResult EditPassword(string id)
         {
-            var command = _managerService.Get(id);
+            if (id == null)
+                return BadRequest();
 
-            if (command == null)
-            {
+            Manager guide = _managerService.Get(id);
+
+            if (guide == null)
                 return NotFound();
-            }
-            _managerService.Delete(id);
-            return Ok();
+
+            return View(guide);
         }
+
+        [HttpPost]
+        [ActionName("EditPassword")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditEditPassword(string id, Manager collection)
+        {
+            try
+            {
+                //if (ModelState.IsValid)
+                {
+                    _managerService.UpdatePassword(id, collection);
+                    Console.WriteLine("Updated");
+                }
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View(collection);
+            }
+        }
+
+
+        // GET: CStudentController/Delete/5
+        [ActionName("Delete")]
+        //[Authorize(Roles = "Admin")]
+        public ActionResult Delete(string id)
+        {
+            if (id == null)
+                return BadRequest();
+
+            Manager student = _managerService.Get(id);
+
+            if (student == null)
+                return NotFound();
+
+            return View(student);
+        }
+
+        // POST: CStudentController/Delete/5
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(string id)
+        {
+            try
+            {
+                _managerService.Delete(id);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new Result<Manager>(e.Message));
+            }
+        }
+
     }
 }

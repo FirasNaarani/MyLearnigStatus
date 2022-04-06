@@ -11,9 +11,13 @@ namespace LearnSchoolApp.Entities
     public class StudyYear
     {
         [Required(ErrorMessage = "From Date Required")]
+        [MaxLength(4)]
+        [MinLength(4)]
         public string From { get; set; }
 
         [Required(ErrorMessage = "To Date Required")]
+        [MaxLength(4)]
+        [MinLength(4)]
         public string To { get; set; }
     }
 }

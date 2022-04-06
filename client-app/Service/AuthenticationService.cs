@@ -1,4 +1,5 @@
 ﻿using LearnSchoolApp.Entities;
+using LearnSchoolApp.Models;
 using node.Infra;
 using System;
 
@@ -6,69 +7,63 @@ namespace LearnSchoolApp.Services
 {
     public class AuthenticationService
     {
-        private readonly IJWTAuthenticationManager _jWTAuthenticationManager; 
         private readonly ManagerService _managerService;
-
-        private readonly IJWTAuthenticationHeadOfDeprament _jWTAuthenticationHeadOfDeprament;
+        private readonly GuideService _guideService;
+        private readonly StudentService _studentService;
         private readonly HeadOfDepramentService _headOfDepramentService;
 
-        private readonly IJWTAuthenticationGuide _jWTAuthenticationGuide;
-        private readonly GuideService _guideService;
-        
-        private readonly IJWTAuthenticationStudent _jWTAuthenticationStudent;
-        private readonly StudentService _studentService;
+        private readonly IJWTAuthenticationOptions _jWTAuthenticationOptions; 
 
-        public AuthenticationService(ManagerService managerService, IJWTAuthenticationManager jWTAuthenticationManager, GuideService guideService, IJWTAuthenticationGuide jWTAuthenticationGuide, StudentService studentService, IJWTAuthenticationStudent jWTAuthenticationStudent, HeadOfDepramentService headOfDepramentService, IJWTAuthenticationHeadOfDeprament jWTAuthenticationHeadOfDeprament)
+        public AuthenticationService(ManagerService managerService, GuideService guideService, StudentService studentService, HeadOfDepramentService headOfDepramentService, IJWTAuthenticationOptions jWTAuthenticationOptions)
         {
-            this._jWTAuthenticationManager = jWTAuthenticationManager;
             this._managerService = managerService;
-
-            this._jWTAuthenticationGuide = jWTAuthenticationGuide;
             this._guideService = guideService;
-
-            this._jWTAuthenticationStudent = jWTAuthenticationStudent;
             this._studentService = studentService;
-
-            this._jWTAuthenticationHeadOfDeprament = jWTAuthenticationHeadOfDeprament;
             this._headOfDepramentService = headOfDepramentService;
 
+            this._jWTAuthenticationOptions = jWTAuthenticationOptions;
         }
 
-        public string Authenticate(string user, string password,UserType userType)
+        public UpdateUser Authenticate(UserAuth userLogin)
         {
-            switch (userType)
+            switch (userLogin.UserType)
             {
                 case UserType.Student:
-                    if (!_studentService.isValidCredentials(user, password))
+                    if (!_studentService.isValidCredentials(userLogin.Username, userLogin.Password))
                     {
                         return null;
                     }
-                    return this._jWTAuthenticationStudent.prepareAuthenticationToken(user, userType.ToString());
+                    return _studentService.Get(userLogin.Username);
 
                 case UserType.Guid:
-                    if (!_guideService.isValidCredentials(user, password))
+                    if (!_guideService.isValidCredentials(userLogin.Username, userLogin.Password))
                     {
                         return null;
                     }
-                    return this._jWTAuthenticationGuide.prepareAuthenticationToken(user, userType.ToString());
+                    return _guideService.Get(userLogin.Username);
 
                 case UserType.HeadOfDeprament:
-                    if (!_headOfDepramentService.isValidCredentials(user, password))
+                    if (!_headOfDepramentService.isValidCredentials(userLogin.Username, userLogin.Password))
                     {
                         return null;
                     }
-                    return this._jWTAuthenticationHeadOfDeprament.prepareAuthenticationToken(user, userType.ToString());
+                    return _headOfDepramentService.Get(userLogin.Username);
 
                 case UserType.Admin:
-                    if (!_managerService.isValidCredentials(user, password))
+                    if (!_managerService.isValidCredentials(userLogin.Username, userLogin.Password))
                     {
                         return null;
                     }
-                    return this._jWTAuthenticationManager.prepareAuthenticationToken(user,userType.ToString());
+                    return _managerService.Get(userLogin.Username);
                 default:
                     throw new Exception("user type not supported");
-
             }
         }
+
+        public string GenerateToken(UpdateUser user)
+        {
+            return this._jWTAuthenticationOptions.prepareAuthenticationToken(user);
+        }
+
     }
 }

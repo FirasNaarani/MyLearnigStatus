@@ -1,7 +1,7 @@
 ﻿using LearnSchoolApp.Entities;
 using LearnSchoolApp.Models;
 using LearnSchoolApp.Services;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,10 +10,7 @@ using System.Threading.Tasks;
 
 namespace LearnSchoolApp.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    [Authorize]
-    public class ProjectController : ControllerBase
+    public class ProjectController : Controller
     {
         private readonly ProjectService _projectService;
 
@@ -21,36 +18,52 @@ namespace LearnSchoolApp.Controllers
         {
             _projectService = projectService;
         }
-        [HttpGet]
-        public ActionResult<List<Project>> Get() =>
-            _projectService.Get();
-
-        [HttpGet("{id:length(24)}", Name = "GetProject")]
-        public ActionResult<Result<Project>> Get(string id)
+        // GET: ProjectController
+        [ActionName("Index")]
+        //[Authorize(Roles = "Admin,HeadOfDeprament")]
+        public ActionResult Index()
         {
-            var Project = _projectService.Get(id);
-            if (Project == null)
+            var ls = _projectService.Get();
+            if (ls == null)
             {
                 return NotFound();
             }
-            return new Result<Project>(Project);
+            List<Project> res = ls.ToList();
+            return View(res);
         }
 
+        // GET: ProjectController/Details/5
+        [ActionName("Details")]
+        //[Authorize]
+        public ActionResult Details(string id)
+        {
+            if (_projectService.Get(id) == null)
+                return NotFound();
+            return View(_projectService.Get(id));
+        }
+
+        // GET: ProjectController/Create
+        [ActionName("Create")]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: ProjectController/Create
         [HttpPost]
-        public ActionResult<Result<Project>> Create(Project project)
+        [ActionName("Create")]
+        //[Authorize(Roles = "Admin,HeadOfDeprament")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Project collection)
         {
             try
             {
-                if (!_projectService.isDuplicateProject(project.name, project.studentId))
+                //if (ModelState.IsValid)
                 {
+                    _projectService.Create(collection);
 
-                    _projectService.Create(project);
-                    return CreatedAtRoute("GetProject", new { id = project.Id.ToString() }, project);
                 }
-                else
-                {
-                    return StatusCode(403, "Duplicate Project");
-                }
+                return RedirectToAction("Index");
             }
             catch (Exception e)
             {
@@ -58,44 +71,74 @@ namespace LearnSchoolApp.Controllers
             }
         }
 
-        //[HttpPut("{id:length(24)}")]
-        //public IActionResult Update(string id, UpdateUser ProjectIn)
-        //{
-        //    var book = _projectService.Get(id);
-
-        //    if (book == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    _projectService.Update(id, ProjectIn);
-        //    return NoContent();
-        //}
-
-        //[HttpPut("password/{id:length(24)}")]
-        //public IActionResult UpdatePassword(string id, UpdatePassword ProjectIn)
-        //{
-        //    var book = _projectService.Get(id);
-
-        //    if (book == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    _projectService.UpdatePassword(id, ProjectIn);
-        //    return NoContent();
-        //}
-
-        [HttpDelete("{id:length(24)}")]
-        [Authorize]
-        public IActionResult Delete(string id)
+        // GET: ProjectController/Edit/5
+        [ActionName("Edit")]
+        //[Authorize(Roles = "Admin,HeadOfDeprament")]
+        public ActionResult Edit(string id)
         {
-            var command = _projectService.Get(id);
+            if (id == null)
+                return BadRequest();
 
-            if (command == null)
-            {
+            Project student = _projectService.Get(id);
+
+            if (student == null)
                 return NotFound();
+
+            return View(student);
+        }
+
+        // POST: ProjectController/Edit/5
+        [HttpPost]
+        [ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Project collection)
+        {
+            try
+            {
+                //if (ModelState.IsValid)
+                {
+                    _projectService.Update(collection.Id, collection);
+                    Console.WriteLine("Updated");
+                }
+                return RedirectToAction("Index");
             }
-            _projectService.Delete(id);
-            return NoContent();
+            catch
+            {
+                return View(collection);
+            }
+        }
+
+        // GET: ProjectController/Delete/5
+        [ActionName("Delete")]
+        //[Authorize(Roles = "Admin")]
+        public ActionResult Delete(string id)
+        {
+            if (id == null)
+                return BadRequest();
+
+            Project student = _projectService.Get(id);
+
+            if (student == null)
+                return NotFound();
+
+            return View(student);
+        }
+
+        // POST: ProjectController/Delete/5
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(string id)
+        {
+            try
+            {
+                _projectService.Delete(id);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new Result<Student>(e.Message));
+            }
         }
     }
 }

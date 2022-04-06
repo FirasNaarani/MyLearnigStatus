@@ -7,7 +7,19 @@ using System.Linq;
 
 namespace LearnSchoolApp.Services
 {
-    public class StudentService
+    public interface IStudentService
+    {
+        List<Student> Get();
+        Boolean isValidCredentials(string username, string password);
+        Boolean isValidProject(string username, string password);
+        Student Get(string id);
+        Student Create(Student student);
+        void UpdatePassword(string id, Student student);
+        void Delete(string id);
+        void Update(string id, Student student);
+    }
+
+    public class StudentService : IStudentService
     {
         private readonly IMongoCollection<Student> _student;
 
@@ -52,7 +64,6 @@ namespace LearnSchoolApp.Services
         public Student Get(string id)
         {
             var student = _student.Find<Student>(student => student.Id == id).FirstOrDefault();
-            //student.password = "";
             return student;
         }
        
@@ -74,7 +85,7 @@ namespace LearnSchoolApp.Services
             return student;
         }
 
-        public void UpdatePassword(string id, UpdatePassword student)
+        public void UpdatePassword(string id, Student student)
         {
             var filter = Builders<Student>.Filter.Where(_ => _.Id == id);
             var update = Builders<Student>.Update
@@ -83,7 +94,7 @@ namespace LearnSchoolApp.Services
             _student.FindOneAndUpdate(filter, update, options);
         }
 
-        internal void Delete(string id)
+        public void Delete(string id)
         {
             var filter = Builders<Student>.Filter.Where(_ => _.Id == id);
             var update = Builders<Student>.Update
@@ -92,13 +103,12 @@ namespace LearnSchoolApp.Services
             _student.FindOneAndUpdate(filter, update, options);
         }
 
-        public void Update(string id, UpdateUser student)
+        public void Update(string id, Student student)
         {
             var filter = Builders<Student>.Filter.Where(_ => _.Id == id);
             var update = Builders<Student>.Update
                         .Set(_ => _.email, student.email)
-                        .Set(_ => _.name, student.name)
-                        .Set(_ => _.username, student.username);
+                        .Set(_ => _.phone, student.phone);
             var options = new FindOneAndUpdateOptions<Student>();
             _student.FindOneAndUpdate(filter, update, options);
         }

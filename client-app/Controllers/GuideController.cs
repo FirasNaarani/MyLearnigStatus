@@ -2,6 +2,7 @@
 using LearnSchoolApp.Models;
 using LearnSchoolApp.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,39 +11,62 @@ using System.Threading.Tasks;
 
 namespace LearnSchoolApp.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    [Authorize]
-    public class GuideController : ControllerBase
+    public class GuideController : Controller
     {
-        private readonly GuideService _guideService;
+        private readonly IGuideService _guideService;
 
         public GuideController(GuideService guideService)
         {
             _guideService = guideService;
         }
-        [HttpGet]
-        public ActionResult<List<Guide>> Get() =>
-            _guideService.Get();
 
-        [HttpGet("{id:length(24)}", Name = "GetGuide")]
-        public ActionResult<Result<Guide>> Get(string id)
+        // GET: CStudentController
+        [ActionName("Index")]
+        //[Authorize(Roles = "HeadOfDeprament")]
+        public ActionResult Index()
         {
-            var Guide = _guideService.Get(id);
-            if (Guide == null)
+            var ls = _guideService.Get();
+            if (ls == null)
             {
                 return NotFound();
             }
-            return new Result<Guide>(Guide);
+            List<Guide> res = ls.ToList();
+            return View(res);
         }
 
+        // GET: CStudentController/Details/5
+        [ActionName("Details")]
+        //[Authorize(Roles = "HeadOfDeprament")]
+        public ActionResult Details(string id)
+        {
+            if (_guideService.Get(id) == null)
+                return NotFound();
+            return View(_guideService.Get(id));
+        }
+
+        // GET: CStudentController/Create
+        [ActionName("Create")]
+        //[Authorize(Roles = "HeadOfDeprament")]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: CStudentController/Create
         [HttpPost]
-        public ActionResult<Result<Guide>> Create(Guide Guide)
+        [ActionName("Create")]
+        //[Authorize(Roles = "HeadOfDeprament")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Guide collection)
         {
             try
             {
-                _guideService.Create(Guide);
-                return CreatedAtRoute("GetGuide", new { id = Guide.Id.ToString() }, Guide);
+                //if (ModelState.IsValid)
+                {
+                    _guideService.Create(collection);
+
+                }
+                return RedirectToAction("Index");
             }
             catch (Exception e)
             {
@@ -50,43 +74,109 @@ namespace LearnSchoolApp.Controllers
             }
         }
 
-        [HttpPut("{id:length(24)}")]
-        public IActionResult Update(string id, UpdateUser GuideIn)
+        // GET: CStudentController/Edit/5
+        [ActionName("Edit")]
+        //[Authorize(Roles = "HeadOfDeprament")]
+        public ActionResult Edit(string id)
         {
-            var book = _guideService.Get(id);
+            if (id == null)
+                return BadRequest();
 
-            if (book == null)
-            {
+            Guide guide = _guideService.Get(id);
+
+            if (guide == null)
                 return NotFound();
-            }
-            _guideService.Update(id, GuideIn);
-            return Ok();
+
+            return View(guide);
         }
-        
-        [HttpPut("password/{id:length(24)}")]
-        public IActionResult UpdatePassword(string id, UpdatePassword GuideIn)
-        {
-            var book = _guideService.Get(id);
 
-            if (book == null)
+        // POST: CStudentController/Edit/5
+        [HttpPost]
+        [ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Guide collection)
+        {
+            try
             {
-                return NotFound();
+                //if (ModelState.IsValid)
+                {
+                    _guideService.Update(collection.Id, collection);
+                    Console.WriteLine("Updated");
+                }
+                return RedirectToAction("Index");
             }
-            _guideService.UpdatePassword(id, GuideIn);
-            return Ok();
+            catch
+            {
+                return View(collection);
+            }
         }
-        
-        [HttpDelete("{id:length(24)}")]
-        public IActionResult Delete(string id)
-        {
-            var command = _guideService.Get(id);
 
-            if (command == null)
-            {
+        [ActionName("EditPassword")]
+        //[Authorize(Roles = "Admin")]
+        public ActionResult EditPassword(string id)
+        {
+            if (id == null)
+                return BadRequest();
+
+            Guide guide = _guideService.Get(id);
+
+            if (guide == null)
                 return NotFound();
+
+            return View(guide);
+        }
+
+        [HttpPost]
+        [ActionName("EditPassword")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditEditPassword(string id, Guide collection)
+        {
+            try
+            {
+                //if (ModelState.IsValid)
+                {
+                    _guideService.UpdatePassword(id, collection);
+                    Console.WriteLine("Updated");
+                }
+                return RedirectToAction("Index");
             }
-            _guideService.Delete(id);
-            return Ok();
+            catch
+            {
+                return View(collection);
+            }
+        }
+
+        // GET: CStudentController/Delete/5
+        [ActionName("Delete")]
+        //[Authorize(Roles = "HeadOfDeprament")]
+        public ActionResult Delete(string id)
+        {
+            if (id == null)
+                return BadRequest();
+
+            Guide student = _guideService.Get(id);
+
+            if (student == null)
+                return NotFound();
+
+            return View(student);
+        }
+
+        // POST: CStudentController/Delete/5
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(string id)
+        {
+            try
+            {
+                _guideService.Delete(id);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new Result<Guide>(e.Message));
+            }
         }
     }
 }

@@ -7,7 +7,17 @@ using System.Linq;
 
 namespace LearnSchoolApp.Services
 {
-    public class ManagerService
+    public interface IManagerService
+    {
+        List<Manager> Get();
+        Boolean isValidCredentials(string username, string password);
+        Manager Get(string id);
+        Manager Create(Manager student);
+        void UpdatePassword(string id, Manager student);
+        void Delete(string id);
+        void Update(string id, Manager student);
+    }
+    public class ManagerService : IManagerService
     {
         private readonly IMongoCollection<Manager> _managers;
 
@@ -66,7 +76,7 @@ namespace LearnSchoolApp.Services
             return manager;
         }
 
-        public void UpdatePassword(string id, UpdatePassword manager)
+        public void UpdatePassword(string id, Manager manager)
         {
             var filter = Builders<Manager>.Filter.Where(_ => _.Id == id);
             var update = Builders<Manager>.Update
@@ -75,7 +85,7 @@ namespace LearnSchoolApp.Services
             _managers.FindOneAndUpdate(filter, update, options);
         }
 
-        internal void Delete(string id)
+        public void Delete(string id)
         {
             var filter = Builders<Manager>.Filter.Where(_ => _.Id == id);
             var update = Builders<Manager>.Update
@@ -84,13 +94,12 @@ namespace LearnSchoolApp.Services
             _managers.FindOneAndUpdate(filter, update, options);
         }
 
-        public void Update(string id, UpdateUser manager)
+        public void Update(string id, Manager manager)
         {
             var filter = Builders<Manager>.Filter.Where(_ => _.Id == id);
             var update = Builders<Manager>.Update
                         .Set(_ => _.email, manager.email)
-                        .Set(_ => _.name, manager.name)
-                        .Set(_ => _.username, manager.username);
+                        .Set(_ => _.phone, manager.phone);
             var options = new FindOneAndUpdateOptions<Manager>();
             _managers.FindOneAndUpdate(filter, update, options);
         }

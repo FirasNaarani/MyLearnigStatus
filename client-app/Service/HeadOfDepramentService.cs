@@ -52,7 +52,7 @@ namespace LearnSchoolApp.Services
 
         public HeadOfDeprament Get(string id)
         {
-            var headOfDeprament = _headOfDeprament.Find<HeadOfDeprament>(headOfDeprament => headOfDeprament.Id == id).FirstOrDefault();
+            var headOfDeprament = _headOfDeprament.Find<HeadOfDeprament>(headOfDeprament => headOfDeprament.username == id).FirstOrDefault();
             return headOfDeprament;
         }
 

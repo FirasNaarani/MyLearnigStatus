@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LearnSchoolApp.Entities;
+using LearnSchoolApp.Infra;
 using LearnSchoolApp.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -81,24 +82,7 @@ namespace LearnSchoolApp
                 };
             });
 
-            //services.AddAuthorization(opt =>
-            //{
-            //    opt.AddPolicy(tokenKey, policy =>
-            //    policy.RequireRole("Admin", "Poweruser"));
-            //});
-
-            //services.AddAuthorization(configure =>
-            //{
-            //    configure.AddPolicy(UserType.Admin, policyBuilder =>
-            //    {
-            //        policyBuilder.AddRequirements()
-            //    });
-            //});
-
-            services.AddSingleton<IJWTAuthenticationManager>(new JWTAuthenticationManager(tokenKey));
-            services.AddSingleton<IJWTAuthenticationGuide>(new JWTAuthenticationGuide(tokenKey));
-            services.AddSingleton<IJWTAuthenticationStudent>(new JWTAuthenticationStudent(tokenKey));
-            services.AddSingleton<IJWTAuthenticationHeadOfDeprament>(new JWTAuthenticationHeadOfDeprament(tokenKey));
+            services.AddSingleton<IJWTAuthenticationOptions>(new JWTAuthenticationOptions(tokenKey));
             services.AddSingleton<AuthenticationService>();
             services.AddSingleton<StudentService>();
             services.AddSingleton<GuideService>();
