@@ -1,45 +1,66 @@
 ﻿@model LearnSchoolApp.Entities.Project
 
 <div>
-    <h4>Project</h4>
+    <h4>פרויקט</h4>
     <div>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
+        @Html.ActionLink("עריכה", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("מחיקה", "Delete", new { id = Model.Id })
     </div>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
+            מס' סידורי
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Id)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.name)
+            שם
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.guideId)
+            המנחה
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.guideId)
+            <details>
+                <summary>@Html.DisplayFor(model => model.guideName)</summary>
+                @Html.DisplayFor(model => model.guideId)
+            </details>
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.studentId)
+            סטודנט ראשי
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.studentId)
+            <details>
+                <summary>@Html.DisplayFor(model => model.studentName)</summary>
+                @Html.DisplayFor(model => model.studentId)
+            </details>
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.assistantStudentId)
+            סטודנט שותף
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.assistantStudentId)
-        </dd>
+        @{ 
+            if(Model.assistantStudentId != null)
+            {
+                <dd class="col-sm-10">
+                    <details>
+                        <summary>@Html.DisplayFor(model => model.assistantStudentName)</summary>
+                        @Html.DisplayFor(model => model.assistantStudentId)
+                    </details>
+                </dd>
+            }
+            else
+            {
+                <dd>
+                    ---
+                </dd>
+            }
+        }
+        
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.isPass)
+            מאושר
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.isPass)
@@ -47,5 +68,5 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">חזרה לרשימה</a>
 </div>

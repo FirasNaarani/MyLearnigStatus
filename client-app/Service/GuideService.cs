@@ -14,6 +14,7 @@ namespace LearnSchoolApp.Services
         List<Guide> Get();
         Boolean isValidCredentials(string username, string password);
         Guide Get(string id);
+        Guide GetMyGuide(string id);
         Guide Create(Guide student);
         void UpdatePassword(string id, Guide student);
         void Delete(string id);
@@ -60,7 +61,13 @@ namespace LearnSchoolApp.Services
             var Guide = _guide.Find<Guide>(Guide => Guide.Id == id).FirstOrDefault();
             return Guide;
         }
-        
+
+        public Guide GetMyGuide(string id)
+        {
+            var Guide = _guide.Find<Guide>(Guide => Guide.userId == id).FirstOrDefault();
+            return Guide;
+        }
+
         public Guide Create(Guide guide)
         {
             guide.isActive = true;

@@ -1,39 +1,39 @@
 ﻿@model LearnSchoolApp.Entities.Manager
 
-    <h4>Manager</h4>
-<h3>Are you sure you want to delete this?</h3>
+<h4>מנהל</h4>
+<h3>?האם אתה בטוח שברצונך למחוק את זה</h3>
 <div>
     <div>
-        @Html.ActionLink("Cancel", "Details", new { id = Model.Id })
+        @Html.ActionLink("ביטול", "Details", new { id = Model.Id })
     </div>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.userId)
+            ת"ז
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.userId)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.name)
+            שם
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.username)
+            שם משתמש
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.username)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.email)
+            מייל
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.email)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.phone)
+            מס' טלפון
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.phone)
@@ -41,6 +41,6 @@
     </dl>
 
     <form asp-action="Delete">
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <input type="submit" value="מחיקה" class="btn btn-danger" />
     </form>
 </div>

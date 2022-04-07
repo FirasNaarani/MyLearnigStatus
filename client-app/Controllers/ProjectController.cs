@@ -12,13 +12,17 @@ namespace LearnSchoolApp.Controllers
 {
     public class ProjectController : Controller
     {
-        private readonly ProjectService _projectService;
+        private readonly IProjectService _projectService;
+        private readonly IGuideService _guideService;
+        private readonly IStudentService _studentService;
 
-        public ProjectController(ProjectService projectService)
+        public ProjectController(ProjectService projectService, GuideService guideService, StudentService studentService)
         {
             _projectService = projectService;
+            _guideService = guideService;
+            _studentService = studentService;
         }
-        // GET: ProjectController
+        
         [ActionName("Index")]
         //[Authorize(Roles = "Admin,HeadOfDeprament")]
         public ActionResult Index()
@@ -32,7 +36,6 @@ namespace LearnSchoolApp.Controllers
             return View(res);
         }
 
-        // GET: ProjectController/Details/5
         [ActionName("Details")]
         //[Authorize]
         public ActionResult Details(string id)
@@ -42,14 +45,20 @@ namespace LearnSchoolApp.Controllers
             return View(_projectService.Get(id));
         }
 
-        // GET: ProjectController/Create
+        [ActionName("GetGuide")]
+        public ActionResult GetGuide(string id)
+        {
+            if (_guideService.GetMyGuide(id) == null)
+                return NotFound();
+            return View(_guideService.GetMyGuide(id));
+        }
+
         [ActionName("Create")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: ProjectController/Create
         [HttpPost]
         [ActionName("Create")]
         //[Authorize(Roles = "Admin,HeadOfDeprament")]
@@ -60,10 +69,13 @@ namespace LearnSchoolApp.Controllers
             {
                 //if (ModelState.IsValid)
                 {
-                    _projectService.Create(collection);
-
+                    if (_studentService.isValidProject(collection.studentId) || _studentService.isValidProject(collection.assistantStudentId))
+                    {
+                        _projectService.Create(collection);
+                        return RedirectToAction("Index");
+                    }
                 }
-                return RedirectToAction("Index");
+                return StatusCode(403,"יש לסטודנט פרויקט קיים במערכת");
             }
             catch (Exception e)
             {
@@ -71,7 +83,6 @@ namespace LearnSchoolApp.Controllers
             }
         }
 
-        // GET: ProjectController/Edit/5
         [ActionName("Edit")]
         //[Authorize(Roles = "Admin,HeadOfDeprament")]
         public ActionResult Edit(string id)
@@ -87,7 +98,6 @@ namespace LearnSchoolApp.Controllers
             return View(student);
         }
 
-        // POST: ProjectController/Edit/5
         [HttpPost]
         [ActionName("Edit")]
         [ValidateAntiForgeryToken]
@@ -108,7 +118,6 @@ namespace LearnSchoolApp.Controllers
             }
         }
 
-        // GET: ProjectController/Delete/5
         [ActionName("Delete")]
         //[Authorize(Roles = "Admin")]
         public ActionResult Delete(string id)
@@ -124,7 +133,6 @@ namespace LearnSchoolApp.Controllers
             return View(student);
         }
 
-        // POST: ProjectController/Delete/5
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]

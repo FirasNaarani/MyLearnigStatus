@@ -14,13 +14,16 @@ namespace LearnSchoolApp.Controllers
     public class StudentController : Controller
     {
         private readonly IStudentService _studentService;
+        private readonly IProjectService _projectService;
+        private readonly IGuideService _guideService;
 
-        public StudentController(StudentService studentService)
+        public StudentController(StudentService studentService, ProjectService projectService, GuideService guideService)
         {
             _studentService = studentService;
+            _projectService = projectService;
+            _guideService = guideService;
         }
 
-        // GET: CStudentController
         [ActionName("Index")]
         //[Authorize(Roles = "Admin,HeadOfDeprament")]
         public ActionResult Index()
@@ -34,7 +37,6 @@ namespace LearnSchoolApp.Controllers
             return View(res);
         }
 
-        // GET: CStudentController/Details/5
         [ActionName("Details")]
         //[Authorize(Roles = "Admin,HeadOfDeprament")]
         public ActionResult Details(string id)
@@ -44,7 +46,22 @@ namespace LearnSchoolApp.Controllers
             return View(_studentService.Get(id));
         }
 
-        // GET: CStudentController/Create
+        [ActionName("GetProject")]
+        public ActionResult GetProject(string id)
+        {
+            if (_projectService.GetMyProject(id) == null)
+                return NotFound();
+            return View(_projectService.GetMyProject(id));
+        }
+
+        [ActionName("GetGuide")]
+        public ActionResult GetGuide(string id)
+        {
+            if (_guideService.GetMyGuide(id) == null)
+                return NotFound();
+            return View(_guideService.GetMyGuide(id));
+        }
+
         [ActionName("Create")]
         //[Authorize(Roles = "Admin,HeadOfDeprament")]
         public IActionResult Create()
@@ -52,7 +69,6 @@ namespace LearnSchoolApp.Controllers
             return View();
         }
 
-        // POST: CStudentController/Create
         [HttpPost]
         [ActionName("Create")]
         //[Authorize(Roles = "Admin,HeadOfDeprament")]
@@ -74,7 +90,6 @@ namespace LearnSchoolApp.Controllers
             }
         }
 
-        // GET: CStudentController/Edit/5
         [ActionName("Edit")]
         //[Authorize(Roles = "Admin,HeadOfDeprament")]
         public ActionResult Edit(string id)
@@ -90,7 +105,6 @@ namespace LearnSchoolApp.Controllers
             return View(student);
         }
 
-        // POST: CStudentController/Edit/5
         [HttpPost]
         [ActionName("Edit")]
         [ValidateAntiForgeryToken]
@@ -146,7 +160,6 @@ namespace LearnSchoolApp.Controllers
             }
         }
 
-        // GET: CStudentController/Delete/5
         [ActionName("Delete")]
         //[Authorize(Roles = "Admin")]
         public ActionResult Delete(string id)
@@ -162,7 +175,6 @@ namespace LearnSchoolApp.Controllers
             return View(student);
         }
 
-        // POST: CStudentController/Delete/5
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]

@@ -1,0 +1,25 @@
+﻿@page
+@model LearnSchoolApp.Views.Account.LoginModel
+@{
+}
+
+<div>
+    <form method="post">
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Credential.Username"></label>
+            </div>
+            <div class="col-5">
+                <input type="text" asp-for="Credential.Username" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Credential.Password"></label>
+            </div>
+            <div class="col-5">
+                <input type="text" asp-for="Credential.Password" />
+            </div>
+        </div>
+    </form>
+</div>

@@ -5,7 +5,12 @@ using System;
 
 namespace LearnSchoolApp.Services
 {
-    public class AuthenticationService
+    public interface IAuthenticationService
+    {
+        public UpdateUser GetUser(UserAuth userLogin);
+        public string GenerateToken(UpdateUser user);
+    }
+    public class AuthenticationService : IAuthenticationService
     {
         private readonly ManagerService _managerService;
         private readonly GuideService _guideService;
@@ -24,7 +29,7 @@ namespace LearnSchoolApp.Services
             this._jWTAuthenticationOptions = jWTAuthenticationOptions;
         }
 
-        public UpdateUser Authenticate(UserAuth userLogin)
+        public UpdateUser GetUser(UserAuth userLogin)
         {
             switch (userLogin.UserType)
             {

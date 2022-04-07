@@ -17,13 +17,26 @@ namespace LearnSchoolApp.Entities
         [Required(ErrorMessage = "Project Name Required")]
         public string name { get; set; }
 
+        [MaxLength(9, ErrorMessage = "Incorrect ID Number")]
+        [MinLength(9, ErrorMessage = "Incorrect ID Number")]
         public string guideId { get; set; }
 
+        public string guideName { get; set; }
+
         [Required(ErrorMessage = "Main Student ID Required")]
+        [MaxLength(9, ErrorMessage = "Incorrect ID Number")]
+        [MinLength(9, ErrorMessage = "Incorrect ID Number")]
         public string studentId { get; set; }
 
+        [Required(ErrorMessage = "Main Student Name Required")]
+        public string studentName { get; set; }
+
+        [MaxLength(9, ErrorMessage = "Incorrect ID Number")]
+        [MinLength(9, ErrorMessage = "Incorrect ID Number")]
         public string assistantStudentId { get; set; }
-        
+
+        public string assistantStudentName { get; set; }
+
         public bool isActive { get; set; }
 
         public bool isPass { get; set; }

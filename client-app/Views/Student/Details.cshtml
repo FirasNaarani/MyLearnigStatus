@@ -1,57 +1,63 @@
 ﻿@model LearnSchoolApp.Entities.Student
 
 <div>
-    <h4>Student</h4>
+    <h4>סטודנט</h4>
     <div>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
+        @Html.ActionLink("עריכה", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("מחיקה", "Delete", new { id = Model.Id })
     </div>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
+            מס' סידורי
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Id)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.userId)
+            ת"ז
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.userId)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.name)
+            שם
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.username)
+            שם משתמש
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.username)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.password)
+            סיסמה
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.password)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.email)
+            מייל
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.email)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.phone)
+            מס' טלפון
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.phone)
         </dd>
+        <dt class="col-sm-2">
+            פרויקט
+        </dt>
+        <dd class="col-sm-10">
+            @Html.ActionLink("פרטים", "GetProject", new { id = Model.userId })
+        </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">חזרה לרשימה</a>
 </div>

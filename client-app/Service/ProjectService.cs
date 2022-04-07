@@ -9,7 +9,13 @@ namespace LearnSchoolApp.Services
 {
     public interface IProjectService
     {
-
+        List<Project> Get();
+        Boolean isDuplicateProject(string name, string studentId);
+        Project Get(string id);
+        Project GetMyProject(string id);
+        Project Create(Project project);
+        void Delete(string id);
+        void Update(string id, Project project);
     }
     public class ProjectService : IProjectService
     {
@@ -42,7 +48,12 @@ namespace LearnSchoolApp.Services
         public Project Get(string id)
         {
             var Project = _project.Find<Project>(Project => Project.Id == id).FirstOrDefault();
-            //Project.password = "";
+            return Project;
+        }
+
+        public Project GetMyProject(string id)
+        {
+            var Project = _project.Find<Project>(Project => Project.studentId == id || Project.assistantStudentId == id).FirstOrDefault();
             return Project;
         }
 
@@ -90,12 +101,13 @@ namespace LearnSchoolApp.Services
         {
             var filter = Builders<Project>.Filter.Where(_ => _.Id == id);
             var update = Builders<Project>.Update
-                        .Set(_ => _.name, project.name)
+                        .Set(_ => _.studentName, project.studentName)
                         .Set(_ => _.studentId, project.studentId)
+                        .Set(_ => _.assistantStudentName, project.assistantStudentName)
                         .Set(_ => _.assistantStudentId, project.assistantStudentId)
-                        .Set(_ => _.assistantStudentId, project.assistantStudentId)
+                        .Set(_ => _.guideId, project.guideId)
+                        .Set(_ => _.guideName, project.guideName)
                         .Set(_ => _.name, project.name);
-                        //.Set(_ => _.username, manager.username);
             var options = new FindOneAndUpdateOptions<Project>();
             _project.FindOneAndUpdate(filter, update, options);
         }

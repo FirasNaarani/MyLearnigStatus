@@ -12,8 +12,23 @@ namespace LearnSchoolApp.Controllers
         // GET: LoginController
         public ActionResult Index()
         {
-            return View("Login");
+            return View();
         }
+
+        //[HttpGet("Login")]
+        //public IActionResult Login()
+        //{
+        //    return View();
+        //}
+
+        //[HttpPost("Login")]
+        //public IActionResult Validate(string username, string password)
+        //{
+        //    if (username == "bb" && password == "bb")
+        //        return RedirectToAction("Index");
+            
+        //    return BadRequest();
+        //}
 
         // GET: LoginController/Details/5
         public ActionResult Details(int id)

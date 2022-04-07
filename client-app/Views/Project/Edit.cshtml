@@ -1,55 +1,73 @@
 ﻿@model LearnSchoolApp.Entities.Project
 
-<h4>Project</h4>
+<h4>פרויקט</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="name" class="control-label"></label>
+                <label asp-for="name" class="control-label">שם</label>
                 <input asp-for="name" class="form-control" />
                 <span asp-validation-for="name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="guideId" class="control-label"></label>
-                <input asp-for="guideId" class="form-control" />
-                <span asp-validation-for="guideId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="studentId" class="control-label"></label>
-                <input asp-for="studentId" class="form-control" />
-                <span asp-validation-for="studentId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="assistantStudentId" class="control-label"></label>
-                <input asp-for="assistantStudentId" class="form-control" />
-                <span asp-validation-for="assistantStudentId" class="text-danger"></span>
-            </div>
+            <hr />
+            <fieldset>
+                <legend>מנחה</legend>
+                <div class="form-group">
+                    <label asp-for="guideId" class="control-label">ת"ז</label>
+                    <input asp-for="guideId" class="form-control" />
+                    <span asp-validation-for="guideId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="guideName" class="control-label">שם</label>
+                    <input asp-for="guideName" class="form-control" />
+                    <span asp-validation-for="guideName" class="text-danger"></span>
+                </div>
+            </fieldset>
+            <hr />
+            <fieldset>
+                <legend>סטודנט ראשי</legend>
+                <div class="form-group">
+                    <label asp-for="studentName" class="control-label">שם</label>
+                    <input asp-for="studentName" class="form-control" />
+                    <span asp-validation-for="studentName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="studentId" class="control-label">ת"ז</label>
+                    <input asp-for="studentId" class="form-control" />
+                    <span asp-validation-for="studentId" class="text-danger"></span>
+                </div>
+            </fieldset>
+            <hr />
+            <fieldset>
+                <legend>סטודנט שותף</legend>
+                <div class="form-group">
+                    <label asp-for="assistantStudentName" class="control-label">שם</label>
+                    <input asp-for="assistantStudentName" class="form-control" />
+                    <span asp-validation-for="assistantStudentName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="assistantStudentId" class="control-label">ת"ז</label>
+                    <input asp-for="assistantStudentId" class="form-control" />
+                    <span asp-validation-for="assistantStudentId" class="text-danger"></span>
+                </div>
+            </fieldset>
+            <hr />
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="isActive" /> @Html.DisplayNameFor(model => model.isActive)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="isPass" /> @Html.DisplayNameFor(model => model.isPass)
+                    <input class="form-check-input" asp-for="isPass" /> מאושר
                 </label>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="שמירה" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">חזרה לרשימה</a>
 </div>
 
 @section Scripts {

@@ -1,0 +1,59 @@
+﻿@model LearnSchoolApp.Entities.Project
+
+<div>
+    <h4>פרויקט</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            פרויקט מס
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class="col-sm-2">
+            שם פרויקט
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.name)
+        </dd>
+        <dt class="col-sm-2">
+            מנחה
+        </dt>
+            
+        @if(Model.guideId != null)
+        {
+            <dd class="col-sm-10">
+                @Html.ActionLink("פרטים", "GetGuide", new { id = Model.guideId })
+            </dd>
+         }
+          
+        @if(Model.guideId == null)
+        {
+            <dd class="col-sm-10">
+                ---
+            </dd>
+         }
+        <dt class="col-sm-2">
+            סטודנטים בפרויקט
+        </dt>
+        <dd class="col-sm-10">
+            <ol>
+                <li>
+                    <b>@Html.DisplayFor(model => model.studentId) | @Html.DisplayFor(model => model.studentName)</b>
+                </li>
+                @if (Model.assistantStudentName != null)
+                {
+                    <li>
+                        <b>@Html.DisplayFor(model => model.assistantStudentId) | @Html.DisplayFor(model => model.assistantStudentName)</b>
+                    </li>
+                }
+            </ol>
+        </dd>
+        <dt class="col-sm-2">
+            הצעת פרויקט
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.isPass)
+        </dd>
+    </dl>
+</div>

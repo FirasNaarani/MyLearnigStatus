@@ -11,7 +11,7 @@ namespace LearnSchoolApp.Services
     {
         List<Student> Get();
         Boolean isValidCredentials(string username, string password);
-        Boolean isValidProject(string username, string password);
+        Boolean isValidProject(string id);
         Student Get(string id);
         Student Create(Student student);
         void UpdatePassword(string id, Student student);
@@ -55,9 +55,9 @@ namespace LearnSchoolApp.Services
             return student != null;
         }
         
-        public Boolean isValidProject(string username, string password)
+        public Boolean isValidProject(string id)
         {
-            Student student = _student.Find(m => m.password == password && m.username == username && m.isActive == true).FirstOrDefault();
+            Student student = _student.Find(m => m.userId == id && m.isProject == false && m.isActive == true).FirstOrDefault();
             return student != null;
         }
 
@@ -70,6 +70,7 @@ namespace LearnSchoolApp.Services
         public Student Create(Student student)
         {
             student.userType = UserType.Student;
+            student.isProject= false;
             student.isActive = true;
             try
             {

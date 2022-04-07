@@ -1,28 +1,28 @@
 ﻿@model IEnumerable<LearnSchoolApp.Entities.Guide>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">הוספת מנחה חדש</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.userId)
+                ת"ז
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.name)
+                שם
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.username)
+                שמ משתמש
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.email)
+                מייל
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.phone)
+                מס' טלפון
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.isHeadOfDepratment)
+                ראש מגמה
             </th>
             <th></th>
         </tr>
@@ -49,7 +49,7 @@
                 @Html.DisplayFor(modelItem => item.isHeadOfDepratment)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Id })
+                @Html.ActionLink("פרטים", "Details", new { id = item.Id })
             </td>
         </tr>
 }

@@ -15,8 +15,8 @@ namespace LearnSchoolApp.Entities
         public string name { get; set; }
 
         [Required(ErrorMessage = "Id Required")]
-        [MaxLength(9, ErrorMessage = "Incorrect Id Number")]
-        [MinLength(9, ErrorMessage = "Incorrect Id Number")]
+        [MaxLength(9, ErrorMessage = "Incorrect ID Number")]
+        [MinLength(9, ErrorMessage = "Incorrect ID Number")]
         public string userId { get; set; }
 
         [Required(ErrorMessage = "Email Required")]
