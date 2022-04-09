@@ -21,9 +21,22 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between flex-sm-row-reverse">
                     @*<partial name="_LoginPartial" />*@
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Sign in</a>
-                        </li>
+                        @{
+                            if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Sign out</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Sign in</a>
+                                </li>
+                            }
+                        }
+
+                        
                     </ul>
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
@@ -32,9 +45,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">אדות</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">סטודנטים</a>
-                        </li>
+                        @if (User.IsInRole("HeadOfDeprament"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">סטודנטים</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Manager" asp-action="Index">מנהלים</a>
                         </li>
@@ -44,20 +60,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="Index">פרויקטים</a>
                         </li>
-                        @{
-                            if (User.Identity.IsAuthenticated)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                                </li>
-                            }
-                            else
-                            {
-                                <li>
-                                    FIras
-                                </li>
-                            }
-                        }
                     </ul>
                 </div>
             </div>

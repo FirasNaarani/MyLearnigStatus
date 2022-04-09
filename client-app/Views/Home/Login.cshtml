@@ -5,8 +5,15 @@
 }
 
 <h1>Login</h1>
-<form action="/Login" method="post">
+<form method="post">
     <input type="text" name="username" placeholder="Username" />
     <input type="password" name="password" placeholder="Password" />
+    <select name="userType" id="userType">
+        <option value="Student">Student</option>
+        <option value="Guid">Guid</option>
+        <option value="HeadOfDeprament">Head Of Deprament</option>
+        <option value="Admin">Admin</option>
+    </select>
+    <br />
     <input type="submit" value="Login" />
 </form>

@@ -11,15 +11,17 @@ using LearnSchoolApp.Entities;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace LearnSchoolApp.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IAuthenticationService _authenticationService;
+        private readonly Services.IAuthenticationService _authenticationService;
 
-        public HomeController(ILogger<HomeController> logger, AuthenticationService authenticationService)
+        public HomeController(ILogger<HomeController> logger, Services.AuthenticationService authenticationService)
         {
             _logger = logger;
             _authenticationService = authenticationService;
@@ -35,22 +37,74 @@ namespace LearnSchoolApp.Controllers
             return View();
         }
 
-        [HttpGet("Login")]
+        //[HttpGet("Login")]
         public IActionResult Login()
         {
             return View();
         }
 
-        [HttpPost("Login")]
-        public IActionResult Validate(string username, string password, UserType userType)
+        [HttpPost]
+        public async Task<IActionResult> Login(string username, string password, UserType userType)
         {
-            if (username == "bb" && password == "bb")
+            UserAuth credential = new UserAuth { Username = username, Password = password, UserType = userType };
+            Console.WriteLine($"User login with {JsonConvert.SerializeObject(credential)}");
+            var user = _authenticationService.GetUser(credential);
+            Console.WriteLine($"User login with {JsonConvert.SerializeObject(user)}");
+            if (user != null) 
             {
-                return RedirectToAction("Index");
-            }
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier, user.username),
+                    new Claim(ClaimTypes.SerialNumber, user.userId),
+                    new Claim(ClaimTypes.Email, user.email),
+                    new Claim(ClaimTypes.Name, user.name),
+                    new Claim(ClaimTypes.Role, user.userType.ToString()),
+                };
 
-            return BadRequest();
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                var principal = new ClaimsPrincipal(identity);
+
+                var props = new AuthenticationProperties();
+
+                HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, props).Wait();
+
+                return RedirectToAction("Index", userType);
+            }
+            else
+            {
+                return View();
+            }
         }
+
+        public IActionResult Logout()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LogoutConfirm()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index");
+        }
+
+        //[HttpPost("Login")]
+        //public async Task<IActionResult> Validate(string username, string password, UserType userType)
+        //{
+        //    if (username == "bb" && password == "bb")
+        //    {
+        //        var claims = new List<Claim>();
+        //        claims.Add(new Claim(ClaimTypes.NameIdentifier, username));
+        //        //claims.Add(new Claim(ClaimTypes.NameIdentifier, username));
+        //        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        //        var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+        //        await HttpContext.SignInAsync(claimsPrincipal);
+        //        return RedirectToAction("Index");
+        //    }
+        //    TempData["Error"] = "Error, Username or Password is invalid!";
+        //    return View("Login");
+        //}
 
         [HttpPost("authenticate")]
         public ActionResult<UserLoginToken> Authenticate([FromBody] UserAuth userAuth)

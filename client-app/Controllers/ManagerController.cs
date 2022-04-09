@@ -21,7 +21,7 @@ namespace LearnSchoolApp.Controllers
 
         // GET: CStudentController
         [ActionName("Index")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var ls = _managerService.Get();

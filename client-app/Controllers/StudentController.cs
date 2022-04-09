@@ -25,7 +25,7 @@ namespace LearnSchoolApp.Controllers
         }
 
         [ActionName("Index")]
-        //[Authorize(Roles = "Admin,HeadOfDeprament")]
+        [Authorize(Roles = "Admin,HeadOfDeprament")]
         public ActionResult Index()
         {
             var ls = _studentService.Get();
