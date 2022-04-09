@@ -8,7 +8,20 @@ using System.Threading.Tasks;
 
 namespace LearnSchoolApp.Services
 {
-    public class HeadOfDepramentService
+    public interface IHeadOfDepramentService
+    {
+        List<HeadOfDeprament> Get();
+        Boolean isValidCredentials(string username, string password);
+        Boolean isValidProject(string username, string password);
+        HeadOfDeprament Authenticate(string username);
+        HeadOfDeprament Get(string id);
+        HeadOfDeprament Create(HeadOfDeprament student);
+        void UpdatePassword(string id, HeadOfDeprament student);
+        void Delete(string id);
+        void Update(string id, HeadOfDeprament student);
+    }
+
+    public class HeadOfDepramentService : IHeadOfDepramentService
     {
         private readonly IMongoCollection<HeadOfDeprament> _headOfDeprament;
 
@@ -50,9 +63,15 @@ namespace LearnSchoolApp.Services
             return headOfDeprament != null;
         }
 
+        public HeadOfDeprament Authenticate(string username)
+        {
+            var headOfDeprament = _headOfDeprament.Find<HeadOfDeprament>(headOfDeprament => headOfDeprament.username == username).FirstOrDefault();
+            return headOfDeprament;
+        }
+
         public HeadOfDeprament Get(string id)
         {
-            var headOfDeprament = _headOfDeprament.Find<HeadOfDeprament>(headOfDeprament => headOfDeprament.username == id).FirstOrDefault();
+            var headOfDeprament = _headOfDeprament.Find<HeadOfDeprament>(headOfDeprament => headOfDeprament.userId == id).FirstOrDefault();
             return headOfDeprament;
         }
 
@@ -74,27 +93,27 @@ namespace LearnSchoolApp.Services
             return headOfDeprament;
         }
 
-        public void UpdatePassword(string id, UpdatePassword headOfDeprament)
+        public void UpdatePassword(string id, HeadOfDeprament headOfDeprament)
         {
-            var filter = Builders<HeadOfDeprament>.Filter.Where(_ => _.Id == id);
+            var filter = Builders<HeadOfDeprament>.Filter.Where(_ => _.userId == id);
             var update = Builders<HeadOfDeprament>.Update
                         .Set(_ => _.password, headOfDeprament.password);
             var options = new FindOneAndUpdateOptions<HeadOfDeprament>();
             _headOfDeprament.FindOneAndUpdate(filter, update, options);
         }
 
-        internal void Delete(string id)
+        public void Delete(string id)
         {
-            var filter = Builders<HeadOfDeprament>.Filter.Where(_ => _.Id == id);
+            var filter = Builders<HeadOfDeprament>.Filter.Where(_ => _.userId == id);
             var update = Builders<HeadOfDeprament>.Update
                         .Set(_ => _.isActive, false);
             var options = new FindOneAndUpdateOptions<HeadOfDeprament>();
             _headOfDeprament.FindOneAndUpdate(filter, update, options);
         }
 
-        public void Update(string id, UpdateUser headOfDeprament)
+        public void Update(string id, HeadOfDeprament headOfDeprament)
         {
-            var filter = Builders<HeadOfDeprament>.Filter.Where(_ => _.Id == id);
+            var filter = Builders<HeadOfDeprament>.Filter.Where(_ => _.userId == id);
             var update = Builders<HeadOfDeprament>.Update
                         .Set(_ => _.email, headOfDeprament.email)
                         .Set(_ => _.name, headOfDeprament.name)

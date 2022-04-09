@@ -16,6 +16,7 @@ namespace LearnSchoolApp.Services
         Project Create(Project project);
         void Delete(string id);
         void Update(string id, Project project);
+
     }
     public class ProjectService : IProjectService
     {
@@ -107,6 +108,7 @@ namespace LearnSchoolApp.Services
                         .Set(_ => _.assistantStudentId, project.assistantStudentId)
                         .Set(_ => _.guideId, project.guideId)
                         .Set(_ => _.guideName, project.guideName)
+                        .Set(_ => _.isPass, project.isPass)
                         .Set(_ => _.name, project.name);
             var options = new FindOneAndUpdateOptions<Project>();
             _project.FindOneAndUpdate(filter, update, options);

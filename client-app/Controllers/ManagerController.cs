@@ -19,7 +19,6 @@ namespace LearnSchoolApp.Controllers
             _managerService = managerService;
         }
 
-        // GET: CStudentController
         [ActionName("Index")]
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
@@ -33,9 +32,8 @@ namespace LearnSchoolApp.Controllers
             return View(res);
         }
 
-        // GET: CStudentController/Details/5
         [ActionName("Details")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(string id)
         {
             if (_managerService.Get(id) == null)
@@ -43,18 +41,16 @@ namespace LearnSchoolApp.Controllers
             return View(_managerService.Get(id));
         }
 
-        // GET: CStudentController/Create
         [ActionName("Create")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: CStudentController/Create
         [HttpPost]
         [ActionName("Create")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Manager collection)
         {
@@ -73,9 +69,8 @@ namespace LearnSchoolApp.Controllers
             }
         }
 
-        // GET: CStudentController/Edit/5
         [ActionName("Edit")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -89,7 +84,6 @@ namespace LearnSchoolApp.Controllers
             return View(student);
         }
 
-        // POST: CStudentController/Edit/5
         [HttpPost]
         [ActionName("Edit")]
         [ValidateAntiForgeryToken]
@@ -111,7 +105,7 @@ namespace LearnSchoolApp.Controllers
         }
 
         [ActionName("EditPassword")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult EditPassword(string id)
         {
             if (id == null)
@@ -146,9 +140,8 @@ namespace LearnSchoolApp.Controllers
         }
 
 
-        // GET: CStudentController/Delete/5
         [ActionName("Delete")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -162,7 +155,6 @@ namespace LearnSchoolApp.Controllers
             return View(student);
         }
 
-        // POST: CStudentController/Delete/5
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]

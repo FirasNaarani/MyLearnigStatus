@@ -3,6 +3,12 @@
 <p>
     <a asp-action="Create">הוספת סטודנט חדש</a>
 </p>
+@if (TempData["AlertMessage"] != null)
+{
+    <div class="alert alert-success">
+        <i>@TempData["AlertMessage"]</i>
+    </div>
+}
 <table class="table">
     <thead>
         <tr>
@@ -25,27 +31,28 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.userId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.phone)
-            </td>
-            <td>
-                @Html.ActionLink("פרטים", "Details", new { id = item.Id})
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.userId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.phone)
+                </td>
+                <td>
+                    @Html.ActionLink("פרטים", "Details", new { id = item.userId })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

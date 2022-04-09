@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace LearnSchoolApp.Controllers
@@ -37,8 +38,34 @@ namespace LearnSchoolApp.Controllers
             return View(res);
         }
 
+        [ActionName("MyIndex")]
+        [Authorize(Roles = "Student")]
+        public IActionResult MyIndex()
+        {
+            var studentID = GetStudentID();
+            var currentStudent = _studentService.Get(studentID);
+            if(currentStudent != null)
+            {
+                return View(currentStudent);
+            }
+            return NotFound();
+        }
+
+        private string GetStudentID()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            if (identity != null)
+            {
+                var userClaims = identity.Claims;
+
+                return userClaims.FirstOrDefault(o => o.Type == ClaimTypes.SerialNumber)?.Value;
+            }
+            return null;
+        }
+
         [ActionName("Details")]
-        //[Authorize(Roles = "Admin,HeadOfDeprament")]
+        [Authorize(Roles = "Admin,HeadOfDeprament")]
         public ActionResult Details(string id)
         {
             if (_studentService.Get(id) == null)
@@ -50,7 +77,10 @@ namespace LearnSchoolApp.Controllers
         public ActionResult GetProject(string id)
         {
             if (_projectService.GetMyProject(id) == null)
-                return NotFound();
+            {
+                TempData["AlertMessage"] = $"עדין לא הגיש הצעה לפרויקט";
+                return RedirectToAction("Index");
+            }
             return View(_projectService.GetMyProject(id));
         }
 
@@ -63,7 +93,7 @@ namespace LearnSchoolApp.Controllers
         }
 
         [ActionName("Create")]
-        //[Authorize(Roles = "Admin,HeadOfDeprament")]
+        [Authorize(Roles = "Admin,HeadOfDeprament")]
         public IActionResult Create()
         {
             return View();
@@ -71,7 +101,7 @@ namespace LearnSchoolApp.Controllers
 
         [HttpPost]
         [ActionName("Create")]
-        //[Authorize(Roles = "Admin,HeadOfDeprament")]
+        [Authorize(Roles = "Admin,HeadOfDeprament")]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Student collection)
         {
@@ -80,7 +110,7 @@ namespace LearnSchoolApp.Controllers
                 //if (ModelState.IsValid)
                 {
                     _studentService.Create(collection);
-
+                    TempData["AlertMessage"] = $"הוספת סטודנט בוצעה בהצלחה";
                 }
                 return RedirectToAction("Index");
             }
@@ -91,7 +121,7 @@ namespace LearnSchoolApp.Controllers
         }
 
         [ActionName("Edit")]
-        //[Authorize(Roles = "Admin,HeadOfDeprament")]
+        [Authorize(Roles = "Admin,HeadOfDeprament")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -115,7 +145,7 @@ namespace LearnSchoolApp.Controllers
                 //if (ModelState.IsValid)
                 {
                     _studentService.Update(collection.Id, collection);
-                    Console.WriteLine("Updated");
+                    TempData["AlertMessage"] = $"עריכת הניתונים בוצעה בהצלחה";
                 }
                 return RedirectToAction("Index");
             }
@@ -126,7 +156,7 @@ namespace LearnSchoolApp.Controllers
         }
 
         [ActionName("EditPassword")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult EditPassword(string id)
         {
             if (id == null)
@@ -150,7 +180,7 @@ namespace LearnSchoolApp.Controllers
                 //if (ModelState.IsValid)
                 {
                     _studentService.UpdatePassword(id, collection);
-                    Console.WriteLine("Updated");
+                    TempData["AlertMessage"] = $"עריכת הניתונים בוצעה בהצלחה";
                 }
                 return RedirectToAction("Index");
             }
@@ -161,7 +191,7 @@ namespace LearnSchoolApp.Controllers
         }
 
         [ActionName("Delete")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -183,6 +213,7 @@ namespace LearnSchoolApp.Controllers
             try
             {
                 _studentService.Delete(id);
+                TempData["AlertMessage"] = $"עריכת הניתונים בוצעה בהצלחה";
                 return RedirectToAction("Index");
             }
             catch (Exception e)

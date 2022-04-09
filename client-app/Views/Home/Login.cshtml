@@ -2,10 +2,15 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    var error = TempData["Error"] as string;
 }
 
-<h1>Login</h1>
-<form method="post">
+<h1>Sign in</h1>
+@if (!string.IsNullOrEmpty(error))
+{
+    <h2 class="alert-danger text-center" style="padding:1em">@error</h2>
+}
+<form class="text-center" method="post">
     <input type="text" name="username" placeholder="Username" />
     <input type="password" name="password" placeholder="Password" />
     <select name="userType" id="userType">
@@ -14,6 +19,6 @@
         <option value="HeadOfDeprament">Head Of Deprament</option>
         <option value="Admin">Admin</option>
     </select>
-    <br />
+    <br /><br />
     <input type="submit" value="Login" />
 </form>

@@ -20,9 +20,8 @@ namespace LearnSchoolApp.Controllers
             _guideService = guideService;
         }
 
-        // GET: CStudentController
         [ActionName("Index")]
-        //[Authorize(Roles = "HeadOfDeprament")]
+        [Authorize(Roles = "Admin,HeadOfDeprament")]
         public ActionResult Index()
         {
             var ls = _guideService.Get();
@@ -34,9 +33,21 @@ namespace LearnSchoolApp.Controllers
             return View(res);
         }
 
-        // GET: CStudentController/Details/5
+        [ActionName("MyStudent")]
+        [Authorize(Roles = "Guid")]
+        public ActionResult MyStudent()
+        {
+            var ls = _guideService.Get();
+            if (ls == null)
+            {
+                return NotFound();
+            }
+            List<Guide> res = ls.ToList();
+            return View(res);
+        }
+
         [ActionName("Details")]
-        //[Authorize(Roles = "HeadOfDeprament")]
+        [Authorize(Roles = "Admin,HeadOfDeprament")]
         public ActionResult Details(string id)
         {
             if (_guideService.Get(id) == null)
@@ -44,18 +55,16 @@ namespace LearnSchoolApp.Controllers
             return View(_guideService.Get(id));
         }
 
-        // GET: CStudentController/Create
         [ActionName("Create")]
-        //[Authorize(Roles = "HeadOfDeprament")]
+        [Authorize(Roles = "Admin,HeadOfDeprament")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: CStudentController/Create
         [HttpPost]
         [ActionName("Create")]
-        //[Authorize(Roles = "HeadOfDeprament")]
+        [Authorize(Roles = "Admin,HeadOfDeprament")]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Guide collection)
         {
@@ -74,9 +83,8 @@ namespace LearnSchoolApp.Controllers
             }
         }
 
-        // GET: CStudentController/Edit/5
         [ActionName("Edit")]
-        //[Authorize(Roles = "HeadOfDeprament")]
+        [Authorize(Roles = "Admin,HeadOfDeprament")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -90,7 +98,6 @@ namespace LearnSchoolApp.Controllers
             return View(guide);
         }
 
-        // POST: CStudentController/Edit/5
         [HttpPost]
         [ActionName("Edit")]
         [ValidateAntiForgeryToken]
@@ -112,7 +119,7 @@ namespace LearnSchoolApp.Controllers
         }
 
         [ActionName("EditPassword")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult EditPassword(string id)
         {
             if (id == null)
@@ -146,9 +153,8 @@ namespace LearnSchoolApp.Controllers
             }
         }
 
-        // GET: CStudentController/Delete/5
         [ActionName("Delete")]
-        //[Authorize(Roles = "HeadOfDeprament")]
+        [Authorize(Roles = "Admin,HeadOfDeprament")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -162,7 +168,6 @@ namespace LearnSchoolApp.Controllers
             return View(student);
         }
 
-        // POST: CStudentController/Delete/5
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]

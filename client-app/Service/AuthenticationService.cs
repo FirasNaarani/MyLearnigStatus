@@ -12,10 +12,10 @@ namespace LearnSchoolApp.Services
     }
     public class AuthenticationService : IAuthenticationService
     {
-        private readonly ManagerService _managerService;
-        private readonly GuideService _guideService;
-        private readonly StudentService _studentService;
-        private readonly HeadOfDepramentService _headOfDepramentService;
+        private readonly IManagerService _managerService;
+        private readonly IGuideService _guideService;
+        private readonly IStudentService _studentService;
+        private readonly IHeadOfDepramentService _headOfDepramentService;
 
         private readonly IJWTAuthenticationOptions _jWTAuthenticationOptions; 
 
@@ -38,28 +38,28 @@ namespace LearnSchoolApp.Services
                     {
                         return null;
                     }
-                    return _studentService.Get(userLogin.Username);
+                    return _studentService.Authenticate(userLogin.Username);
 
                 case UserType.Guid:
                     if (!_guideService.isValidCredentials(userLogin.Username, userLogin.Password))
                     {
                         return null;
                     }
-                    return _guideService.Get(userLogin.Username);
+                    return _guideService.Authenticate(userLogin.Username);
 
                 case UserType.HeadOfDeprament:
                     if (!_headOfDepramentService.isValidCredentials(userLogin.Username, userLogin.Password))
                     {
                         return null;
                     }
-                    return _headOfDepramentService.Get(userLogin.Username);
+                    return _headOfDepramentService.Authenticate(userLogin.Username);
 
                 case UserType.Admin:
                     if (!_managerService.isValidCredentials(userLogin.Username, userLogin.Password))
                     {
                         return null;
                     }
-                    return _managerService.Get(userLogin.Username);
+                    return _managerService.Authenticate(userLogin.Username);
                 default:
                     throw new Exception("user type not supported");
             }

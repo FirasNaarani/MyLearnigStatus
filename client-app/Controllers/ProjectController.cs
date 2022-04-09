@@ -1,6 +1,7 @@
 ﻿using LearnSchoolApp.Entities;
 using LearnSchoolApp.Models;
 using LearnSchoolApp.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -24,7 +25,7 @@ namespace LearnSchoolApp.Controllers
         }
         
         [ActionName("Index")]
-        //[Authorize(Roles = "Admin,HeadOfDeprament")]
+        [Authorize(Roles = "Admin,HeadOfDeprament")]
         public ActionResult Index()
         {
             var ls = _projectService.Get();
@@ -37,7 +38,7 @@ namespace LearnSchoolApp.Controllers
         }
 
         [ActionName("Details")]
-        //[Authorize]
+        [Authorize(Roles = "Admin,HeadOfDeprament")]
         public ActionResult Details(string id)
         {
             if (_projectService.Get(id) == null)
@@ -46,6 +47,7 @@ namespace LearnSchoolApp.Controllers
         }
 
         [ActionName("GetGuide")]
+        [Authorize(Roles = "Admin,HeadOfDeprament")]
         public ActionResult GetGuide(string id)
         {
             if (_guideService.GetMyGuide(id) == null)
@@ -54,6 +56,7 @@ namespace LearnSchoolApp.Controllers
         }
 
         [ActionName("Create")]
+        [Authorize(Roles = "Admin,HeadOfDeprament")]
         public IActionResult Create()
         {
             return View();
@@ -61,17 +64,21 @@ namespace LearnSchoolApp.Controllers
 
         [HttpPost]
         [ActionName("Create")]
-        //[Authorize(Roles = "Admin,HeadOfDeprament")]
+        [Authorize(Roles = "Admin,HeadOfDeprament")]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Project collection)
         {
             try
             {
-                //if (ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
                     if (_studentService.isValidProject(collection.studentId) || _studentService.isValidProject(collection.assistantStudentId))
                     {
                         _projectService.Create(collection);
+                        if(_studentService.isValidProject(collection.studentId))
+                            _studentService.isProject(collection.studentId,collection.isPass);
+                        if (_studentService.isValidProject(collection.assistantStudentId))
+                            _studentService.isProject(collection.assistantStudentId, collection.isPass);
                         return RedirectToAction("Index");
                     }
                 }
@@ -84,7 +91,7 @@ namespace LearnSchoolApp.Controllers
         }
 
         [ActionName("Edit")]
-        //[Authorize(Roles = "Admin,HeadOfDeprament")]
+        [Authorize(Roles = "Admin,HeadOfDeprament")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -105,9 +112,13 @@ namespace LearnSchoolApp.Controllers
         {
             try
             {
-                //if (ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
                     _projectService.Update(collection.Id, collection);
+                    if (_studentService.isValidProject(collection.studentId))
+                        _studentService.isProject(collection.studentId, collection.isPass);
+                    if (_studentService.isValidProject(collection.assistantStudentId))
+                        _studentService.isProject(collection.assistantStudentId, collection.isPass);
                     Console.WriteLine("Updated");
                 }
                 return RedirectToAction("Index");
@@ -119,7 +130,7 @@ namespace LearnSchoolApp.Controllers
         }
 
         [ActionName("Delete")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(string id)
         {
             if (id == null)

@@ -3,8 +3,8 @@
 <div>
     <h4>מנחה</h4>
     <div>
-        @Html.ActionLink("עריכה", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("מחיקה", "Delete", new { id = Model.Id })
+        @Html.ActionLink("עריכה", "Edit", new { id = Model.userId }) |
+        @Html.ActionLink("מחיקה", "Delete", new { id = Model.userId })
     </div>
     <hr />
     <dl class="row">
@@ -55,6 +55,12 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.isHeadOfDepratment)
+        </dd>
+        <dt class="col-sm-2">
+            פרויקט
+        </dt>
+        <dd class="col-sm-10">
+            @Html.ActionLink("פרטים", "GetProject", new { id = Model.userId })
         </dd>
     </dl>
 </div>

@@ -69,10 +69,23 @@ namespace LearnSchoolApp.Controllers
 
                 HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, props).Wait();
 
-                return RedirectToAction("Index", userType);
+                Console.WriteLine("Login");
+
+                //switch (credential.UserType)
+                //{
+                //    case UserType.Admin:
+                //    case UserType.HeadOfDeprament:
+                //        return RedirectToAction("Index");
+                //    case UserType.Guid:
+                //        return RedirectToAction("MyIndex", credential.UserType.ToString());
+                //    case UserType.Student:
+                //        return RedirectToAction("Index", credential.UserType.ToString(),credential.Username);
+                //}
+                return RedirectToAction("Index");
             }
             else
             {
+                TempData["Error"] = "Username or Password is invalid!";
                 return View();
             }
         }
@@ -86,6 +99,7 @@ namespace LearnSchoolApp.Controllers
         public async Task<IActionResult> LogoutConfirm()
         {
             await HttpContext.SignOutAsync();
+            Console.WriteLine("Logout");
             return RedirectToAction("Index");
         }
 

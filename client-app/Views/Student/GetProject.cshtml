@@ -50,10 +50,19 @@
             </ol>
         </dd>
         <dt class="col-sm-2">
-            הצעת פרויקט
+            פרויקט סטטוס
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.isPass)
+            @{
+                if (Model.isPass)
+                {
+                    <i><b><label><ins>מאושר</ins></label></b></i>
+                }
+                else
+                {
+                    <i><b><label><ins>לא מאושר</ins></label></b></i>
+                }
+            }
         </dd>
     </dl>
 </div>

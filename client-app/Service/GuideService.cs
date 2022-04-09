@@ -13,6 +13,7 @@ namespace LearnSchoolApp.Services
     {
         List<Guide> Get();
         Boolean isValidCredentials(string username, string password);
+        Guide Authenticate(string username);
         Guide Get(string id);
         Guide GetMyGuide(string id);
         Guide Create(Guide student);
@@ -56,9 +57,15 @@ namespace LearnSchoolApp.Services
             return Guide != null;
         }
 
+        public Guide Authenticate(string username)
+        {
+            var Guide = _guide.Find<Guide>(guide => guide.username == username).FirstOrDefault();
+            return Guide;
+        }
+
         public Guide Get(string id)
         {
-            var Guide = _guide.Find<Guide>(Guide => Guide.Id == id).FirstOrDefault();
+            var Guide = _guide.Find<Guide>(Guide => Guide.userId == id).FirstOrDefault();
             return Guide;
         }
 
@@ -71,7 +78,7 @@ namespace LearnSchoolApp.Services
         public Guide Create(Guide guide)
         {
             guide.isActive = true;
-            guide.projects = new List<Project>();
+            //guide.projects = new List<Project>();
             if (guide.isHeadOfDepratment)
                 guide.userType = UserType.HeadOfDeprament;
             else
@@ -92,7 +99,7 @@ namespace LearnSchoolApp.Services
 
         public void UpdatePassword(string id, Guide guide)
         {
-            var filter = Builders<Guide>.Filter.Where(_ => _.Id == id);
+            var filter = Builders<Guide>.Filter.Where(_ => _.userId == id);
             var update = Builders<Guide>.Update
                         .Set(_ => _.password, guide.password);
             var options = new FindOneAndUpdateOptions<Guide>();
@@ -101,7 +108,7 @@ namespace LearnSchoolApp.Services
 
         public void Delete(string id)
         {
-            var filter = Builders<Guide>.Filter.Where(_ => _.Id == id);
+            var filter = Builders<Guide>.Filter.Where(_ => _.userId == id);
             var update = Builders<Guide>.Update
                         .Set(_ => _.isActive, false);
             var options = new FindOneAndUpdateOptions<Guide>();
@@ -110,7 +117,7 @@ namespace LearnSchoolApp.Services
 
         public void Update(string id, Guide guide)
         {
-            var filter = Builders<Guide>.Filter.Where(_ => _.Id == id);
+            var filter = Builders<Guide>.Filter.Where(_ => _.userId == id);
             var update = Builders<Guide>.Update
                         .Set(_ => _.email, guide.email)
                         .Set(_ => _.phone, guide.phone)

@@ -261,7 +261,6 @@ C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Project\Edit.c
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Project\Delete.cshtml.g.cs
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Student\GetProject.cshtml.g.cs
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Student\GetGuide.cshtml.g.cs
-C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Account\Login.cshtml.g.cs
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Login\Login.cshtml.g.cs
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Home\Login.cshtml.g.cs
 C:\GitHub\MyLearnigStatus\client-app\bin\Debug\net5.0\LearnSchoolApp.StaticWebAssets.xml
@@ -293,3 +292,5 @@ C:\GitHub\MyLearnigStatus\client-app\bin\Debug\net5.0\runtimes\win-x64\native\Mi
 C:\GitHub\MyLearnigStatus\client-app\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 C:\GitHub\MyLearnigStatus\client-app\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
 C:\GitHub\MyLearnigStatus\client-app\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Home\Logout.cshtml.g.cs
+C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Student\MyIndex.cshtml.g.cs

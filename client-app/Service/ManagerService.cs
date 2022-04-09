@@ -11,6 +11,7 @@ namespace LearnSchoolApp.Services
     {
         List<Manager> Get();
         Boolean isValidCredentials(string username, string password);
+        Manager Authenticate(string username);
         Manager Get(string id);
         Manager Create(Manager student);
         void UpdatePassword(string id, Manager student);
@@ -52,10 +53,16 @@ namespace LearnSchoolApp.Services
             Manager manager = _managers.Find(m => m.password == password && m.username == username && m.isActive == true).FirstOrDefault();
             return manager != null;
         }
+        
+        public Manager Authenticate(string username)
+        {
+            var manager = _managers.Find<Manager>(manager => manager.username == username).FirstOrDefault();
+            return manager;
+        }
 
         public Manager Get(string id)
         {
-            var manager = _managers.Find<Manager>(manager => manager.Id == id).FirstOrDefault();
+            var manager = _managers.Find<Manager>(manager => manager.userId == id).FirstOrDefault();
             return manager;
         }
         
@@ -87,7 +94,7 @@ namespace LearnSchoolApp.Services
 
         public void Delete(string id)
         {
-            var filter = Builders<Manager>.Filter.Where(_ => _.Id == id);
+            var filter = Builders<Manager>.Filter.Where(_ => _.userId == id);
             var update = Builders<Manager>.Update
                         .Set(_ => _.isActive, false);
             var options = new FindOneAndUpdateOptions<Manager>();
