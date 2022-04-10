@@ -23,7 +23,7 @@ namespace LearnSchoolApp.Controllers
             _guideService = guideService;
             _studentService = studentService;
         }
-        
+
         [ActionName("Index")]
         [Authorize(Roles = "Admin,HeadOfDeprament")]
         public ActionResult Index()
@@ -70,19 +70,21 @@ namespace LearnSchoolApp.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+
+                if (_studentService.isValidProject(collection.studentId) || _studentService.isValidProject(collection.assistantStudentId))
                 {
-                    if (_studentService.isValidProject(collection.studentId) || _studentService.isValidProject(collection.assistantStudentId))
-                    {
-                        _projectService.Create(collection);
-                        if(_studentService.isValidProject(collection.studentId))
-                            _studentService.isProject(collection.studentId,collection.isPass);
-                        if (_studentService.isValidProject(collection.assistantStudentId))
-                            _studentService.isProject(collection.assistantStudentId, collection.isPass);
-                        return RedirectToAction("Index");
-                    }
+                    if (_studentService.isValidProject(collection.studentId))
+                        _studentService.isProject(collection.studentId, collection.isPass);
+
+                    if (_studentService.isValidProject(collection.assistantStudentId))
+                        _studentService.isProject(collection.assistantStudentId, collection.isPass);
+
+                    _projectService.Create(collection);
+                    TempData["AlertMessage"] = $"הוספת פרויקט בוצעה בהצלחה";
+
+                    return RedirectToAction("Index");
                 }
-                return StatusCode(403,"יש לסטודנט פרויקט קיים במערכת");
+                return StatusCode(403, "יש לסטודנט פרויקט קיים במערכת");
             }
             catch (Exception e)
             {
@@ -112,15 +114,19 @@ namespace LearnSchoolApp.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    _projectService.Update(collection.Id, collection);
-                    if (_studentService.isValidProject(collection.studentId))
-                        _studentService.isProject(collection.studentId, collection.isPass);
-                    if (_studentService.isValidProject(collection.assistantStudentId))
-                        _studentService.isProject(collection.assistantStudentId, collection.isPass);
-                    Console.WriteLine("Updated");
-                }
+                if (_studentService.isValidProject(collection.studentId))
+                    _studentService.isProject(collection.studentId, collection.isPass);
+                else
+                    TempData["AlertMessage"] = $"לסטודנט הראשי קיים פרויקט";
+                
+                if (_studentService.isValidProject(collection.assistantStudentId))
+                    _studentService.isProject(collection.assistantStudentId, collection.isPass);
+
+                else
+                    TempData["AlertMessage"] = $"לסטודנט השותף קיים פרויקט";
+
+                _projectService.Update(collection.Id, collection);
+                TempData["AlertMessage"] = $"עריכת הניתונים בוצעה בהצלחה";
                 return RedirectToAction("Index");
             }
             catch

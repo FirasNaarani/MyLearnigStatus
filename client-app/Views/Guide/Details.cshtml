@@ -51,16 +51,10 @@
             @Html.DisplayFor(model => model.phone)
         </dd>
         <dt class="col-sm-2">
-            ראש מגמה
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.isHeadOfDepratment)
-        </dd>
-        <dt class="col-sm-2">
             פרויקט
         </dt>
         <dd class="col-sm-10">
-            @Html.ActionLink("פרטים", "GetProject", new { id = Model.userId })
+            @Html.ActionLink("פרטים", "MyProjects", new { id = Model.userId })
         </dd>
     </dl>
 </div>

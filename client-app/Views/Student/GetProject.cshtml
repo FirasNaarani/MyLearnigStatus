@@ -19,20 +19,18 @@
         <dt class="col-sm-2">
             מנחה
         </dt>
-            
-        @if(Model.guideId != null)
-        {
-            <dd class="col-sm-10">
-                @Html.ActionLink("פרטים", "GetGuide", new { id = Model.guideId })
-            </dd>
-         }
-          
-        @if(Model.guideId == null)
-        {
-            <dd class="col-sm-10">
-                ---
-            </dd>
-         }
+        <dd class="col-sm-10">
+            @{
+                if (Model.guideId != null)
+                {
+                    @Html.ActionLink("פרטים", "GetGuide", new { id = Model.guideId })
+                }
+                else
+                {
+                    <label>---</label>
+                }
+            }
+        </dd>
         <dt class="col-sm-2">
             סטודנטים בפרויקט
         </dt>

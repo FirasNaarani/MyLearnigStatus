@@ -24,10 +24,20 @@
             המנחה
         </dt>
         <dd class="col-sm-10">
-            <details>
-                <summary>@Html.DisplayFor(model => model.guideName)</summary>
-                @Html.DisplayFor(model => model.guideId)
-            </details>
+            @{
+                if (Model.guideId != null)
+                {
+                    <details>
+                        <summary>@Html.DisplayFor(model => model.guideName)</summary>
+                        @Html.DisplayFor(model => model.guideId)
+                    </details>
+                }
+                else
+                {
+                    <label>---</label>
+                }
+            }
+
         </dd>
         <dt class="col-sm-2">
             סטודנט ראשי

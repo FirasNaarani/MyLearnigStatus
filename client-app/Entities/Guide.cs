@@ -14,10 +14,10 @@ namespace LearnSchoolApp.Entities
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
-        [Required(ErrorMessage = "Is Head Of Depratment Required")]
-        public bool isHeadOfDepratment { get; set; }
+        //[Required(ErrorMessage = "Is Head Of Depratment Required")]
+        //public bool isHeadOfDepratment { get; set; }
 
-        //public List<Project> projects { get; set; }
+        public List<Project> projects { get; set; }
 
         public bool isActive { get; set; }
     }

@@ -14,9 +14,9 @@ namespace LearnSchoolApp.Services
         Manager Authenticate(string username);
         Manager Get(string id);
         Manager Create(Manager student);
-        void UpdatePassword(string id, Manager student);
+        void UpdatePassword(string id, Manager manager);
         void Delete(string id);
-        void Update(string id, Manager student);
+        void Update(string id, Manager manager);
     }
     public class ManagerService : IManagerService
     {
@@ -103,7 +103,7 @@ namespace LearnSchoolApp.Services
 
         public void Update(string id, Manager manager)
         {
-            var filter = Builders<Manager>.Filter.Where(_ => _.Id == id);
+            var filter = Builders<Manager>.Filter.Where(_ => _.userId == id);
             var update = Builders<Manager>.Update
                         .Set(_ => _.email, manager.email)
                         .Set(_ => _.phone, manager.phone);

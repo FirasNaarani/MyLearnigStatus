@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace LearnSchoolApp.Controllers
@@ -14,10 +15,12 @@ namespace LearnSchoolApp.Controllers
     public class GuideController : Controller
     {
         private readonly IGuideService _guideService;
+        private readonly IProjectService _projectService;
 
-        public GuideController(GuideService guideService)
+        public GuideController(GuideService guideService, ProjectService projectService)
         {
             _guideService = guideService;
+            _projectService = projectService;
         }
 
         [ActionName("Index")]
@@ -33,16 +36,42 @@ namespace LearnSchoolApp.Controllers
             return View(res);
         }
 
-        [ActionName("MyStudent")]
+        [ActionName("MyIndex")]
         [Authorize(Roles = "Guid")]
-        public ActionResult MyStudent()
+        public ActionResult MyIndex()
         {
-            var ls = _guideService.Get();
+            var guideID = GetGuideID();
+            var currentGuide = _guideService.Get(guideID);
+            if (currentGuide != null)
+            {
+                return View(currentGuide);
+            }
+            return RedirectToAction("MyIndex");
+        }
+
+        private string GetGuideID()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            if (identity != null)
+            {
+                var userClaims = identity.Claims;
+
+                return userClaims.FirstOrDefault(o => o.Type == ClaimTypes.SerialNumber)?.Value;
+            }
+            return null;
+        }
+
+        [ActionName("MyProjects")]
+        [Authorize(Roles = "HeadOfDeprament,Guid")]
+        public ActionResult MyProjects(string id)
+        {
+            var ls = _projectService.GetProjects(id);
             if (ls == null)
             {
                 return NotFound();
             }
-            List<Guide> res = ls.ToList();
+            List<Project> res = ls.ToList();
             return View(res);
         }
 
@@ -70,11 +99,8 @@ namespace LearnSchoolApp.Controllers
         {
             try
             {
-                //if (ModelState.IsValid)
-                {
-                    _guideService.Create(collection);
-
-                }
+                _guideService.Create(collection);
+                TempData["AlertMessage"] = $"הוספת מנחה בוצעה בהצלחה";
                 return RedirectToAction("Index");
             }
             catch (Exception e)
@@ -105,11 +131,8 @@ namespace LearnSchoolApp.Controllers
         {
             try
             {
-                //if (ModelState.IsValid)
-                {
-                    _guideService.Update(collection.Id, collection);
-                    Console.WriteLine("Updated");
-                }
+                _guideService.Update(collection.Id, collection);
+                TempData["AlertMessage"] = $"עריכת הניתונים בוצעה בהצלחה";
                 return RedirectToAction("Index");
             }
             catch
@@ -140,11 +163,8 @@ namespace LearnSchoolApp.Controllers
         {
             try
             {
-                //if (ModelState.IsValid)
-                {
-                    _guideService.UpdatePassword(id, collection);
-                    Console.WriteLine("Updated");
-                }
+                _guideService.UpdatePassword(id, collection);
+                TempData["AlertMessage"] = $"עריכת הניתונים בוצעה בהצלחה";
                 return RedirectToAction("Index");
             }
             catch

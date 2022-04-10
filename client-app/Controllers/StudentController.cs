@@ -40,7 +40,7 @@ namespace LearnSchoolApp.Controllers
 
         [ActionName("MyIndex")]
         [Authorize(Roles = "Student")]
-        public IActionResult MyIndex()
+        public ActionResult MyIndex()
         {
             var studentID = GetStudentID();
             var currentStudent = _studentService.Get(studentID);
@@ -48,7 +48,7 @@ namespace LearnSchoolApp.Controllers
             {
                 return View(currentStudent);
             }
-            return NotFound();
+            return RedirectToAction("MyIndex");
         }
 
         private string GetStudentID()
@@ -74,17 +74,18 @@ namespace LearnSchoolApp.Controllers
         }
 
         [ActionName("GetProject")]
+        [Authorize]
         public ActionResult GetProject(string id)
         {
             if (_projectService.GetMyProject(id) == null)
             {
-                TempData["AlertMessage"] = $"עדין לא הגיש הצעה לפרויקט";
                 return RedirectToAction("Index");
             }
             return View(_projectService.GetMyProject(id));
         }
 
         [ActionName("GetGuide")]
+        [Authorize]
         public ActionResult GetGuide(string id)
         {
             if (_guideService.GetMyGuide(id) == null)
@@ -107,11 +108,8 @@ namespace LearnSchoolApp.Controllers
         {
             try
             {
-                //if (ModelState.IsValid)
-                {
-                    _studentService.Create(collection);
-                    TempData["AlertMessage"] = $"הוספת סטודנט בוצעה בהצלחה";
-                }
+                _studentService.Create(collection);
+                TempData["AlertMessage"] = $"הוספת סטודנט בוצעה בהצלחה";
                 return RedirectToAction("Index");
             }
             catch (Exception e)
@@ -142,11 +140,8 @@ namespace LearnSchoolApp.Controllers
         {
             try
             {
-                //if (ModelState.IsValid)
-                {
-                    _studentService.Update(collection.Id, collection);
-                    TempData["AlertMessage"] = $"עריכת הניתונים בוצעה בהצלחה";
-                }
+                _studentService.Update(collection.Id, collection);
+                TempData["AlertMessage"] = $"עריכת הניתונים בוצעה בהצלחה";
                 return RedirectToAction("Index");
             }
             catch
@@ -177,11 +172,8 @@ namespace LearnSchoolApp.Controllers
         {
             try
             {
-                //if (ModelState.IsValid)
-                {
-                    _studentService.UpdatePassword(id, collection);
-                    TempData["AlertMessage"] = $"עריכת הניתונים בוצעה בהצלחה";
-                }
+                _studentService.UpdatePassword(id, collection);
+                TempData["AlertMessage"] = $"עריכת הניתונים בוצעה בהצלחה";
                 return RedirectToAction("Index");
             }
             catch

@@ -3,6 +3,12 @@
 <p>
     <a asp-action="Create">הוספת פרויקט חדש</a>
 </p>
+@if (TempData["AlertMessage"] != null)
+{
+    <div class="alert alert-success">
+        <i>@TempData["AlertMessage"]</i>
+    </div>
+}
 <table class="table">
     <thead>
         <tr>
@@ -25,61 +31,61 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model)
-{
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-            <td>
-                <details>
-                    <summary>@Html.DisplayFor(modelItem => item.studentName)</summary>
-                    @Html.DisplayFor(modelItem => item.studentId)
-                </details>
-            </td>
-            @{ 
-                if (item.assistantStudentId != null)
-                {
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
                 <td>
                     <details>
-                        <summary>@Html.DisplayFor(modelItem => item.assistantStudentName)</summary>
-                        @Html.DisplayFor(modelItem => item.assistantStudentId)
+                        <summary>@Html.DisplayFor(modelItem => item.studentName)</summary>
+                        @Html.DisplayFor(modelItem => item.studentId)
                     </details>
                 </td>
-                }
-                else
-                {
-                    <td>
-                       ---
-                    </td>
-                }
+                @{
+                    if (item.assistantStudentId != null)
+                    {
+                        <td>
+                            <details>
+                                <summary>@Html.DisplayFor(modelItem => item.assistantStudentName)</summary>
+                                @Html.DisplayFor(modelItem => item.assistantStudentId)
+                            </details>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            ---
+                        </td>
+                    }
 
-            }
-            @{
-                if (item.guideId != null)
-                {
-                    <td>
-                        <details>
-                            <summary>@Html.DisplayFor(modelItem => item.guideName)</summary>
-                            @Html.DisplayFor(modelItem => item.guideId)
-                        </details>
-                    </td>
                 }
-                else
-                {
-                    <td>
-                        ---
-                    </td>
+                @{
+                    if (item.guideId != null)
+                    {
+                        <td>
+                            <details>
+                                <summary>@Html.DisplayFor(modelItem => item.guideName)</summary>
+                                @Html.DisplayFor(modelItem => item.guideId)
+                            </details>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            ---
+                        </td>
                     }
                 }
 
-            <td>
-                @Html.DisplayFor(modelItem => item.isPass)
-            </td>
-            <td>
-                @Html.ActionLink("פרטים", "Details", new { id = item.Id })
-            </td>
-        </tr>
-}
+                <td>
+                    @Html.DisplayFor(modelItem => item.isPass)
+                </td>
+                <td>
+                    @Html.ActionLink("פרטים", "Details", new { id = item.Id })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

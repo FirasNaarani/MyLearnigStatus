@@ -79,10 +79,10 @@ namespace LearnSchoolApp.Services
         {
             guide.isActive = true;
             //guide.projects = new List<Project>();
-            if (guide.isHeadOfDepratment)
-                guide.userType = UserType.HeadOfDeprament;
-            else
-                guide.userType = UserType.Guid;
+            //if (guide.isHeadOfDepratment)
+            //    guide.userType = UserType.HeadOfDeprament;
+            //else
+            //    guide.userType = UserType.Guid;
             try
             {
                 _guide.InsertOne(guide);
@@ -120,8 +120,7 @@ namespace LearnSchoolApp.Services
             var filter = Builders<Guide>.Filter.Where(_ => _.userId == id);
             var update = Builders<Guide>.Update
                         .Set(_ => _.email, guide.email)
-                        .Set(_ => _.phone, guide.phone)
-                        .Set(_ => _.isHeadOfDepratment, guide.isHeadOfDepratment);
+                        .Set(_ => _.phone, guide.phone);
             var options = new FindOneAndUpdateOptions<Guide>();
             _guide.FindOneAndUpdate(filter, update, options);
         }

@@ -78,6 +78,7 @@ namespace LearnSchoolApp.Services
         public HeadOfDeprament Create(HeadOfDeprament headOfDeprament)
         {
             headOfDeprament.userType = UserType.HeadOfDeprament;
+            headOfDeprament.isGuid = false;
             headOfDeprament.isActive = true;
             try
             {
@@ -116,8 +117,8 @@ namespace LearnSchoolApp.Services
             var filter = Builders<HeadOfDeprament>.Filter.Where(_ => _.userId == id);
             var update = Builders<HeadOfDeprament>.Update
                         .Set(_ => _.email, headOfDeprament.email)
-                        .Set(_ => _.name, headOfDeprament.name)
-                        .Set(_ => _.username, headOfDeprament.username);
+                        .Set(_ => _.phone, headOfDeprament.phone)
+                        .Set(_ => _.isGuid, headOfDeprament.isGuid);
             var options = new FindOneAndUpdateOptions<HeadOfDeprament>();
             _headOfDeprament.FindOneAndUpdate(filter, update, options);
         }

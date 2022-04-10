@@ -25,16 +25,16 @@
                             if (User.Identity.IsAuthenticated)
                             {
                                 <li class="nav-item">
-                                    <a class="text-dark">@User.Identity.Name</a>
+                                    <a class="nav-link text-dark">@User.Identity.Name</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Sign out</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">להתנתק</a>
                                 </li>
                             }
                             else
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Sign in</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">להתחבר</a>
                                 </li>
                             }
                         }
@@ -51,9 +51,11 @@
                         @{
                             if (User.IsInRole("Admin"))
                             {
-
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Manager" asp-action="Index">מנהלים</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="HeadOfDeprament" asp-action="Index">ראשי מגמה</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Guide" asp-action="Index">מנחים</a>
@@ -63,11 +65,17 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="Index">פרויקטים</a>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Manager" asp-action="MyIndex">פרופיל שלי</a>
+                                </li>
                                 </li>
                             }
                             if (User.IsInRole("HeadOfDeprament"))
                             {
                                 <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="HeadOfDeprament" asp-action="Index">ראשי מגמה</a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Guide" asp-action="Index">מנחים</a>
                                 </li>
                                 <li class="nav-item">
@@ -76,11 +84,14 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="Index">פרויקטים</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="HeadOfDeprament" asp-action="MyIndex">פרופיל שלי</a>
+                                </li>
                             }
                             if (User.IsInRole("Guid"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Guide" asp-action="MyStudents">My Student</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Guide" asp-action="MyIndex">פרופיל שלי</a>
                                 </li>
                             }
                             if (User.IsInRole("Student"))

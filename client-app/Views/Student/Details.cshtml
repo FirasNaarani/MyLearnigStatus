@@ -6,12 +6,6 @@
         @Html.ActionLink("עריכה", "Edit", new { id = Model.userId }) |
         @Html.ActionLink("מחיקה", "Delete", new { id = Model.userId })
     </div>
-    @if (TempData["AlertMessage"] != null)
-    {
-        <div class="alert alert-success">
-            <i>@TempData["AlertMessage"]</i>
-        </div>
-    }
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -60,7 +54,16 @@
             פרויקט
         </dt>
         <dd class="col-sm-10">
-            @Html.ActionLink("פרטים", "GetProject", new { id = Model.userId })
+            @{
+                if (Model.isProject)
+                {
+                    @Html.ActionLink("פרטים", "GetProject", new { id = Model.userId })
+                }
+                else
+                {
+                    <i><b><label><ins>עדיין לא התקיים פרויקט</ins></label></b></i>
+                }
+            }
         </dd>
     </dl>
 </div>

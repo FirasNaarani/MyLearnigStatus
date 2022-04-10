@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace LearnSchoolApp.Controllers
@@ -32,6 +33,32 @@ namespace LearnSchoolApp.Controllers
             return View(res);
         }
 
+        [ActionName("MyIndex")]
+        [Authorize(Roles = "Admin")]
+        public ActionResult MyIndex()
+        {
+            var AdminID = GetAdminID();
+            var currentAdmin = _managerService.Get(AdminID);
+            if (currentAdmin != null)
+            {
+                return View(currentAdmin);
+            }
+            return RedirectToAction("MyIndex");
+        }
+
+        private string GetAdminID()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            if (identity != null)
+            {
+                var userClaims = identity.Claims;
+
+                return userClaims.FirstOrDefault(o => o.Type == ClaimTypes.SerialNumber)?.Value;
+            }
+            return null;
+        }
+
         [ActionName("Details")]
         [Authorize(Roles = "Admin")]
         public ActionResult Details(string id)
@@ -56,11 +83,8 @@ namespace LearnSchoolApp.Controllers
         {
             try
             {
-                //if (ModelState.IsValid)
-                {
-                    _managerService.Create(collection);
-
-                }
+                _managerService.Create(collection);
+                TempData["AlertMessage"] = $"הוספת מנהל בוצעה בהצלחה";
                 return RedirectToAction("Index");
             }
             catch (Exception e)
@@ -91,11 +115,8 @@ namespace LearnSchoolApp.Controllers
         {
             try
             {
-                //if (ModelState.IsValid)
-                {
-                    _managerService.Update(collection.Id, collection);
-                    Console.WriteLine("Updated");
-                }
+                _managerService.Update(collection.Id, collection);
+                TempData["AlertMessage"] = $"עריכת הניתונים בוצעה בהצלחה";
                 return RedirectToAction("Index");
             }
             catch
@@ -126,11 +147,8 @@ namespace LearnSchoolApp.Controllers
         {
             try
             {
-                //if (ModelState.IsValid)
-                {
-                    _managerService.UpdatePassword(id, collection);
-                    Console.WriteLine("Updated");
-                }
+                _managerService.UpdatePassword(id, collection);
+                TempData["AlertMessage"] = $"עריכת הניתונים בוצעה בהצלחה";
                 return RedirectToAction("Index");
             }
             catch

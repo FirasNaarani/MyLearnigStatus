@@ -10,6 +10,7 @@ namespace LearnSchoolApp.Services
     public interface IProjectService
     {
         List<Project> Get();
+        List<Project> GetProjects(string guidId);
         Boolean isDuplicateProject(string name, string studentId);
         Project Get(string id);
         Project GetMyProject(string id);
@@ -31,6 +32,12 @@ namespace LearnSchoolApp.Services
         public List<Project> Get()
         {
             var Projects = _project.Find(m => m.isActive).ToList();
+            return Projects;
+        }
+
+        public List<Project> GetProjects(string guidId)
+        {
+            var Projects = _project.Find(m => m.guideId == guidId).ToList();
             return Projects;
         }
 

@@ -10,6 +10,9 @@ namespace LearnSchoolApp.Entities
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
+        [Required(ErrorMessage = "Is Guid Required")]
+        public bool isGuid { get; set; }
+
         public bool isActive { get; set; }
     }
 }

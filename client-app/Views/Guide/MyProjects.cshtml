@@ -1,0 +1,88 @@
+﻿@model IEnumerable<LearnSchoolApp.Entities.Project>
+
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                פרויקט מס
+            </th>
+            <th>
+                שם פרויקט
+            </th>
+            <th>
+                סטודנטים בפרויקט
+            </th>
+            <th>
+                פרויקט סטטוס
+            </th>
+            <th>
+                הנחיות ראש המגמה
+            </th>
+            <th>
+                הנחיות המנחה
+            </th>
+            <th>
+                הצעת פרויקט
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                <ol>
+                    <li>
+                        <details>
+                            <summary>@Html.DisplayFor(modelItem => item.studentName)</summary>
+                            @Html.DisplayFor(modelItem => item.studentId)
+                        </details>
+                    </li>
+                    @if (item.assistantStudentName != null)
+                    {
+                        <li>
+                            <details>
+                                <summary>@Html.DisplayFor(modelItem => item.assistantStudentName)</summary>
+                                @Html.DisplayFor(modelItem => item.assistantStudentId)
+                            </details>
+                        </li>
+                    }
+                </ol>
+            </td>
+            <td>
+                @{
+                    if (item.isPass)
+                    {
+                        <i><b><label><ins>מאושר</ins></label></b></i>
+                    }
+                    else
+                    {
+                        <i><b><label><ins>לא מאושר</ins></label></b></i>
+                    }
+                }
+            </td>
+            <td>
+                X
+            </td>
+            <td>
+                Y
+            </td>
+            <td>
+                Z
+            </td>
+            <td>
+                @Html.ActionLink("פרטים", "GetProject", new { id = item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
