@@ -1,0 +1,35 @@
+﻿@model LearnSchoolApp.Entities.Project
+
+<h4>פרויקט</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditGuide">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <fieldset>
+                <legend>מנחה</legend>
+                <div class="form-group">
+                    <label asp-for="guideId" class="control-label">ת"ז</label>
+                    <input asp-for="guideId" class="form-control" />
+                    <span asp-validation-for="guideId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="guideName" class="control-label">שם</label>
+                    <input asp-for="guideName" class="form-control" />
+                    <span asp-validation-for="guideName" class="text-danger"></span>
+                </div>
+            </fieldset>
+            <div class="form-group">
+                <input type="submit" value="שמירה" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">חזרה לרשימה</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<LearnSchoolApp.Entities.Status>
+
+
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th>
+                'מס
+            </th>
+            <th>
+                תאריך
+            </th>
+            <th>
+                סטטוס
+            </th>
+            <th>
+                מאושר
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.currentStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isPass)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+

@@ -4,6 +4,7 @@ using LearnSchoolApp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,6 +74,56 @@ namespace LearnSchoolApp.Controllers
             }
             List<Project> res = ls.ToList();
             return View(res);
+        }
+
+        [ActionName("ProjectStatus")]
+        [Authorize]
+        public ActionResult ProjectStatus(string id)
+        {
+            var ls = _projectService.GetGuidStatuses(id);
+            if (ls == null)
+            {
+                return NotFound();
+            }
+            return View(ls);
+        }
+
+        [ActionName("CreateStauts")]
+        [Authorize(Roles = "Guid")]
+        public IActionResult CreateStauts(string id)
+        {
+            Status status = new Status { projectId = id, userId = GetGuideID() };
+            return View(status);
+        }
+
+        [HttpPost]
+        [ActionName("CreateStauts")]
+        [Authorize(Roles = "Guid")]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateStauts(Status collection)
+        {
+            try
+            {
+                if(collection.currentStatus != null)
+                {
+                    collection.date = DateTime.UtcNow;
+                    collection.userId = GetGuideID();
+                    var project = _projectService.GetProject(collection.projectId);
+                    _projectService.CreateStauts(project, collection);
+                    _projectService.UpdateGuideStatuses(project.Id, project);
+                    TempData["AlertMessage"] = $"הוספת הנחיה בוצעה בהצלחה";
+
+                }
+                else
+                {
+                    TempData["AlertMessage"] = $"לא ניתן להוסיף הנחיה ריקה";
+                }
+                return Redirect("~/Guide/MyProjects/" + GetGuideID());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new Result<Guide>(e.Message));
+            }
         }
 
         [ActionName("Details")]

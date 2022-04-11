@@ -1,9 +1,24 @@
 ﻿@model IEnumerable<LearnSchoolApp.Entities.Project>
 
-@*<p>
-    <a asp-action="Create">Create New</a>
-</p>*@
-<table class="table">
+<style>
+    aside {
+        width: 25%;
+        padding-left: 15px;
+        margin-left: 15px;
+        float: right;
+        font-style: italic;
+        background-color: lightgray;
+    }
+</style>
+
+@if (TempData["AlertMessage"] != null)
+{
+    <div class="alert alert-success">
+        <i>@TempData["AlertMessage"]</i>
+    </div>
+}
+
+<table class="table text-center">
     <thead>
         <tr>
             <th>
@@ -31,58 +46,57 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-            <td>
-                <ol>
-                    <li>
-                        <details>
-                            <summary>@Html.DisplayFor(modelItem => item.studentName)</summary>
-                            @Html.DisplayFor(modelItem => item.studentId)
-                        </details>
-                    </li>
-                    @if (item.assistantStudentName != null)
-                    {
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    <ol>
                         <li>
                             <details>
-                                <summary>@Html.DisplayFor(modelItem => item.assistantStudentName)</summary>
-                                @Html.DisplayFor(modelItem => item.assistantStudentId)
+                                <summary>@Html.DisplayFor(modelItem => item.studentName)</summary>
+                                @Html.DisplayFor(modelItem => item.studentId)
                             </details>
                         </li>
+                        @if (item.assistantStudentName != null)
+                        {
+                            <li>
+                                <details>
+                                    <summary>@Html.DisplayFor(modelItem => item.assistantStudentName)</summary>
+                                    @Html.DisplayFor(modelItem => item.assistantStudentId)
+                                </details>
+                            </li>
+                        }
+                    </ol>
+                </td>
+                <td>
+                    @{
+                        if (item.isPass)
+                        {
+                            <i><b><label><ins>מאושר</ins></label></b></i>
+                        }
+                        else
+                        {
+                            <i><b><label><ins>לא מאושר</ins></label></b></i>
+                        }
                     }
-                </ol>
-            </td>
-            <td>
-                @{
-                    if (item.isPass)
-                    {
-                        <i><b><label><ins>מאושר</ins></label></b></i>
-                    }
-                    else
-                    {
-                        <i><b><label><ins>לא מאושר</ins></label></b></i>
-                    }
-                }
-            </td>
-            <td>
-                X
-            </td>
-            <td>
-                Y
-            </td>
-            <td>
-                Z
-            </td>
-            <td>
-                @Html.ActionLink("פרטים", "GetProject", new { id = item.Id })
-            </td>
-        </tr>
-}
+                </td>
+                <td>
+                    X
+                </td>
+                <td>
+                    <div>@Html.ActionLink("פרטים", "ProjectStatus", new { id = item.Id })</div>
+                    <div>@Html.ActionLink("הוספת הנחיה", "CreateStauts", new { id = item.Id })</div>
+                </td>
+                <td>
+                    Z
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

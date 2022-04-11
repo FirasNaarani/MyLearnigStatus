@@ -3,7 +3,8 @@
 <div>
     <h4>פרויקט</h4>
     <div>
-        @Html.ActionLink("עריכה", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("עריכת סטודנתים", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("עריכת מנחה", "EditGuide", new { id = Model.Id }) |
         @Html.ActionLink("מחיקה", "Delete", new { id = Model.Id })
     </div>
     <hr />

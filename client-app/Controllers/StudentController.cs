@@ -93,6 +93,18 @@ namespace LearnSchoolApp.Controllers
             return View(_guideService.GetMyGuide(id));
         }
 
+        [ActionName("ProjectStatus")]
+        [Authorize]
+        public ActionResult ProjectStatus(string id)
+        {
+            var ls = _projectService.GetGuidStatuses(id);
+            if (ls == null)
+            {
+                return NotFound();
+            }
+            return View(ls);
+        }
+
         [ActionName("Create")]
         [Authorize(Roles = "Admin,HeadOfDeprament")]
         public IActionResult Create()
@@ -174,6 +186,43 @@ namespace LearnSchoolApp.Controllers
             {
                 _studentService.UpdatePassword(id, collection);
                 TempData["AlertMessage"] = $"עריכת הניתונים בוצעה בהצלחה";
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View(collection);
+            }
+        }
+
+        [ActionName("EditProject")]
+        [Authorize(Roles = "Admin,Student")]
+        public ActionResult EditProject(int statusId,string projectId)
+        {
+            if (projectId == null)
+                return BadRequest();
+
+            Project project = _projectService.GetProject(projectId);
+
+            if (project == null)
+                return NotFound();
+            Status status = _projectService.EditGuidStatus(projectId, statusId);
+
+            return View(status);
+        }
+
+        [HttpPost]
+        [ActionName("EditProject")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProject(Status collection)
+        {
+            try
+            {
+                if(collection != null)
+                {
+
+                }
+                //_projectService.UpdatePassword(id, collection);
+                //TempData["AlertMessage"] = $"עריכת הניתונים בוצעה בהצלחה";
                 return RedirectToAction("Index");
             }
             catch

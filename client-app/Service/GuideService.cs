@@ -13,13 +13,14 @@ namespace LearnSchoolApp.Services
     {
         List<Guide> Get();
         Boolean isValidCredentials(string username, string password);
+        Boolean isValidGuide(string userId, string name);
         Guide Authenticate(string username);
         Guide Get(string id);
         Guide GetMyGuide(string id);
-        Guide Create(Guide student);
+        Guide Create(Guide guide);
         void UpdatePassword(string id, Guide student);
         void Delete(string id);
-        void Update(string id, Guide student);
+        void Update(string id, Guide guide);
     }
     public class GuideService : IGuideService
     {
@@ -57,6 +58,12 @@ namespace LearnSchoolApp.Services
             return Guide != null;
         }
 
+        public Boolean isValidGuide(string userId, string name)
+        {
+            Guide student = _guide.Find(m => m.userId == userId && m.name == name && m.isActive == true).FirstOrDefault();
+            return student != null;
+        }
+
         public Guide Authenticate(string username)
         {
             var Guide = _guide.Find<Guide>(guide => guide.username == username).FirstOrDefault();
@@ -78,11 +85,8 @@ namespace LearnSchoolApp.Services
         public Guide Create(Guide guide)
         {
             guide.isActive = true;
-            //guide.projects = new List<Project>();
-            //if (guide.isHeadOfDepratment)
-            //    guide.userType = UserType.HeadOfDeprament;
-            //else
-            //    guide.userType = UserType.Guid;
+            guide.userType = UserType.Guid;
+            guide.projects = new List<Project>();
             try
             {
                 _guide.InsertOne(guide);

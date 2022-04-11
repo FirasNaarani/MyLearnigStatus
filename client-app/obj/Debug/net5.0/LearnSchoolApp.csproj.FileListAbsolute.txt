@@ -303,3 +303,9 @@ C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\HeadOfDepramen
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\HeadOfDeprament\EditPassword.cshtml.g.cs
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\HeadOfDeprament\MyIndex.cshtml.g.cs
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Manager\MyIndex.cshtml.g.cs
+C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Guide\MyProjects.cshtml.g.cs
+C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Project\EditGuide.cshtml.g.cs
+C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Guide\ProjectStatus.cshtml.g.cs
+C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Guide\CreateStauts.cshtml.g.cs
+C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Student\ProjectStatus.cshtml.g.cs
+C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Student\EditProject.cshtml.g.cs

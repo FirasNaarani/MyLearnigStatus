@@ -62,5 +62,20 @@
                 }
             }
         </dd>
+        <dt class="col-sm-2">
+            הנחיות המנחה
+        </dt>
+        <dd class="col-sm-10">
+            @{
+                if (Model.guidingStatuses.Count() > 0)
+                {
+                    @Html.ActionLink("פרטים", "ProjectStatus", new { id = Model.Id })
+                }
+                else
+                {
+                    <i><b><label><ins>עדדין אין הנחיות</ins></label></b></i>
+                }
+            }
+        </dd>
     </dl>
 </div>

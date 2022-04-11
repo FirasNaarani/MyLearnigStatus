@@ -70,21 +70,42 @@ namespace LearnSchoolApp.Controllers
         {
             try
             {
-
-                if (_studentService.isValidProject(collection.studentId) || _studentService.isValidProject(collection.assistantStudentId))
+                if (_studentService.isValidStudent(collection.studentId, collection.studentName))
                 {
                     if (_studentService.isValidProject(collection.studentId))
-                        _studentService.isProject(collection.studentId, collection.isPass);
+                    {
+                        if (collection.assistantStudentId != null && collection.assistantStudentName != null)
+                        {
+                            if (_studentService.isValidStudent(collection.assistantStudentId, collection.assistantStudentName))
+                            {
+                                if (_studentService.isValidProject(collection.assistantStudentId))
+                                {
+                                    _studentService.isProject(collection.assistantStudentId, true);
+                                }
+                                else
+                                {
+                                    TempData["AlertMessage"] = $"לסטודנט השותף קיים פרויקט";
+                                    return RedirectToAction("Index");
+                                }
 
-                    if (_studentService.isValidProject(collection.assistantStudentId))
-                        _studentService.isProject(collection.assistantStudentId, collection.isPass);
-
-                    _projectService.Create(collection);
-                    TempData["AlertMessage"] = $"הוספת פרויקט בוצעה בהצלחה";
-
-                    return RedirectToAction("Index");
+                            }
+                            else
+                            {
+                                TempData["AlertMessage"] = $"סטודנט השותף לא קיים במערכת";
+                                return RedirectToAction("Index");
+                            }
+                        }
+                        _studentService.isProject(collection.studentId, true);
+                        _projectService.Create(collection);
+                        TempData["AlertMessage"] = $"הוספת פרויקט בוצעה בהצלחה";
+                        return RedirectToAction("Index");
+                    }
                 }
-                return StatusCode(403, "יש לסטודנט פרויקט קיים במערכת");
+                else
+                {
+                    TempData["AlertMessage"] = $"סטודנט הראשי לא קיים במערכת";
+                }
+                return RedirectToAction("Index");
             }
             catch (Exception e)
             {
@@ -99,12 +120,12 @@ namespace LearnSchoolApp.Controllers
             if (id == null)
                 return BadRequest();
 
-            Project student = _projectService.Get(id);
+            Project project = _projectService.Get(id);
 
-            if (student == null)
+            if (project == null)
                 return NotFound();
 
-            return View(student);
+            return View(project);
         }
 
         [HttpPost]
@@ -114,19 +135,35 @@ namespace LearnSchoolApp.Controllers
         {
             try
             {
-                if (_studentService.isValidProject(collection.studentId))
-                    _studentService.isProject(collection.studentId, collection.isPass);
+                Console.WriteLine(collection.assistantStudentId);
+                if (collection.assistantStudentId != null && collection.assistantStudentName != null)
+                {
+                    if (_studentService.isValidStudent(collection.assistantStudentId, collection.assistantStudentName))
+                    {
+                        if (_studentService.isValidProject(collection.assistantStudentId))
+                        {
+                            _studentService.isProject(collection.assistantStudentId, collection.isPass);
+                        }
+                        else
+                        {
+                            TempData["AlertMessage"] = $"לסטודנט השותף קיים פרויקט";
+                            return RedirectToAction("Index");
+                        }
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = $"סטודנט השותף לא קיים במערכת";
+                        return RedirectToAction("Index");
+                    }
+                }
                 else
-                    TempData["AlertMessage"] = $"לסטודנט הראשי קיים פרויקט";
-                
-                if (_studentService.isValidProject(collection.assistantStudentId))
-                    _studentService.isProject(collection.assistantStudentId, collection.isPass);
-
-                else
-                    TempData["AlertMessage"] = $"לסטודנט השותף קיים פרויקט";
-
+                {
+                    _studentService.isProject(collection.assistantStudentId, false);
+                }
+                _studentService.isProject(collection.studentId, collection.isPass);
                 _projectService.Update(collection.Id, collection);
                 TempData["AlertMessage"] = $"עריכת הניתונים בוצעה בהצלחה";
+
                 return RedirectToAction("Index");
             }
             catch
@@ -135,8 +172,57 @@ namespace LearnSchoolApp.Controllers
             }
         }
 
+        [ActionName("EditGuide")]
+        [Authorize(Roles = "Admin,HeadOfDeprament")]
+        public ActionResult EditGuide(string id)
+        {
+            if (id == null)
+                return BadRequest();
+
+            Project project = _projectService.Get(id);
+
+            if (project == null)
+                return NotFound();
+
+            return View(project);
+        }
+
+        [HttpPost]
+        [ActionName("EditGuide")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditGuide(Project collection)
+        {
+            try
+            {
+                if (collection.guideId != null && collection.guideName!= null)
+                {
+                    if (_guideService.isValidGuide(collection.guideId, collection.guideName))
+                    {
+                        _projectService.UpdateGuide(collection.Id, collection);
+                        TempData["AlertMessage"] = $"עריכת הניתונים בוצעה בהצלחה";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["AlertMessage"] = $"המנחה לא קיים במערכת";
+                        return RedirectToAction("Index");
+                    }
+                }
+                else
+                {
+                    _projectService.UpdateGuide(collection.Id, collection);
+                    TempData["AlertMessage"] = $"המנחה נמחק בהצלחה";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch
+            {
+                return View(collection);
+            }
+        }
+
         [ActionName("Delete")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,HeadOfDeprament")]
         public ActionResult Delete(string id)
         {
             if (id == null)

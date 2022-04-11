@@ -61,6 +61,22 @@
                 }
             }
         </dd>
+        @*<dt class="col-sm-2">
+            פרויקט
+        </dt>
+        <dd class="col-sm-10">
+            @{
+                if (Model.isProject)
+                {
+                    @Html.ActionLink("פרטים", "ProjectStatus", new { id = Model.userId })
+                }
+                else
+                {
+                    <i><b><label><ins>אין הנחיות</ins></label></b></i>
+                }
+            }
+        </dd>*@
+        @*<div>@Html.ActionLink("פרטים", "ProjectStatus", new { id = item.Id })</div>*@
     </dl>
 </div>
 

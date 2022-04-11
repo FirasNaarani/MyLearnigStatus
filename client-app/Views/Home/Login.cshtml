@@ -5,20 +5,93 @@
     var error = TempData["Error"] as string;
 }
 
-<h1>להתחבר</h1>
-@if (!string.IsNullOrEmpty(error))
-{
-    <h2 class="alert-danger text-center" style="padding:1em">@error</h2>
-}
-<form class="text-center" method="post">
-    <input type="text" name="username" placeholder="Username" />
-    <input type="password" name="password" placeholder="Password" />
-    <select name="userType" id="userType">
-        <option value="Student">Student</option>
-        <option value="Guid">Guid</option>
-        <option value="HeadOfDeprament">Head Of Deprament</option>
-        <option value="Admin">Admin</option>
-    </select>
-    <br /><br />
-    <input type="submit" value="התחברות" />
-</form>
+<html>
+    <head>
+
+        <style>
+            body {
+                background-image: url(https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm422-054-x.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=a276d1048db19a6342f9c82b1991f9c0)
+            }
+            
+            footer {
+                background-color: #ddc4a8de;
+            }
+            
+            form {
+                width: 35%;
+                border: 3px solid #f1f1f1;
+                background-color: cadetblue;
+                padding: 2em;
+            }
+
+            input[type=text], input[type=password] {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                box-sizing: border-box;
+            }
+
+            button {
+                background-color: #04AA6D;
+                color: white;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                cursor: pointer;
+                width: 100%;
+            }
+
+                button:hover {
+                    opacity: 0.8;
+                }
+
+
+            .imgcontainer {
+                text-align: center;
+                margin: 24px 0 12px 0;
+            }
+
+            img.avatar {
+                width: 20%;
+                border-radius: 20%;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>להתחבר</h1>
+        <center>
+            @if (!string.IsNullOrEmpty(error))
+            {
+                <h2 class="alert-danger text-center" style="padding:1em">@error</h2>
+            }
+            <form class="text-center" method="post">
+                <div class="imgcontainer">
+                    <img src="https://i.pinimg.com/474x/d7/52/45/d75245ef083eb6d380f4e37dd62994cb.jpg" class="avatar">
+                </div>
+
+                <div>
+                    <label for="Id"><b> שם משתמש </b></label>
+                    <input type="text" name="username" placeholder="שם משתמש" />
+
+                    <label for="psw"><b>סיסמה</b></label>
+                    <input type="password" name="password" placeholder="סיסמה" />
+
+                    <label for="type"><b>סוג המשתמש</b></label>
+                    <br />
+                    <select name="userType" id="userType">
+                        <option value="Student">סטודנט</option>
+                        <option value="Guid">מנחה</option>
+                        <option value="HeadOfDeprament">ראש מגמה</option>
+                        <option value="Admin">מנהל</option>
+                    </select>
+                    <br /><br />
+                    <button type="submit">התחברות</button>
+                </div>
+            </form>
+        </center>
+
+    </body>
+
+</html>
