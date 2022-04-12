@@ -183,15 +183,7 @@ namespace LearnSchoolApp.Services
 
         public void UpdateStatus(string id, Status status)
         {
-            //var p = _project.Find<Project>(m => m.Id == id).FirstOrDefault();
-            //var l = p.guidingStatuses;
-            //var s = l.Find(m => m.Id == status.Id);
-            
-            //var filter = Builders<Project>.Filter.Where(_ => _.Id == id);
-            //var update = Builders<Status>.Update
-            //            .Set(_ => _.isPass, (p.guidingStatuses).Where(m => m.Id == status.Id), status.isPass);
-            //var options = new FindOneAndUpdateOptions<Status>();
-            //_project.FindOneAndUpdate(filter, update, options);
+
         }
     }
 }

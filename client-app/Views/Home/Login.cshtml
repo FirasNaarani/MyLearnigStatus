@@ -6,92 +6,115 @@
 }
 
 <html>
-    <head>
+<head>
 
-        <style>
-            body {
-                background-image: url(https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm422-054-x.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=a276d1048db19a6342f9c82b1991f9c0)
-            }
-            
-            footer {
-                background-color: #ddc4a8de;
-            }
-            
-            form {
-                width: 35%;
-                border: 3px solid #f1f1f1;
-                background-color: cadetblue;
-                padding: 2em;
+    <style>
+        body {
+            background-image: url(https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm422-054-x.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=a276d1048db19a6342f9c82b1991f9c0);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        footer {
+            background-color: #ddc4a8de;
+        }
+
+        form {
+            width: 35%;
+            border: 3px solid #f1f1f1;
+            background-color: cadetblue;
+            padding: 2em;
+        }
+
+        h1, b {
+            text-shadow: 1px 1px 10px white;
+        }
+
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        select {
+            text-align: center;
+        }
+
+        button {
+            background-color: #04AA6D;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 10px 10px #033740;
+            border-radius: 1em;
+        }
+
+            button:hover {
+                opacity: 0.8;
             }
 
-            input[type=text], input[type=password] {
-                width: 100%;
-                padding: 12px 20px;
-                margin: 8px 0;
-                display: inline-block;
-                border: 1px solid #ccc;
-                box-sizing: border-box;
-            }
 
-            button {
-                background-color: #04AA6D;
-                color: white;
-                padding: 14px 20px;
-                margin: 8px 0;
-                border: none;
-                cursor: pointer;
-                width: 100%;
-            }
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+        }
 
-                button:hover {
-                    opacity: 0.8;
-                }
+        img.avatar {
+            width: 20%;
+            border-radius: 20%;
+            box-shadow: 1px 1px 20px #acf1e5;
+        }
 
-
-            .imgcontainer {
-                text-align: center;
-                margin: 24px 0 12px 0;
-            }
-
-            img.avatar {
-                width: 20%;
-                border-radius: 20%;
-            }
-        </style>
-    </head>
-    <body>
+        form {
+            border-radius: 1em;
+            box-shadow: 0 10px 10px #033740;
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align:center;">
         <h1>להתחבר</h1>
-        <center>
-            @if (!string.IsNullOrEmpty(error))
-            {
-                <h2 class="alert-danger text-center" style="padding:1em">@error</h2>
-            }
-            <form class="text-center" method="post">
-                <div class="imgcontainer">
-                    <img src="https://i.pinimg.com/474x/d7/52/45/d75245ef083eb6d380f4e37dd62994cb.jpg" class="avatar">
-                </div>
+        <hr />
+    </div>
+    <center>
+        @if (!string.IsNullOrEmpty(error))
+        {
+            <h2 class="alert-danger text-center" style="padding:1em">@error</h2>
+        }
+        <form class="text-center" method="post">
+            <div class="imgcontainer">
+                <img src="https://i.pinimg.com/474x/d7/52/45/d75245ef083eb6d380f4e37dd62994cb.jpg" class="avatar">
+            </div>
 
-                <div>
-                    <label for="Id"><b> שם משתמש </b></label>
-                    <input type="text" name="username" placeholder="שם משתמש" />
+            <div>
+                <label for="Id"><b> שם משתמש </b></label>
+                <input type="text" name="username" placeholder="שם משתמש" />
 
-                    <label for="psw"><b>סיסמה</b></label>
-                    <input type="password" name="password" placeholder="סיסמה" />
+                <label for="psw"><b>סיסמה</b></label>
+                <input type="password" name="password" placeholder="סיסמה" />
 
-                    <label for="type"><b>סוג המשתמש</b></label>
-                    <br />
-                    <select name="userType" id="userType">
-                        <option value="Student">סטודנט</option>
-                        <option value="Guid">מנחה</option>
-                        <option value="HeadOfDeprament">ראש מגמה</option>
-                        <option value="Admin">מנהל</option>
-                    </select>
-                    <br /><br />
-                    <button type="submit">התחברות</button>
-                </div>
-            </form>
-        </center>
+                <label for="type"><b>סוג המשתמש</b></label>
+                <br />
+                <select name="userType" id="userType">
+                    <option value="Student">סטודנט</option>
+                    <option value="Guid">מנחה</option>
+                    <option value="HeadOfDeprament">ראש מגמה</option>
+                    <option value="Admin">מנהל</option>
+                </select>
+                <br /><br />
+                <button type="submit">התחברות</button>
+            </div>
+        </form>
+    </center>
 
-    </body>
+</body>
 
 </html>

@@ -1,70 +1,50 @@
-﻿@model LearnSchoolApp.Entities.Project
+﻿@model LearnSchoolApp.Entities.Status
 
-<h4>Project</h4>
+<h4>סטטוס</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="EditProject">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group" hidden>
                 <label asp-for="Id" class="control-label"></label>
                 <input asp-for="Id" class="form-control" />
                 <span asp-validation-for="Id" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="name" class="control-label"></label>
-                <input asp-for="name" class="form-control" />
-                <span asp-validation-for="name" class="text-danger"></span>
+            <div class="form-group" hidden>
+                <label asp-for="projectId" class="control-label"></label>
+                <input asp-for="projectId" class="form-control" />
+                <span asp-validation-for="projectId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="guideId" class="control-label"></label>
-                <input asp-for="guideId" class="form-control" />
-                <span asp-validation-for="guideId" class="text-danger"></span>
+            <div class="form-group" hidden>
+                <label asp-for="userId" class="control-label"></label>
+                <input asp-for="userId" class="form-control" />
+                <span asp-validation-for="userId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="guideName" class="control-label"></label>
-                <input asp-for="guideName" class="form-control" />
-                <span asp-validation-for="guideName" class="text-danger"></span>
+            <div class="form-group" hidden>
+                <label asp-for="currentStatus" class="control-label"></label>
+                <input asp-for="currentStatus" class="form-control" />
+                <span asp-validation-for="currentStatus" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="studentId" class="control-label"></label>
-                <input asp-for="studentId" class="form-control" />
-                <span asp-validation-for="studentId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="studentName" class="control-label"></label>
-                <input asp-for="studentName" class="form-control" />
-                <span asp-validation-for="studentName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="assistantStudentId" class="control-label"></label>
-                <input asp-for="assistantStudentId" class="form-control" />
-                <span asp-validation-for="assistantStudentId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="assistantStudentName" class="control-label"></label>
-                <input asp-for="assistantStudentName" class="form-control" />
-                <span asp-validation-for="assistantStudentName" class="text-danger"></span>
+            <div class="form-group" hidden>
+                <label asp-for="date" class="control-label"></label>
+                <input asp-for="date" class="form-control" />
+                <span asp-validation-for="date" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="isActive" /> @Html.DisplayNameFor(model => model.isActive)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="isPass" /> @Html.DisplayNameFor(model => model.isPass)
+                    <input class="form-check-input" asp-for="isPass" /> אני מאשר
                 </label>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="עדכן" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    @Html.ActionLink("חזרה לרשימת ההנחיות", "ProjectStatus", new { id = Model.projectId })
 </div>
 
 @section Scripts {

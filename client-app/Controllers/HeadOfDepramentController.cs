@@ -34,6 +34,19 @@ namespace LearnSchoolApp.Controllers
             return View(res);
         }
 
+        [ActionName("MyInfo")]
+        [Authorize(Roles = "HeadOfDeprament")]
+        public ActionResult MyInfo()
+        {
+            var HeadOfDepramentID = GetHeadOfDepramentID();
+            var currentHeadOfDeprament = _headOfDeprament.Get(HeadOfDepramentID);
+            if (currentHeadOfDeprament != null)
+            {
+                return View(currentHeadOfDeprament);
+            }
+            return RedirectToAction("MyInfo");
+        }
+
         [ActionName("MyIndex")]
         [Authorize(Roles = "HeadOfDeprament")]
         public ActionResult MyIndex()

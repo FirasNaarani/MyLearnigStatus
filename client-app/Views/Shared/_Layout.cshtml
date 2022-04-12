@@ -1,5 +1,5 @@
 ﻿@*@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager*@
+    @inject SignInManager<IdentityUser> SignInManager*@
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,15 +20,98 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between flex-sm-row-reverse">
                     <ul class="navbar-nav">
-                        
+                        @{
+                            if (User.IsInRole("Admin"))
+                            {
+                                @*<li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Manager" asp-action="Index">מנהלים</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="HeadOfDeprament" asp-action="Index">ראשי מגמה</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Guide" asp-action="Index">מנחים</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">סטודנטים</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="Index">פרויקטים</a>
+                                    </li>*@
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Manager" asp-action="MyIndex">לוח הבקרה</a>
+                                </li>
+                            }
+                            if (User.IsInRole("HeadOfDeprament"))
+                            {
+                                @*<li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="HeadOfDeprament" asp-action="Index">ראשי מגמה</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Guide" asp-action="Index">מנחים</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">סטודנטים</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="Index">פרויקטים</a>
+                                    </li>*@
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="HeadOfDeprament" asp-action="MyIndex">לוח הבקרה</a>
+                                </li>
+                            }
+                            if (User.IsInRole("Guid"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Guide" asp-action="MyIndex">לוח הבקרה</a>
+                                </li>
+                            }
+                            if (User.IsInRole("Student"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="MyIndex">לוח הבקרה</a>
+                                </li>
+                            }
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">אדות</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">ראשי</a>
+                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav flex-grow-1">
+
                         @{
                             if (User.Identity.IsAuthenticated)
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark">@User.Identity.Name</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">להתנתק</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">להתנתק</a>
+                                    @{
+                                        if (User.IsInRole("Admin"))
+                                        {
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="Manager" asp-action="MyInfo">@User.Identity.Name</a>
+                                        }
+
+                                        if (User.IsInRole("HeadOfDeprament"))
+                                        {
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="HeadOfDeprament" asp-action="MyInfo">@User.Identity.Name</a>
+                                        }
+
+                                        if (User.IsInRole("Guid"))
+                                        {
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="Guide" asp-action="MyInfo">@User.Identity.Name</a>
+                                        }
+
+                                        if (User.IsInRole("Student"))
+                                        {
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="MyInfo">@User.Identity.Name</a>
+                                        }
+                                    }
                                 </li>
                             }
                             else
@@ -39,68 +122,7 @@
                             }
                         }
 
-                        
-                    </ul>
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">ראשי</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">אדות</a>
-                        </li>
-                        @{
-                            if (User.IsInRole("Admin"))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Manager" asp-action="Index">מנהלים</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="HeadOfDeprament" asp-action="Index">ראשי מגמה</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Guide" asp-action="Index">מנחים</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">סטודנטים</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="Index">פרויקטים</a>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Manager" asp-action="MyIndex">פרופיל שלי</a>
-                                </li>
-                                </li>
-                            }
-                            if (User.IsInRole("HeadOfDeprament"))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="HeadOfDeprament" asp-action="Index">ראשי מגמה</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Guide" asp-action="Index">מנחים</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">סטודנטים</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="Index">פרויקטים</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="HeadOfDeprament" asp-action="MyIndex">פרופיל שלי</a>
-                                </li>
-                            }
-                            if (User.IsInRole("Guid"))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Guide" asp-action="MyIndex">פרופיל שלי</a>
-                                </li>
-                            }
-                            if (User.IsInRole("Student"))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="MyIndex">פרופיל שלי</a>
-                                </li>
-                            }
-                        }
+
                     </ul>
                 </div>
             </div>

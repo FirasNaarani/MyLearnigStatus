@@ -4,6 +4,7 @@ using LearnSchoolApp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,19 @@ namespace LearnSchoolApp.Controllers
             }
             List<Student> res = ls.ToList();
             return View(res);
+        }
+
+        [ActionName("MyInfo")]
+        [Authorize(Roles = "Student")]
+        public ActionResult MyInfo()
+        {
+            var HeadOfDepramentID = GetStudentID();
+            var currentHeadOfDeprament = _studentService.Get(HeadOfDepramentID);
+            if (currentHeadOfDeprament != null)
+            {
+                return View(currentHeadOfDeprament);
+            }
+            return RedirectToAction("MyInfo");
         }
 
         [ActionName("MyIndex")]
@@ -206,7 +220,6 @@ namespace LearnSchoolApp.Controllers
             if (project == null)
                 return NotFound();
             Status status = _projectService.EditGuidStatus(projectId, statusId);
-
             return View(status);
         }
 
@@ -219,11 +232,11 @@ namespace LearnSchoolApp.Controllers
             {
                 if(collection != null)
                 {
-
+                    //_projectService.UpdateStatus(collection.projectId, collection);
                 }
                 //_projectService.UpdatePassword(id, collection);
                 //TempData["AlertMessage"] = $"עריכת הניתונים בוצעה בהצלחה";
-                return RedirectToAction("Index");
+                return RedirectToAction("ProjectStatus",new {id = collection.projectId });
             }
             catch
             {
