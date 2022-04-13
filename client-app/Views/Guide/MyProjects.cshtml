@@ -1,102 +1,136 @@
 ﻿@model IEnumerable<LearnSchoolApp.Entities.Project>
 
-<style>
-    aside {
-        width: 25%;
-        padding-left: 15px;
-        margin-left: 15px;
-        float: right;
-        font-style: italic;
-        background-color: lightgray;
-    }
-</style>
-
-@if (TempData["AlertMessage"] != null)
-{
-    <div class="alert alert-success">
-        <i>@TempData["AlertMessage"]</i>
-    </div>
-}
-
-<table class="table text-center">
-    <thead>
-        <tr>
-            <th>
-                פרויקט מס
-            </th>
-            <th>
-                שם פרויקט
-            </th>
-            <th>
-                סטודנטים בפרויקט
-            </th>
-            <th>
-                פרויקט סטטוס
-            </th>
-            <th>
-                הנחיות ראש המגמה
-            </th>
-            <th>
-                הנחיות המנחה
-            </th>
-            <th>
-                הצעת פרויקט
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.name)
-                </td>
-                <td>
-                    <ol>
-                        <li>
-                            <details>
-                                <summary>@Html.DisplayFor(modelItem => item.studentName)</summary>
-                                @Html.DisplayFor(modelItem => item.studentId)
-                            </details>
-                        </li>
-                        @if (item.assistantStudentName != null)
-                        {
-                            <li>
-                                <details>
-                                    <summary>@Html.DisplayFor(modelItem => item.assistantStudentName)</summary>
-                                    @Html.DisplayFor(modelItem => item.assistantStudentId)
-                                </details>
-                            </li>
-                        }
-                    </ol>
-                </td>
-                <td>
-                    @{
-                        if (item.isPass)
-                        {
-                            <i><b><label><ins>מאושר</ins></label></b></i>
-                        }
-                        else
-                        {
-                            <i><b><label><ins>לא מאושר</ins></label></b></i>
-                        }
-                    }
-                </td>
-                <td>
-                    X
-                </td>
-                <td>
-                    <div>@Html.ActionLink("פרטים", "ProjectStatus", new { id = item.Id })</div>
-                    <div>@Html.ActionLink("הוספת הנחיה", "CreateStauts", new { id = item.Id })</div>
-                </td>
-                <td>
-                    Z
-                </td>
-            </tr>
+<html>
+<head>
+    <style>
+        body {
+            text-align: left;
+            background-image: url(https://wallpapercave.com/wp/wp5306486.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
-    </tbody>
-</table>
+
+        footer {
+            background-color: #ddc4a8de;
+        }
+
+        table {
+            box-shadow: 0 10px 10px #033740;
+        }
+
+        td {
+            text-align: center;
+            padding: 8px;
+        }
+
+        th {
+            background-color: white;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background-color: #D6EEEE;
+        }
+
+        tr:nth-child(2n+1) {
+            background-color: #a2dbcb;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-center">
+        <h4>פרויקטים</h4>
+        <hr />
+        @if (TempData["AlertMessage"] != null)
+        {
+            <div class="alert alert-success">
+                <i>@TempData["AlertMessage"]</i>
+            </div>
+        }
+    </div>
+    <center>
+        <table class="table text-center">
+            <thead>
+                <tr>
+                    <th>
+                        פרויקט מס
+                    </th>
+                    <th>
+                        שם פרויקט
+                    </th>
+                    <th>
+                        סטודנטים בפרויקט
+                    </th>
+                    <th>
+                        פרויקט סטטוס
+                    </th>
+                    <th>
+                        הנחיות ראש המגמה
+                    </th>
+                    <th>
+                        הנחיות המנחה
+                    </th>
+                    <th>
+                        הצעת פרויקט
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.name)
+                        </td>
+                        <td>
+                            <ol>
+                                <li>
+                                    <details>
+                                        <summary>@Html.DisplayFor(modelItem => item.studentName)</summary>
+                                        @Html.DisplayFor(modelItem => item.studentId)
+                                    </details>
+                                </li>
+                                @if (item.assistantStudentName != null)
+                                {
+                                    <li>
+                                        <details>
+                                            <summary>@Html.DisplayFor(modelItem => item.assistantStudentName)</summary>
+                                            @Html.DisplayFor(modelItem => item.assistantStudentId)
+                                        </details>
+                                    </li>
+                                }
+                            </ol>
+                        </td>
+                        <td>
+                            @{
+                                if (item.isPass)
+                                {
+                                    <i><b><label><ins>מאושר</ins></label></b></i>
+                                }
+                                else
+                                {
+                                    <i><b><label><ins>לא מאושר</ins></label></b></i>
+                                }
+                            }
+                        </td>
+                        <td>
+                            X
+                        </td>
+                        <td>
+                            <div>@Html.ActionLink("פרטים", "ProjectStatus", new { id = item.Id })</div>
+                            <div>@Html.ActionLink("הוספת הנחיה", "CreateStauts", new { id = item.Id })</div>
+                        </td>
+                        <td>
+                            Z
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </center>
+</body>
+</html>

@@ -1,32 +1,83 @@
 ﻿@model LearnSchoolApp.Entities.Guide
 
-<div>
-    <h4>מנחה</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            שם
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.name)
-        </dd>
-        <dt class = "col-sm-2">
-            ת"ז
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.userId)
-        </dd>
-        <dt class = "col-sm-2">
-            מייל
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.email)
-        </dd>
-        <dt class = "col-sm-2">
-            מס' טלפון
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.phone)
-        </dd>
-    </dl>
-</div>
+<html>
+<head>
+    <style>
+        body {
+            text-align: left;
+            background-image: url(https://wallpapercave.com/wp/wp5306486.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        footer {
+            background-color: #ddc4a8de;
+        }
+
+        table {
+            box-shadow: 0 10px 10px #033740;
+        }
+
+        td {
+            text-align: center;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #D6EEEE;
+        }
+
+        tr:nth-child(2n+1) {
+            background-color: #a2dbcb;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-center">
+        <h4>מנחה</h4>
+        <hr />
+    </div>
+    <center>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.userId)
+                    </td>
+                    <td>
+                        <b>ת"ז</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.name)
+                    </td>
+                    <td>
+                        <b>שם</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.email)
+                    </td>
+                    <td>
+                        <b>מייל</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.phone)
+                    </td>
+                    <td>
+                        <b>מס' טלפון</b>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </center>
+</body>
+</html>

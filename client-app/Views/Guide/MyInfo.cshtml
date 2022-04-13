@@ -1,5 +1,5 @@
-﻿@model LearnSchoolApp.Entities.Student
- 
+﻿@model LearnSchoolApp.Entities.Guide
+
 <html>
 <head>
     <style>
@@ -25,22 +25,18 @@
         }
 
         tr:nth-child(even) {
-            background-color: #eed6d6;
+            background-color: #D6EEEE;
         }
 
         tr:nth-child(2n+1) {
-            background-color: #dba2a2;
+            background-color: #a2dbcb;
         }
     </style>
 </head>
 <body>
     <div class="text-center">
-        <h4>סטודנט</h4>
-        <h3>?האם אתה בטוח שברצונך למחוק את זה</h3>
+        <h4>הפרופיל שלי</h4>
         <hr />
-        <p>
-            @Html.ActionLink("ביטול", "Details", new { id = Model.userId })
-        </p>
     </div>
     <center>
         <table class="table">
@@ -83,6 +79,15 @@
 
                 <tr>
                     <td>
+                        @Html.DisplayFor(model => model.password)
+                    </td>
+                    <td>
+                        <b>סיסמה</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
                         @Html.DisplayFor(model => model.email)
                     </td>
                     <td>
@@ -98,16 +103,16 @@
                         <b>מס' טלפון</b>
                     </td>
                 </tr>
-            </tbody>
-            <tfoot>
+
                 <tr>
-                    <td colspan="2" style="text-align:center">
-                        <form asp-action="Delete">
-                            <input type="submit" value="מחיקה" class="btn btn-danger" />
-                        </form>
+                    <td>
+                        @Html.ActionLink("פרטים", "MyProjects", new { id = Model.userId })
+                    </td>
+                    <td>
+                        <b>פרויקט</b>
                     </td>
                 </tr>
-            </tfoot>
+            </tbody>
         </table>
     </center>
 </body>

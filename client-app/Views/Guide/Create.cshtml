@@ -1,56 +1,135 @@
 ﻿@model LearnSchoolApp.Entities.Guide
 
-<h4>מנחה</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<html>
+<head>
+    <style>
+        body {
+            text-align: left;
+            background-image: url(https://wallpapercave.com/wp/wp5306486.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        footer {
+            background-color: #ddc4a8de;
+        }
+
+        table {
+            box-shadow: 0 10px 10px #033740;
+        }
+
+        td {
+            text-align: center;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #c0bd4f;
+        }
+
+        tr:nth-child(2n+1) {
+            background-color: #e7eae3;
+        }
+
+        input[type=text], input[type=number], input[type=password], input[type=email] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-center">
+        <h4>מנחה חדש</h4>
+        <hr />
+        <p>
+            <a asp-action="Index">חזרה לרשימה</a>
+        </p>
+    </div>
+    <center>
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="userId" class="control-label">ת"ז</label>
-                <input asp-for="userId" class="form-control" />
-                <span asp-validation-for="userId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="name" class="control-label">שם</label>
-                <input asp-for="name" class="form-control" />
-                <span asp-validation-for="name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="username" class="control-label">שם משתמש</label>
-                <input asp-for="username" class="form-control" />
-                <span asp-validation-for="username" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="password" class="control-label">סיסמה</label>
-                <input asp-for="password" class="form-control" />
-                <span asp-validation-for="password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="email" class="control-label">מייל</label>
-                <input asp-for="email" class="form-control" />
-                <span asp-validation-for="email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="phone" class="control-label">מס' טלפון</label>
-                <input asp-for="phone" class="form-control" />
-                <span asp-validation-for="phone" class="text-danger"></span>
-            </div>
-            @*<div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="isHeadOfDepratment" /> ראש מגמה
-                </label>
-            </div>*@
-            <div class="form-group">
-                <input type="submit" value="הוספה" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>
+                            <input type="number" asp-for="userId" class="form-control" />
+                            <span asp-validation-for="userId" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <b><label asp-for="userId" class="control-label">ת"ז</label></b>
+                        </td>
+                    </tr>
 
-<div>
-    <a asp-action="Index">חזרה לרשימה</a>
-</div>
+                    <tr>
+                        <td>
+                            <input type="text" asp-for="name" class="form-control" />
+                            <span asp-validation-for="name" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <b><label asp-for="name" class="control-label">שם</label></b>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <input type="text" asp-for="username" class="form-control" />
+                            <span asp-validation-for="username" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <b><label asp-for="username" class="control-label">שם משתמש</label></b>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <input type="password" asp-for="password" class="form-control" />
+                            <span asp-validation-for="password" class="text-danger"></span>@Html.DisplayFor(model => model.username)
+                        </td>
+                        <td>
+                            <b><label asp-for="password" class="control-label">סיסמה</label></b>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <input type="email" asp-for="email" class="form-control" />
+                            <span asp-validation-for="email" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <b><label asp-for="email" class="control-label">מייל</label></b>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <input type="number" asp-for="phone" class="form-control" />
+                            <span asp-validation-for="phone" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <b><label asp-for="phone" class="control-label">מס' טלפון</label></b>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" style="text-align:center">
+                            <div class="form-group">
+                                <input type="submit" value="הוסף" class="btn btn-primary" />
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </form>
+    </center>
+</body>
+</html>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

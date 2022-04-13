@@ -1,63 +1,126 @@
 ﻿@model LearnSchoolApp.Entities.Guide
 
-<div>
-    <h4>מנחה</h4>
-    <div>
-        @Html.ActionLink("עריכה", "Edit", new { id = Model.userId }) |
-        @Html.ActionLink("מחיקה", "Delete", new { id = Model.userId })
+<html>
+<head>
+    <style>
+        body {
+            text-align: left;
+            background-image: url(https://wallpapercave.com/wp/wp5306486.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        footer {
+            background-color: #ddc4a8de;
+        }
+
+        table {
+            box-shadow: 0 10px 10px #033740;
+        }
+
+        td {
+            text-align: center;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #D6EEEE;
+        }
+
+        tr:nth-child(2n+1) {
+            background-color: #a2dbcb;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-center">
+        <h4>הפרופיל</h4>
+        <hr />
+        <p>
+            @Html.ActionLink("עריכה", "Edit", new { id = Model.userId })
+            @if (User.IsInRole("Admin"))
+            {
+                <label>| </label> @Html.ActionLink("מחיקה", "Delete", new { id = Model.userId })
+            }
+        </p>
     </div>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            מס' סידורי
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class="col-sm-2">
-            ת"ז
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.userId)
-        </dd>
-        <dt class="col-sm-2">
-            שם
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.name)
-        </dd>
-        <dt class="col-sm-2">
-            שם משתמש
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.username)
-        </dd>
-        <dt class="col-sm-2">
-            סיסמה
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.password)
-        </dd>
-        <dt class="col-sm-2">
-            מייל
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.email)
-        </dd>
-        <dt class="col-sm-2">
-            מס' טלפון
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.phone)
-        </dd>
-        <dt class="col-sm-2">
-            פרויקטים
-        </dt>
-        <dd class="col-sm-10">
-            @Html.ActionLink("פרטים", "MyProjects", new { id = Model.userId })
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Index">חזרה לרשימה</a>
-</div>
+    <center>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.Id)
+                    </td>
+                    <td>
+                        <b>מס' סידורי</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.userId)
+                    </td>
+                    <td>
+                        <b>ת"ז</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.name)
+                    </td>
+                    <td>
+                        <b>שם</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.username)
+                    </td>
+                    <td>
+                        <b>שם משתמש</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.email)
+                    </td>
+                    <td>
+                        <b>מייל</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.phone)
+                    </td>
+                    <td>
+                        <b>מס' טלפון</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.ActionLink("פרטים", "MyProjects", new { id = Model.userId })
+                    </td>
+                    <td>
+                        <b>פרויקט</b>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2" style="text-align:center">
+                        <div>
+                            <a button type="button" class="btn btn-success" asp-action="Index">חזרה לרשימה</a>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </center>
+</body>
+</html>

@@ -310,3 +310,5 @@ C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Student\Projec
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\HeadOfDeprament\MyInfo.cshtml.g.cs
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Manager\MyInfo.cshtml.g.cs
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Student\EditProject.cshtml.g.cs
+C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\LearnSchoolApp.csproj.AssemblyReference.cache
+C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Student\MyInfo.cshtml.g.cs

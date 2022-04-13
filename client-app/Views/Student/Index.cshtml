@@ -1,58 +1,106 @@
 ﻿@model IEnumerable<LearnSchoolApp.Entities.Student>
 
-<p>
-    <a asp-action="Create">הוספת סטודנט חדש</a>
-</p>
-@if (TempData["AlertMessage"] != null)
-{
-    <div class="alert alert-success">
-        <i>@TempData["AlertMessage"]</i>
-    </div>
-}
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                ת"ז
-            </th>
-            <th>
-                שם
-            </th>
-            <th>
-                שם משתמש
-            </th>
-            <th>
-                מייל
-            </th>
-            <th>
-                מס' טלפון
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.userId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.username)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.phone)
-                </td>
-                <td>
-                    @Html.ActionLink("פרטים", "Details", new { id = item.userId })
-                </td>
-            </tr>
+
+<html>
+<head>
+    <style>
+        body {
+            text-align: left;
+            background-image: url(https://wallpapercave.com/wp/wp5306486.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
-    </tbody>
-</table>
+
+        footer {
+            background-color: #ddc4a8de;
+        }
+
+        table {
+            box-shadow: 0 10px 10px #033740;
+        }
+
+        td {
+            text-align: center;
+            padding: 8px;
+        }
+
+        th {
+            background-color: white;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background-color: #D6EEEE;
+        }
+
+        tr:nth-child(2n+1) {
+            background-color: #a2dbcb;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-center">
+        <h4>סטודנטים</h4>
+        <hr />
+        <p>
+            <a asp-action="Create">הוספת סטודנט חדש</a>
+        </p>
+        @if (TempData["AlertMessage"] != null)
+        {
+            <div class="alert alert-success">
+                <i>@TempData["AlertMessage"]</i>
+            </div>
+        }
+    </div>
+    <center>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>
+                        מס' טלפון
+                    </th>
+                    <th>
+                        מייל
+                    </th>
+                    <th>
+                        שם משתמש
+                    </th>
+                    <th>
+                        שם
+                    </th>
+                    <th>
+                        ת"ז
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.ActionLink("פרטים", "Details", new { id = item.userId })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.phone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.username)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.userId)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </center>
+</body>
+</html>

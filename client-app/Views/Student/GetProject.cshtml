@@ -1,81 +1,160 @@
 ﻿@model LearnSchoolApp.Entities.Project
 
-<div>
-    <h4>פרויקט</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            פרויקט מס
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class="col-sm-2">
-            שם פרויקט
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.name)
-        </dd>
-        <dt class="col-sm-2">
-            מנחה
-        </dt>
-        <dd class="col-sm-10">
-            @{
-                if (Model.guideId != null)
-                {
-                    @Html.ActionLink("פרטים", "GetGuide", new { id = Model.guideId })
-                }
-                else
-                {
-                    <label>---</label>
-                }
-            }
-        </dd>
-        <dt class="col-sm-2">
-            סטודנטים בפרויקט
-        </dt>
-        <dd class="col-sm-10">
-            <ol>
-                <li>
-                    <b>@Html.DisplayFor(model => model.studentId) | @Html.DisplayFor(model => model.studentName)</b>
-                </li>
-                @if (Model.assistantStudentName != null)
-                {
-                    <li>
-                        <b>@Html.DisplayFor(model => model.assistantStudentId) | @Html.DisplayFor(model => model.assistantStudentName)</b>
-                    </li>
-                }
-            </ol>
-        </dd>
-        <dt class="col-sm-2">
-            פרויקט סטטוס
-        </dt>
-        <dd class="col-sm-10">
-            @{
-                if (Model.isPass)
-                {
-                    <i><b><label><ins>מאושר</ins></label></b></i>
-                }
-                else
-                {
-                    <i><b><label><ins>לא מאושר</ins></label></b></i>
-                }
-            }
-        </dd>
-        <dt class="col-sm-2">
-            הנחיות המנחה
-        </dt>
-        <dd class="col-sm-10">
-            @{
-                if (Model.guidingStatuses.Count() > 0)
-                {
-                    @Html.ActionLink("פרטים", "ProjectStatus", new { id = Model.Id })
-                }
-                else
-                {
-                    <i><b><label><ins>עדדין אין הנחיות</ins></label></b></i>
-                }
-            }
-        </dd>
-    </dl>
-</div>
+<html>
+<head>
+    <style>
+        body {
+            text-align: left;
+            background-image: url(https://wallpapercave.com/wp/wp5306486.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        footer {
+            background-color: #ddc4a8de;
+        }
+
+        table {
+            box-shadow: 0 10px 10px #033740;
+        }
+
+        td {
+            text-align: center;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #D6EEEE;
+        }
+
+        tr:nth-child(2n+1) {
+            background-color: #a2dbcb;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-center">
+        <h4>פרויקט</h4>
+        <hr />
+        <p>
+            @Html.ActionLink("חזרה לפרופיל", "MyInfo")
+        </p>
+    </div>
+    <center>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.Id)
+                    </td>
+                    <td>
+                        <b>מס' פרויקט</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.name)
+                    </td>
+                    <td>
+                        <b> שם פרויקט</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @{
+                            if (Model.guideId != null)
+                            {
+                                @Html.ActionLink("פרטים", "GetGuide", new { id = Model.guideId })
+                            }
+                            else
+                            {
+                                <label>---</label>
+                            }
+                        }
+                    </td>
+                    <td>
+                        <b>מנחה</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <ol>
+                            <li>
+                                <b>@Html.DisplayFor(model => model.studentId) | @Html.DisplayFor(model => model.studentName)</b>
+                            </li>
+                            @if (Model.assistantStudentName != null)
+                            {
+                                <li>
+                                    <b>@Html.DisplayFor(model => model.assistantStudentId) | @Html.DisplayFor(model => model.assistantStudentName)</b>
+                                </li>
+                            }
+                        </ol>
+                    </td>
+                    <td>
+                        <b>סטודנטים בפרויקט</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @{
+                            if (Model.isPass)
+                            {
+                                <i><b><label><ins>מאושר</ins></label></b></i>
+                            }
+                            else
+                            {
+                                <i><b><label><ins>לא מאושר</ins></label></b></i>
+                            }
+                        }
+                    </td>
+                    <td>
+                        <b>פרויקט סטטוס</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @{
+                            if (Model.guidingStatuses.Count() > 0)
+                            {
+                                @Html.ActionLink("פרטים", "ProjectStatus", new { id = Model.Id })
+                            }
+                            else
+                            {
+                                <i><b><label><ins>עדיין אין הנחיות</ins></label></b></i>
+                            }
+                        }
+                    </td>
+                    <td>
+                        <b>הנחיות המנחה</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @{
+                            if (Model.projectStatuses.Count() > 0)
+                            {
+                                @Html.ActionLink("פרטים", "ProjectStatus", new { id = Model.Id })
+                            }
+                            else
+                            {
+                                <i><b><label><ins>עדיין אין הנחיות</ins></label></b></i>
+                            }
+                        }
+                    </td>
+                    <td>
+                        <b>הנחיות ראש המגמה</b>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </center>
+</body>
+</html>
+

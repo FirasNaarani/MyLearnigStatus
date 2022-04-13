@@ -37,6 +37,19 @@ namespace LearnSchoolApp.Controllers
             return View(res);
         }
 
+        [ActionName("MyInfo")]
+        [Authorize(Roles = "Guid")]
+        public ActionResult MyInfo()
+        {
+            var GuidID = GetGuideID();
+            var currentGuid = _guideService.Get(GuidID);
+            if (currentGuid != null)
+            {
+                return View(currentGuid);
+            }
+            return RedirectToAction("MyInfo");
+        }
+
         [ActionName("MyIndex")]
         [Authorize(Roles = "Guid")]
         public ActionResult MyIndex()

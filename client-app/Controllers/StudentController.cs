@@ -43,11 +43,11 @@ namespace LearnSchoolApp.Controllers
         [Authorize(Roles = "Student")]
         public ActionResult MyInfo()
         {
-            var HeadOfDepramentID = GetStudentID();
-            var currentHeadOfDeprament = _studentService.Get(HeadOfDepramentID);
-            if (currentHeadOfDeprament != null)
+            var StudentID = GetStudentID();
+            var currentStudent = _studentService.Get(StudentID);
+            if (currentStudent != null)
             {
-                return View(currentHeadOfDeprament);
+                return View(currentStudent);
             }
             return RedirectToAction("MyInfo");
         }
@@ -119,6 +119,18 @@ namespace LearnSchoolApp.Controllers
             return View(ls);
         }
 
+        [ActionName("ReturnToProjectProfile")]
+        [Authorize]
+        public ActionResult ReturnToProjectProfile()
+        {
+            var id = GetStudentID();
+            if (id == null)
+            {
+                return NotFound();
+            }
+            return RedirectToAction("GetProject", new { id = id });
+        }
+
         [ActionName("Create")]
         [Authorize(Roles = "Admin,HeadOfDeprament")]
         public IActionResult Create()
@@ -177,7 +189,7 @@ namespace LearnSchoolApp.Controllers
         }
 
         [ActionName("EditPassword")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,HeadOfDeprament")]
         public ActionResult EditPassword(string id)
         {
             if (id == null)
