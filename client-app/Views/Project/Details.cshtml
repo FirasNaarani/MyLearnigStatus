@@ -1,88 +1,177 @@
 ﻿@model LearnSchoolApp.Entities.Project
 
-<div>
-    <h4>פרויקט</h4>
-    <div>
-        @Html.ActionLink("עריכת סטודנתים", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("עריכת מנחה", "EditGuide", new { id = Model.Id }) |
-        @Html.ActionLink("מחיקה", "Delete", new { id = Model.Id })
-    </div>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            מס' סידורי
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class="col-sm-2">
-            שם
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.name)
-        </dd>
-        <dt class="col-sm-2">
-            המנחה
-        </dt>
-        <dd class="col-sm-10">
-            @{
-                if (Model.guideId != null)
-                {
-                    <details>
-                        <summary>@Html.DisplayFor(model => model.guideName)</summary>
-                        @Html.DisplayFor(model => model.guideId)
-                    </details>
-                }
-                else
-                {
-                    <label>---</label>
-                }
-            }
+<html>
+<head>
+    <style>
+        body {
+            text-align: left;
+            background-image: url(https://wallpapercave.com/wp/wp5306486.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
 
-        </dd>
-        <dt class="col-sm-2">
-            סטודנט ראשי
-        </dt>
-        <dd class="col-sm-10">
-            <details>
-                <summary>@Html.DisplayFor(model => model.studentName)</summary>
-                @Html.DisplayFor(model => model.studentId)
-            </details>
-        </dd>
-        <dt class="col-sm-2">
-            סטודנט שותף
-        </dt>
-        <dd class="col-sm-10">
-            @{ if (Model.assistantStudentId != null)
-                {
-                    <details>
-                        <summary>@Html.DisplayFor(model => model.assistantStudentName)</summary>
-                        @Html.DisplayFor(model => model.assistantStudentId)
-                    </details>
-                }
-                else
-                {
-                    <label>---</label>
-                }
-            }
-        </dd>
-        <dt class="col-sm-2">
-            פרויקט סטטוס
-        </dt>
-        <dd class="col-sm-10">
+        footer {
+            background-color: #ddc4a8de;
+        }
+
+        table {
+            box-shadow: 0 10px 10px #033740;
+        }
+
+        td {
+            text-align: center;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #D6EEEE;
+        }
+
+        tr:nth-child(2n+1) {
+            background-color: #a2dbcb;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-center">
+        <h4>פרויקט</h4>
+        <hr />
+        <p>
+            @Html.ActionLink("עריכת סטודנתים", "Edit", new { id = Model.Id }) |
             @{
-                if (Model.isPass)
+                if (User.IsInRole("HeadOfDeprament"))
                 {
-                    <i><b><label><ins>מאושר</ins></label></b></i>
+                    @Html.ActionLink("עריכת מנחה", "EditGuide", new { id = Model.Id }) <label>| </label>
                 }
-                else
+                if (User.IsInRole("Admin"))
                 {
-                    <i><b><label><ins>לא מאושר</ins></label></b></i>
+                    @Html.ActionLink("עריכת מנחה", "EditGuide", new { id = Model.Id }) <label>| </label>
                 }
             }
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Index">חזרה לרשימה</a>
-</div>
+            @Html.ActionLink("מחיקה", "Delete", new { id = Model.Id })
+        </p>
+    </div>
+    <center>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.Id)
+                    </td>
+                    <td>
+                        <b>מס' סידורי</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.name)
+                    </td>
+                    <td>
+                        <b>שם</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @{
+                            if (Model.guideId != null)
+                            {
+                                <details>
+                                    <summary>@Html.DisplayFor(model => model.guideName)</summary>
+                                    @Html.DisplayFor(model => model.guideId)
+                                </details>
+                            }
+                            else
+                            {
+                                <label>---</label>
+                            }
+                        }
+                    </td>
+                    <td>
+                        <b> המנחה</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <details>
+                            <summary>@Html.DisplayFor(model => model.studentName)</summary>
+                            @Html.DisplayFor(model => model.studentId)
+                        </details>
+                    </td>
+                    <td>
+                        <b>סטודנט ראשי</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @{ if (Model.assistantStudentId != null)
+                            {
+                                <details>
+                                    <summary>@Html.DisplayFor(model => model.assistantStudentName)</summary>
+                                    @Html.DisplayFor(model => model.assistantStudentId)
+                                </details>
+                            }
+                            else
+                            {
+                                <label>---</label>
+                            }
+                        }
+                    </td>
+                    <td>
+                        <b>סטודנט שותף</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @{
+                            if (Model.isPass)
+                            {
+                                <i><b><label><ins>מאושר</ins></label></b></i>
+                            }
+                            else
+                            {
+                                <i><b><label><ins>לא מאושר</ins></label></b></i>
+                            }
+                        }
+                    </td>
+                    <td>
+                        <b>פרויקט סטטוס</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @{
+                            if (Model.isPass)
+                            {
+                                @Html.ActionLink("פרטים", "GetProject", new { id = Model.studentId })
+                            }
+                            else
+                            {
+                                <i><b><label><ins>עדיין לא התקיים פרויקט</ins></label></b></i>
+                            }
+                        }
+                    </td>
+                    <td>
+                        <b>פרויקט</b>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2" style="text-align:center">
+                        <div>
+                            <a button type="button" class="btn btn-success" asp-action="Index">חזרה לרשימה</a>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </center>
+</body>
+</html>

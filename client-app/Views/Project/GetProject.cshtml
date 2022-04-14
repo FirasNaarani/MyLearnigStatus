@@ -37,12 +37,6 @@
     <div class="text-center">
         <h4>פרויקט</h4>
         <hr />
-        @if (User.IsInRole("Student"))
-        {
-            <p>
-                @Html.ActionLink("חזרה לפרופיל", "MyInfo")
-            </p>
-        }
     </div>
     <center>
         <table class="table">
@@ -125,7 +119,7 @@
                         @{
                             if (Model.guidingStatuses.Count() > 0)
                             {
-                                @Html.ActionLink("פרטים", "ProjectStatus", new { id = Model.Id })
+                                @Html.ActionLink("פרטים", "ProjectStatus","Student", new { id = Model.Id })
                             }
                             else
                             {

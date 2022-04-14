@@ -128,42 +128,6 @@
                         <b>פרויקט</b>
                     </td>
                 </tr>
-
-                <tr>
-                    <td>
-                        @{
-                            if (Model.isProject)
-                            {
-                                @Html.ActionLink("פרטים", "ProjectStatus", new { id = Model.userId })
-                            }
-                            else
-                            {
-                                <i><b><label><ins>אין הנחיות</ins></label></b></i>
-                            }
-                        }
-                    </td>
-                    <td>
-                        <b>הנחיות המנחה</b>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        @{
-                            if (Model.isProject)
-                            {
-                                @Html.ActionLink("פרטים", "ProjectStatus", new { id = Model.userId })
-                            }
-                            else
-                            {
-                                <i><b><label><ins>אין הנחיות</ins></label></b></i>
-                            }
-                        }
-                    </td>
-                    <td>
-                        <b>הנחיות ראש המגמה</b>
-                    </td>
-                </tr>
             </tbody>
             <tfoot>
                 <tr>

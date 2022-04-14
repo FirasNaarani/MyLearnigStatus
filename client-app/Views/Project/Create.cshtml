@@ -1,69 +1,169 @@
 ﻿@model LearnSchoolApp.Entities.Project
 
-<h4>פרויקט</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<html>
+<head>
+    <style>
+        body {
+            text-align: left;
+            background-image: url(https://wallpapercave.com/wp/wp5306486.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        footer {
+            background-color: #ddc4a8de;
+        }
+
+        table {
+            box-shadow: 0 10px 10px #033740;
+        }
+
+        td {
+            text-align: center;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #c0bd4f;
+        }
+
+        tr:nth-child(2n+1) {
+            background-color: #e7eae3;
+        }
+
+        input[type=text], input[type=number], input[type=password], input[type=email] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-center">
+        <h4>פרויקט חדש</h4>
+        <hr />
+        <p>
+            <a asp-action="Index">חזרה לרשימה</a>
+        </p>
+    </div>
+    <center>
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="name" class="control-label">שם</label>
-                <input asp-for="name" class="form-control" />
-                <span asp-validation-for="name" class="text-danger"></span>
-            </div>
-            <hr />
-            <fieldset>
-                <legend>מנחה</legend>
-                <div class="form-group">
-                    <label asp-for="guideId" class="control-label">ת"ז</label>
-                    <input asp-for="guideId" class="form-control" />
-                    <span asp-validation-for="guideId" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="guideName" class="control-label">שם</label>
-                    <input asp-for="guideName" class="form-control" />
-                    <span asp-validation-for="guideName" class="text-danger"></span>
-                </div>
-            </fieldset>
-            <hr />
-            <fieldset>
-                <legend>סטודנט ראשי</legend>
-                <div class="form-group">
-                    <label asp-for="studentName" class="control-label">שם</label>
-                    <input asp-for="studentName" class="form-control" />
-                    <span asp-validation-for="studentName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="studentId" class="control-label">ת"ז</label>
-                    <input asp-for="studentId" class="form-control" />
-                    <span asp-validation-for="studentId" class="text-danger"></span>
-                </div>
-            </fieldset>
-            <hr />
-            <fieldset>
-                <legend>סטודנט שותף</legend>
-                <div class="form-group">
-                    <label asp-for="assistantStudentName" class="control-label">שם</label>
-                    <input asp-for="assistantStudentName" class="form-control" />
-                    <span asp-validation-for="assistantStudentName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="assistantStudentId" class="control-label">ת"ז</label>
-                    <input asp-for="assistantStudentId" class="form-control" />
-                    <span asp-validation-for="assistantStudentId" class="text-danger"></span>
-                </div>
-            </fieldset>
-            <hr />
-            <div class="form-group">
-                <input type="submit" value="הוספה" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>
+                            <input type="text" asp-for="name" class="form-control" />
+                            <span asp-validation-for="name" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <b><label class="control-label">שם פרויקט</label></b>
+                        </td>
+                    </tr>
 
-<div>
-    <a asp-action="Index">חזרה לרשימה</a>
-</div>
+                    <tr>
+                        <td>
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <input asp-for="guideId" class="form-control" />
+                                        <span asp-validation-for="guideId" class="text-danger"></span>
+                                    </td>
+                                    <td>
+                                        <b><label asp-for="guideId" class="control-label">ת"ז</label></b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input asp-for="guideName" class="form-control" />
+                                        <span asp-validation-for="guideName" class="text-danger"></span>
+                                    </td>
+                                    <td>
+                                        <b><label asp-for="guideName" class="control-label">שם</label></b>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <b><label class="control-label">מנחה</label></b>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <input asp-for="studentId" class="form-control" />
+                                        <span asp-validation-for="studentId" class="text-danger"></span>
+                                    </td>
+                                    <td>
+                                        <b><label asp-for="studentId" class="control-label">ת"ז</label></b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input asp-for="studentName" class="form-control" />
+                                        <span asp-validation-for="studentName" class="text-danger"></span>
+                                    </td>
+                                    <td>
+                                        <b><label asp-for="studentName" class="control-label">שם</label></b>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <b><label class="control-label">סטודנט ראשי</label></b>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <input asp-for="assistantStudentId" class="form-control" />
+                                        <span asp-validation-for="assistantStudentId" class="text-danger"></span>
+                                    </td>
+                                    <td>
+                                        <b><label asp-for="assistantStudentId" class="control-label">ת"ז</label></b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input asp-for="assistantStudentName" class="form-control" />
+                                        <span asp-validation-for="assistantStudentName" class="text-danger"></span>
+                                    </td>
+                                    <td>
+                                        <b><label asp-for="assistantStudentName" class="control-label">שם</label></b>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <b><label class="control-label">סטודנט שותף</label></b>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" style="text-align:center">
+                            <div class="form-group">
+                                <input type="submit" value="הוספה" class="btn btn-primary" />
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </form>
+    </center>
+</body>
+</html>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

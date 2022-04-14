@@ -260,7 +260,6 @@ C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Project\Edit.c
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Project\Delete.cshtml.g.cs
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Student\GetProject.cshtml.g.cs
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Student\GetGuide.cshtml.g.cs
-C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Login\Login.cshtml.g.cs
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Home\Login.cshtml.g.cs
 C:\GitHub\MyLearnigStatus\client-app\bin\Debug\net5.0\LearnSchoolApp.StaticWebAssets.xml
 C:\GitHub\MyLearnigStatus\client-app\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
@@ -312,3 +311,7 @@ C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Manager\MyInfo
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Student\EditProject.cshtml.g.cs
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\LearnSchoolApp.csproj.AssemblyReference.cache
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Student\MyInfo.cshtml.g.cs
+C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Guide\MyInfo.cshtml.g.cs
+C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Project\GetGuide.cshtml.g.cs
+C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Project\GetProject.cshtml.g.cs
+C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Project\ProjectStatus.cshtml.g.cs

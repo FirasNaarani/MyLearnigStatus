@@ -1,58 +1,141 @@
 ﻿@model LearnSchoolApp.Entities.Project
 
-<h4>פרויקט</h4>
-<h3>?האם אתה בטוח שברצונך למחוק את זה</h3>
-<div>
-    <div>
-        @Html.ActionLink("ביטול", "Details", new { id = Model.Id })
-    </div>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            מס' סידורי
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class="col-sm-2">
-            שם
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.name)
-        </dd>
-        <dt class="col-sm-2">
-            ת"ז המנחה
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.guideId)
-        </dd>
-        <dt class="col-sm-2">
-            שם המנחה
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.guideName)
-        </dd>
-        <dt class="col-sm-2">
-            ת"ז סטודנט ראשי
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.studentId)
-        </dd>
-        <dt class="col-sm-2">
-            ת"ז סטודנט שותף
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.assistantStudentId)
-        </dd>
-        <dt class="col-sm-2">
-            מאושר
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.isPass)
-        </dd>
-    </dl>
 
-    <form asp-action="Delete">
-        <input type="submit" value="מחיקה" class="btn btn-danger" />
-    </form>
-</div>
+<html>
+<head>
+    <style>
+        body {
+            text-align: left;
+            background-image: url(https://wallpapercave.com/wp/wp5306486.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        footer {
+            background-color: #ddc4a8de;
+        }
+
+        table {
+            box-shadow: 0 10px 10px #033740;
+        }
+
+        td {
+            text-align: center;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #eed6d6;
+        }
+
+        tr:nth-child(2n+1) {
+            background-color: #dba2a2;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-center">
+        <h4>פרויקט</h4>
+        <h3>?האם אתה בטוח שברצונך למחוק את זה</h3>
+        <hr />
+        <p>
+            @Html.ActionLink("ביטול", "Details", new { id = Model.Id })
+        </p>
+    </div>
+    <center>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.Id)
+                    </td>
+                    <td>
+                        <b>מס' סידורי</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.name)
+                    </td>
+                    <td>
+                        <b>שם</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @{
+                            if (Model.guideId != null)
+                            {
+                                <details>
+                                    <summary>@Html.DisplayFor(model => model.guideName)</summary>
+                                    @Html.DisplayFor(model => model.guideId)
+                                </details>
+                            }
+                            else
+                            {
+                                <label>---</label>
+                            }
+                        }
+                    </td>
+                    <td>
+                        <b> המנחה</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <details>
+                            <summary>@Html.DisplayFor(model => model.studentName)</summary>
+                            @Html.DisplayFor(model => model.studentId)
+                        </details>
+                    </td>
+                    <td>
+                        <b>סטודנט ראשי</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @{ if (Model.assistantStudentId != null)
+                            {
+                                <details>
+                                    <summary>@Html.DisplayFor(model => model.assistantStudentName)</summary>
+                                    @Html.DisplayFor(model => model.assistantStudentId)
+                                </details>
+                            }
+                            else
+                            {
+                                <label>---</label>
+                            }
+                        }
+                    </td>
+                    <td>
+                        <b>סטודנט שותף</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.studentId)
+                    </td>
+                    <td>
+                        <b>ת"ז סטודנט שותף</b>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2" style="text-align:center">
+                        <form asp-action="Delete">
+                            <input type="submit" value="מחיקה" class="btn btn-danger" />
+                        </form>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </center>
+</body>
+</html>

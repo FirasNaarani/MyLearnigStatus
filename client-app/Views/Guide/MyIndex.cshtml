@@ -15,6 +15,7 @@
 
         h4 {
             text-shadow: 0 0 1em snow;
+            color: wheat;
         }
 
         table {
@@ -43,6 +44,7 @@
         img {
             width: fit-content;
             height: fit-content;
+            border-radius: 1em;
         }
     </style>
 </head>
@@ -56,24 +58,7 @@
             <td rowspan="2"><img src="https://www.visualinfomedia.com/images/web-development-banner.png" /></td>
             <td>
                 <button style=" background-color: greenyellow;">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">סטודנטים</a>
-                </button>
-            </td>
-            <td>
-                <button style=" background-color: dodgerblue;">
-                    @Html.ActionLink("פרטים", "MyProjects", new { id = Model.userId })
-                </button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button style=" background-color:orange;">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Guide" asp-action="Index">מנחים</a>
-                </button>
-            </td>
-            <td>
-                <button style=" background-color: brown;">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="HeadOfDeprament" asp-action="Index">ניהול</a>
+                    @Html.ActionLink("פרויקטים", "MyProjects", new { id = Model.userId })
                 </button>
             </td>
         </tr>

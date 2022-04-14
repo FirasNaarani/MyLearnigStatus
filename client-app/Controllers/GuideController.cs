@@ -122,7 +122,7 @@ namespace LearnSchoolApp.Controllers
                     collection.date = DateTime.UtcNow;
                     collection.userId = GetGuideID();
                     var project = _projectService.GetProject(collection.projectId);
-                    _projectService.CreateStauts(project, collection);
+                    _projectService.CreateGuideStauts(project, collection);
                     _projectService.UpdateGuideStatuses(project.Id, project);
                     TempData["AlertMessage"] = $"הוספת הנחיה בוצעה בהצלחה";
 

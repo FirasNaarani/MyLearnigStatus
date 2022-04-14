@@ -58,6 +58,9 @@
                 <tr>
                     <th></th>
                     <th>
+                        הנחיות ראש מגמה
+                    </th>
+                    <th>
                         מאושר
                     </th>
                     <th>
@@ -80,6 +83,14 @@
                     <tr>
                         <td>
                             @Html.ActionLink("פרטים", "Details", new { id = item.Id })
+                        </td>
+
+                        <td>
+                            <div>@Html.ActionLink("פרטים", "ProjectStatus", new { id = item.Id })</div>
+                            @if (User.IsInRole("HeadOfDeprament"))
+                            {
+                                <div>@Html.ActionLink("הוספת הנחיה", "CreateStauts", new { id = item.Id })</div>
+                            }
                         </td>
 
                         <td>

@@ -1,4 +1,4 @@
-﻿@model LearnSchoolApp.Entities.Student
+﻿@model LearnSchoolApp.Entities.Guide
 
 <html>
 <head>
@@ -35,21 +35,12 @@
 </head>
 <body>
     <div class="text-center">
-        <h4>הפרופיל שלי</h4>
+        <h4>מנחה</h4>
         <hr />
     </div>
     <center>
         <table class="table">
             <tbody>
-                <tr>
-                    <td>
-                        @Html.DisplayFor(model => model.Id)
-                    </td>
-                    <td>
-                        <b>מס' סידורי</b>
-                    </td>
-                </tr>
-
                 <tr>
                     <td>
                         @Html.DisplayFor(model => model.userId)
@@ -70,24 +61,6 @@
 
                 <tr>
                     <td>
-                        @Html.DisplayFor(model => model.username)
-                    </td>
-                    <td>
-                        <b>שם משתמש</b>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        @Html.DisplayFor(model => model.password)
-                    </td>
-                    <td>
-                        <b>סיסמה</b>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
                         @Html.DisplayFor(model => model.email)
                     </td>
                     <td>
@@ -101,24 +74,6 @@
                     </td>
                     <td>
                         <b>מס' טלפון</b>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        @{
-                            if (Model.isProject)
-                            {
-                                @Html.ActionLink("פרטים", "GetProject", new { id = Model.userId })
-                            }
-                            else
-                            {
-                                <i><b><label><ins>עדיין לא התקיים פרויקט</ins></label></b></i>
-                            }
-                        }
-                    </td>
-                    <td>
-                        <b>פרויקט</b>
                     </td>
                 </tr>
             </tbody>

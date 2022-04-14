@@ -13,18 +13,21 @@ namespace LearnSchoolApp.Services
         List<Project> Get();
         List<Project> GetProjects(string guidId);
         List<Status> GetGuidStatuses(string projectId);
+        List<Status> GetHeadStatuses(string projectId);
         Status EditGuidStatus(string projectId, int statusId);
+        Status EditHeadStatus(string projectId, int statusId);
         Boolean isDuplicateProject(string name, string studentId);
         Project Get(string id);
         Project GetProject(string projectId);
         Project GetMyProject(string id);
         Project Create(Project project);
-        Project CreateStauts(Project project, Status status);
+        Project CreateGuideStauts(Project project, Status status);
+        Project CreateHeadStauts(Project project, Status status);
         void Delete(string id);
         void Update(string id, Project project);
         void UpdateGuide(string id, Project project);
         void UpdateGuideStatuses(string id, Project project);
-        void UpdateStatus(string id, Status status);
+        void UpdateStatus(string id, Project project);
 
     }
     public class ProjectService : IProjectService
@@ -55,10 +58,24 @@ namespace LearnSchoolApp.Services
             return Project.guidingStatuses;
         }
 
+        public List<Status> GetHeadStatuses(string projectId)
+        {
+            var Project = _project.Find<Project>(m => m.Id == projectId && m.isActive).FirstOrDefault();
+            return Project.projectStatuses;
+        }
+
         public Status EditGuidStatus(string projectId, int statusId)
         {
             var Project = _project.Find<Project>(m => m.Id == projectId && m.isActive).FirstOrDefault();
             Status Status = Project.guidingStatuses.Find(m => m.Id == statusId);
+
+            return Status;
+        }
+
+        public Status EditHeadStatus(string projectId, int statusId)
+        {
+            var Project = _project.Find<Project>(m => m.Id == projectId && m.isActive).FirstOrDefault();
+            Status Status = Project.projectStatuses.Find(m => m.Id == statusId);
 
             return Status;
         }
@@ -114,12 +131,29 @@ namespace LearnSchoolApp.Services
             return project;
         }
 
-        public Project CreateStauts(Project project,Status status)
+        public Project CreateGuideStauts(Project project,Status status)
         {
             try
             {
                 status.Id = project.guidingStatuses.Count() + 1;
                 project.guidingStatuses.Add(status);
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("duplicate"))
+                {
+                    throw new Exception("duplicate project");
+                }
+            }
+            return project;
+        }
+
+        public Project CreateHeadStauts(Project project, Status status)
+        {
+            try
+            {
+                status.Id = project.projectStatuses.Count() + 1;
+                project.projectStatuses.Add(status);
             }
             catch (Exception ex)
             {
@@ -181,9 +215,13 @@ namespace LearnSchoolApp.Services
             _project.FindOneAndUpdate(filter, update, options);
         }
 
-        public void UpdateStatus(string id, Status status)
+        public void UpdateStatus(string id, Project project)
         {
-
+            var filter = Builders<Project>.Filter.Where(_ => _.Id == id);
+            var update = Builders<Project>.Update
+                        .Set(_ => _.projectStatuses, project.projectStatuses);
+            var options = new FindOneAndUpdateOptions<Project>();
+            _project.FindOneAndUpdate(filter, update, options);
         }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace LearnSchoolApp.Controllers
@@ -46,6 +47,17 @@ namespace LearnSchoolApp.Controllers
             return View(_projectService.Get(id));
         }
 
+        [ActionName("GetProject")]
+        [Authorize]
+        public ActionResult GetProject(string id)
+        {
+            if (_projectService.GetMyProject(id) == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(_projectService.GetMyProject(id));
+        }
+
         [ActionName("GetGuide")]
         [Authorize(Roles = "Admin,HeadOfDeprament")]
         public ActionResult GetGuide(string id)
@@ -53,6 +65,69 @@ namespace LearnSchoolApp.Controllers
             if (_guideService.GetMyGuide(id) == null)
                 return NotFound();
             return View(_guideService.GetMyGuide(id));
+        }
+
+        [ActionName("ProjectStatus")]
+        [Authorize]
+        public ActionResult ProjectStatus(string id)
+        {
+            var ls = _projectService.GetHeadStatuses(id);
+            if (ls == null)
+            {
+                return NotFound();
+            }
+            return View(ls);
+        }
+
+        private string GetHeadOfDepramentID()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            if (identity != null)
+            {
+                var userClaims = identity.Claims;
+
+                return userClaims.FirstOrDefault(o => o.Type == ClaimTypes.SerialNumber)?.Value;
+            }
+            return null;
+        }
+
+        [ActionName("CreateStauts")]
+        [Authorize(Roles = "HeadOfDeprament")]
+        public IActionResult CreateStauts(string id)
+        {
+            Status status = new Status { projectId = id, userId = GetHeadOfDepramentID() };
+            return View(status);
+        }
+
+        [HttpPost]
+        [ActionName("CreateStauts")]
+        [Authorize(Roles = "HeadOfDeprament")]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateStauts(Status collection)
+        {
+            try
+            {
+                if (collection.currentStatus != null)
+                {
+                    collection.date = DateTime.UtcNow;
+                    collection.userId = GetHeadOfDepramentID();
+                    var project = _projectService.GetProject(collection.projectId);
+                    _projectService.CreateHeadStauts(project, collection);
+                    _projectService.UpdateStatus(project.Id, project);
+                    TempData["AlertMessage"] = $"הוספת הנחיה בוצעה בהצלחה";
+
+                }
+                else
+                {
+                    TempData["AlertMessage"] = $"לא ניתן להוסיף הנחיה ריקה";
+                }
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new Result<Guide>(e.Message));
+            }
         }
 
         [ActionName("Create")]

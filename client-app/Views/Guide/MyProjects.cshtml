@@ -118,11 +118,14 @@
                             }
                         </td>
                         <td>
-                            X
+                            <div>@Html.ActionLink("פרטים", "ProjectStatus","Project", new { id = item.Id })</div>
                         </td>
                         <td>
                             <div>@Html.ActionLink("פרטים", "ProjectStatus", new { id = item.Id })</div>
-                            <div>@Html.ActionLink("הוספת הנחיה", "CreateStauts", new { id = item.Id })</div>
+                            @if (User.IsInRole("Guid"))
+                            {
+                                <div>@Html.ActionLink("הוספת הנחיה", "CreateStauts", new { id = item.Id })</div>
+                            }
                         </td>
                         <td>
                             Z
