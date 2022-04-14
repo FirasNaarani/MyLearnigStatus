@@ -125,7 +125,7 @@
                         @{
                             if (Model.guidingStatuses.Count() > 0)
                             {
-                                @Html.ActionLink("פרטים", "ProjectStatus", new { id = Model.Id })
+                                @Html.ActionLink("פרטים", "ProjectStatus","Student", new { id = Model.Id })
                             }
                             else
                             {
@@ -143,7 +143,7 @@
                         @{
                             if (Model.projectStatuses.Count() > 0)
                             {
-                                @Html.ActionLink("פרטים", "ProjectStatus", new { id = Model.Id })
+                                @Html.ActionLink("פרטים", "ProjectStatus","Project", new { id = Model.Id })
                             }
                             else
                             {

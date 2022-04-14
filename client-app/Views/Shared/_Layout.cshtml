@@ -23,39 +23,12 @@
                         @{
                             if (User.IsInRole("Admin"))
                             {
-                                @*<li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Manager" asp-action="Index">מנהלים</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="HeadOfDeprament" asp-action="Index">ראשי מגמה</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Guide" asp-action="Index">מנחים</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">סטודנטים</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="Index">פרויקטים</a>
-                                    </li>*@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Manager" asp-action="MyIndex">לוח הבקרה</a>
                                 </li>
                             }
                             if (User.IsInRole("HeadOfDeprament"))
                             {
-                                @*<li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="HeadOfDeprament" asp-action="Index">ראשי מגמה</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Guide" asp-action="Index">מנחים</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">סטודנטים</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="Index">פרויקטים</a>
-                                    </li>*@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="HeadOfDeprament" asp-action="MyIndex">לוח הבקרה</a>
                                 </li>
@@ -88,7 +61,9 @@
                             if (User.Identity.IsAuthenticated)
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">להתנתק</a>
+                                    <form method="post" asp-controller="Home" asp-action="LogoutConfirm">
+                                        <input class="nav-link text-light btn btn-danger" type="submit" value="התנתק" />
+                                    </form>
                                 </li>
                                 <li class="nav-item">
                                     @{
@@ -117,7 +92,7 @@
                             else
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">להתחבר</a>
+                                    <a button type="button" class="nav-link text-light btn btn-success" asp-area="" asp-controller="Home" asp-action="Login">להתחבר</a>
                                 </li>
                             }
                         }
