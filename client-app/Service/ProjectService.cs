@@ -28,6 +28,8 @@ namespace LearnSchoolApp.Services
         void UpdateGuide(string id, Project project);
         void UpdateGuideStatuses(string id, Project project);
         void UpdateStatus(string id, Project project);
+        void UpdateProjectStatusPass(string id, Status status);
+        void UpdateGuideStatusPass(string id, Status status);
 
     }
     public class ProjectService : IProjectService
@@ -222,6 +224,24 @@ namespace LearnSchoolApp.Services
                         .Set(_ => _.projectStatuses, project.projectStatuses);
             var options = new FindOneAndUpdateOptions<Project>();
             _project.FindOneAndUpdate(filter, update, options);
+        }
+
+        public void UpdateProjectStatusPass(string id, Status status)
+        {
+            var filter = Builders<Project>.Filter.Where(_ => _.Id == id);
+            var update = Builders<Project>.Update
+                        .Set(_ => _.projectStatuses[status.Id-1],status);
+            var options = new FindOneAndUpdateOptions<Project>();
+            _project.UpdateOne(filter, update);
+        }
+
+        public void UpdateGuideStatusPass(string id, Status status)
+        {
+            var filter = Builders<Project>.Filter.Where(_ => _.Id == id);
+            var update = Builders<Project>.Update
+                        .Set(_ => _.guidingStatuses[status.Id - 1], status);
+            var options = new FindOneAndUpdateOptions<Project>();
+            _project.UpdateOne(filter, update);
         }
     }
 }

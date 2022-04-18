@@ -13,6 +13,7 @@ namespace LearnSchoolApp.Services
         List<HeadOfDeprament> Get();
         Boolean isValidCredentials(string username, string password);
         Boolean isValidProject(string username, string password);
+        Boolean isValidGuide(string userId, string name);
         HeadOfDeprament Authenticate(string username);
         HeadOfDeprament Get(string id);
         HeadOfDeprament Create(HeadOfDeprament student);
@@ -60,6 +61,12 @@ namespace LearnSchoolApp.Services
         public Boolean isValidProject(string username, string password)
         {
             HeadOfDeprament headOfDeprament = _headOfDeprament.Find(m => m.password == password && m.username == username && m.isActive == true).FirstOrDefault();
+            return headOfDeprament != null;
+        }
+
+        public Boolean isValidGuide(string userId, string name)
+        {
+            HeadOfDeprament headOfDeprament = _headOfDeprament.Find(m => m.userId == userId && m.name == name && m.isGuid == true).FirstOrDefault();
             return headOfDeprament != null;
         }
 

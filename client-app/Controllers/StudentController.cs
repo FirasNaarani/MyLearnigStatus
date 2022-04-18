@@ -221,7 +221,7 @@ namespace LearnSchoolApp.Controllers
         }
 
         [ActionName("EditProject")]
-        [Authorize(Roles = "Admin,Student")]
+        [Authorize(Roles = "Student")]
         public ActionResult EditProject(int statusId,string projectId)
         {
             if (projectId == null)
@@ -242,12 +242,8 @@ namespace LearnSchoolApp.Controllers
         {
             try
             {
-                if(collection != null)
-                {
-                    //_projectService.UpdateStatus(collection.projectId, collection);
-                }
-                //_projectService.UpdatePassword(id, collection);
-                //TempData["AlertMessage"] = $"עריכת הניתונים בוצעה בהצלחה";
+                _projectService.UpdateGuideStatusPass(collection.projectId, collection);
+                TempData["AlertMessage"] = $"עריכת הניתונים בוצעה בהצלחה";
                 return RedirectToAction("ProjectStatus",new {id = collection.projectId });
             }
             catch

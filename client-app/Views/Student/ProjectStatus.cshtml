@@ -42,11 +42,17 @@
     <div class="text-center">
         <h4>סטטוסים</h4>
         <hr />
-        @if (User.IsInRole("Studnet"))
+        @if (User.IsInRole("Student"))
         {
             <p>
                 @Html.ActionLink("חזרה לפרויקט", "ReturnToProjectProfile")
             </p>
+        }
+        @if (TempData["AlertMessage"] != null)
+        {
+            <div class="alert alert-success">
+                <i>@TempData["AlertMessage"]</i>
+            </div>
         }
     </div>
     <center>

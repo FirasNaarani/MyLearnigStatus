@@ -4,6 +4,7 @@ using LearnSchoolApp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +18,14 @@ namespace LearnSchoolApp.Controllers
         private readonly IProjectService _projectService;
         private readonly IGuideService _guideService;
         private readonly IStudentService _studentService;
+        private readonly IHeadOfDepramentService _headOfDepramentService;
 
-        public ProjectController(ProjectService projectService, GuideService guideService, StudentService studentService)
+        public ProjectController(ProjectService projectService, GuideService guideService, StudentService studentService, HeadOfDepramentService headOfDepramentService)
         {
             _projectService = projectService;
             _guideService = guideService;
             _studentService = studentService;
+            _headOfDepramentService = headOfDepramentService;
         }
 
         [ActionName("Index")]
@@ -175,6 +178,8 @@ namespace LearnSchoolApp.Controllers
                         TempData["AlertMessage"] = $"הוספת פרויקט בוצעה בהצלחה";
                         return RedirectToAction("Index");
                     }
+                    TempData["AlertMessage"] = $"לסטודנט הראשי קיים פרויקט";
+                    return RedirectToAction("Index");
                 }
                 else
                 {
@@ -297,6 +302,37 @@ namespace LearnSchoolApp.Controllers
             }
         }
 
+        [ActionName("EditProject")]
+        [Authorize(Roles = "Student")]
+        public ActionResult EditProject(int statusId, string projectId)
+        {
+            if (projectId == null)
+                return BadRequest();
+
+            Project project = _projectService.GetProject(projectId);
+
+            if (project == null)
+                return NotFound();
+            Status status = _projectService.EditHeadStatus(projectId, statusId);
+            return View(status);
+        }
+
+        [HttpPost]
+        [ActionName("EditProject")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProject(Status collection)
+        {
+            try
+            {
+                _projectService.UpdateProjectStatusPass(collection.projectId, collection);
+                TempData["AlertMessage"] = $"עריכת הניתונים בוצעה בהצלחה";
+                return RedirectToAction("ProjectStatus", new { id = collection.projectId });
+            }
+            catch
+            {
+                return View(collection);
+            }
+        }
         [ActionName("Delete")]
         [Authorize(Roles = "Admin,HeadOfDeprament")]
         public ActionResult Delete(string id)

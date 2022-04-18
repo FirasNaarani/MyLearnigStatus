@@ -1,5 +1,5 @@
 {
-  "FilePath": "c:\\GitHub\\MyLearnigStatus\\MyLearnigStatus\\LearnSchoolApp.csproj",
+  "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\LearnSchoolApp.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "5.0",
@@ -15619,38 +15619,298 @@
   "RootNamespace": "LearnSchoolApp",
   "Documents": [
     {
-      "FilePath": "c:\\GitHub\\MyLearnigStatus\\MyLearnigStatus\\Views\\_ViewStart.cshtml",
-      "TargetPath": "Views\\_ViewStart.cshtml",
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\HeadOfDeprament\\Edit.cshtml",
+      "TargetPath": "Views\\HeadOfDeprament\\Edit.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\GitHub\\MyLearnigStatus\\MyLearnigStatus\\Views\\Home\\Privacy.cshtml",
-      "TargetPath": "Views\\Home\\Privacy.cshtml",
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Guide\\Index.cshtml",
+      "TargetPath": "Views\\Guide\\Index.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\GitHub\\MyLearnigStatus\\MyLearnigStatus\\Views\\Shared\\_Layout.cshtml",
-      "TargetPath": "Views\\Shared\\_Layout.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\GitHub\\MyLearnigStatus\\MyLearnigStatus\\Views\\Shared\\Error.cshtml",
-      "TargetPath": "Views\\Shared\\Error.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\GitHub\\MyLearnigStatus\\MyLearnigStatus\\Views\\Home\\Index.cshtml",
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Home\\Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\GitHub\\MyLearnigStatus\\MyLearnigStatus\\Views\\_ViewImports.cshtml",
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Project\\ProjectStatus.cshtml",
+      "TargetPath": "Views\\Project\\ProjectStatus.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Guide\\Delete.cshtml",
+      "TargetPath": "Views\\Guide\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\HeadOfDeprament\\MyInfo.cshtml",
+      "TargetPath": "Views\\HeadOfDeprament\\MyInfo.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Project\\Edit.cshtml",
+      "TargetPath": "Views\\Project\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Guide\\Create.cshtml",
+      "TargetPath": "Views\\Guide\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Student\\MyIndex.cshtml",
+      "TargetPath": "Views\\Student\\MyIndex.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Student\\GetGuide.cshtml",
+      "TargetPath": "Views\\Student\\GetGuide.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Project\\EditGuide.cshtml",
+      "TargetPath": "Views\\Project\\EditGuide.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Manager\\Edit.cshtml",
+      "TargetPath": "Views\\Manager\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Student\\MyInfo.cshtml",
+      "TargetPath": "Views\\Student\\MyInfo.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Manager\\Details.cshtml",
+      "TargetPath": "Views\\Manager\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Student\\Details.cshtml",
+      "TargetPath": "Views\\Student\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Manager\\EditPassword.cshtml",
+      "TargetPath": "Views\\Manager\\EditPassword.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Manager\\Create.cshtml",
+      "TargetPath": "Views\\Manager\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Shared\\_LoginPartial.cshtml",
+      "TargetPath": "Views\\Shared\\_LoginPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Home\\Privacy.cshtml",
+      "TargetPath": "Views\\Home\\Privacy.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Guide\\EditPassword.cshtml",
+      "TargetPath": "Views\\Guide\\EditPassword.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Project\\Create.cshtml",
+      "TargetPath": "Views\\Project\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Student\\Delete.cshtml",
+      "TargetPath": "Views\\Student\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Student\\GetProject.cshtml",
+      "TargetPath": "Views\\Student\\GetProject.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Student\\Create.cshtml",
+      "TargetPath": "Views\\Student\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Home\\Logout.cshtml",
+      "TargetPath": "Views\\Home\\Logout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Guide\\Details.cshtml",
+      "TargetPath": "Views\\Guide\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Guide\\MyIndex.cshtml",
+      "TargetPath": "Views\\Guide\\MyIndex.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Manager\\Delete.cshtml",
+      "TargetPath": "Views\\Manager\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\_ViewStart.cshtml",
+      "TargetPath": "Views\\_ViewStart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Manager\\MyIndex.cshtml",
+      "TargetPath": "Views\\Manager\\MyIndex.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\HeadOfDeprament\\EditPassword.cshtml",
+      "TargetPath": "Views\\HeadOfDeprament\\EditPassword.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Guide\\ProjectStatus.cshtml",
+      "TargetPath": "Views\\Guide\\ProjectStatus.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Student\\Edit.cshtml",
+      "TargetPath": "Views\\Student\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Project\\Delete.cshtml",
+      "TargetPath": "Views\\Project\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Shared\\Error.cshtml",
+      "TargetPath": "Views\\Shared\\Error.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Project\\Index.cshtml",
+      "TargetPath": "Views\\Project\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Home\\Login.cshtml",
+      "TargetPath": "Views\\Home\\Login.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\HeadOfDeprament\\Create.cshtml",
+      "TargetPath": "Views\\HeadOfDeprament\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Project\\GetGuide.cshtml",
+      "TargetPath": "Views\\Project\\GetGuide.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Guide\\Edit.cshtml",
+      "TargetPath": "Views\\Guide\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Manager\\Index.cshtml",
+      "TargetPath": "Views\\Manager\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\HeadOfDeprament\\Details.cshtml",
+      "TargetPath": "Views\\HeadOfDeprament\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Project\\GetProject.cshtml",
+      "TargetPath": "Views\\Project\\GetProject.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Project\\Details.cshtml",
+      "TargetPath": "Views\\Project\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\HeadOfDeprament\\MyIndex.cshtml",
+      "TargetPath": "Views\\HeadOfDeprament\\MyIndex.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Shared\\_Layout.cshtml",
+      "TargetPath": "Views\\Shared\\_Layout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Project\\CreateStauts.cshtml",
+      "TargetPath": "Views\\Project\\CreateStauts.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Student\\EditPassword.cshtml",
+      "TargetPath": "Views\\Student\\EditPassword.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Student\\EditProject.cshtml",
+      "TargetPath": "Views\\Student\\EditProject.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\_ViewImports.cshtml",
       "TargetPath": "Views\\_ViewImports.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\GitHub\\MyLearnigStatus\\MyLearnigStatus\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
-      "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Manager\\MyInfo.cshtml",
+      "TargetPath": "Views\\Manager\\MyInfo.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Student\\Index.cshtml",
+      "TargetPath": "Views\\Student\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Student\\ProjectStatus.cshtml",
+      "TargetPath": "Views\\Student\\ProjectStatus.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Guide\\MyProjects.cshtml",
+      "TargetPath": "Views\\Guide\\MyProjects.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\HeadOfDeprament\\Index.cshtml",
+      "TargetPath": "Views\\HeadOfDeprament\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Guide\\CreateStauts.cshtml",
+      "TargetPath": "Views\\Guide\\CreateStauts.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\HeadOfDeprament\\Delete.cshtml",
+      "TargetPath": "Views\\HeadOfDeprament\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\GitHub\\MyLearnigStatus\\client-app\\Views\\Guide\\MyInfo.cshtml",
+      "TargetPath": "Views\\Guide\\MyInfo.cshtml",
       "FileKind": "mvc"
     }
   ],
