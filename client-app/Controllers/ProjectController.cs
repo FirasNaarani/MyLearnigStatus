@@ -215,7 +215,6 @@ namespace LearnSchoolApp.Controllers
         {
             try
             {
-                Console.WriteLine(collection.assistantStudentId);
                 if ((collection.assistantStudentId != null && collection.assistantStudentName != null)&&(collection.assistantStudentId != "" && collection.assistantStudentName != ""))
                 {
                     if (_studentService.isValidStudent(collection.assistantStudentId, collection.assistantStudentName))
@@ -238,8 +237,8 @@ namespace LearnSchoolApp.Controllers
                 }
                 else
                 {
-                    _studentService.isProject(collection.assistantStudentId, false);
-                    Console.WriteLine("UPDATED");
+                    var p = _projectService.Get(collection.Id);
+                    _studentService.isProject(p.assistantStudentId, false);
                 }
                 _studentService.isProject(collection.studentId, collection.isPass);
                 _projectService.Update(collection.Id, collection);

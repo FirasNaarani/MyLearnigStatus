@@ -71,17 +71,7 @@ namespace LearnSchoolApp.Controllers
 
                 Console.WriteLine("Login");
 
-                //switch (credential.UserType)
-                //{
-                //    case UserType.Admin:
-                //    case UserType.HeadOfDeprament:
-                //        return RedirectToAction("Index");
-                //    case UserType.Guid:
-                //        return RedirectToAction("MyIndex", credential.UserType.ToString());
-                //    case UserType.Student:
-                //        return RedirectToAction("Index", credential.UserType.ToString(),credential.Username);
-                //}
-                return RedirectToAction("Index");
+                return RedirectToAction("MyIndex",$"{user.userType}");
             }
             else
             {
@@ -102,23 +92,6 @@ namespace LearnSchoolApp.Controllers
             Console.WriteLine("Logout");
             return RedirectToAction("Index");
         }
-
-        //[HttpPost("Login")]
-        //public async Task<IActionResult> Validate(string username, string password, UserType userType)
-        //{
-        //    if (username == "bb" && password == "bb")
-        //    {
-        //        var claims = new List<Claim>();
-        //        claims.Add(new Claim(ClaimTypes.NameIdentifier, username));
-        //        //claims.Add(new Claim(ClaimTypes.NameIdentifier, username));
-        //        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-        //        var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-        //        await HttpContext.SignInAsync(claimsPrincipal);
-        //        return RedirectToAction("Index");
-        //    }
-        //    TempData["Error"] = "Error, Username or Password is invalid!";
-        //    return View("Login");
-        //}
 
         [HttpPost("authenticate")]
         public ActionResult<UserLoginToken> Authenticate([FromBody] UserAuth userAuth)
