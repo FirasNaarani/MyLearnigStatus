@@ -10,9 +10,6 @@ namespace LearnSchoolApp.Entities
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
-        [Required(ErrorMessage = "Study Year Required")]
-        public StudyYear studyYear { get; set; }
-
         public bool isProject { get; set; }
 
         public bool isActive { get; set; }

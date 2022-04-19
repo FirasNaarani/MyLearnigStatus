@@ -85,7 +85,6 @@ namespace LearnSchoolApp.Services
         public Student Create(Student student)
         {
             student.userType = UserType.Student;
-            student.studyYear = new StudyYear{ From = "2020", To = "2022" };
             student.isProject= false;
             student.isActive = true;
             try

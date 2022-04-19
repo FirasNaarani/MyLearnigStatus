@@ -1,12 +1,9 @@
-﻿@*@using Microsoft.AspNetCore.Identity
-    @inject SignInManager<IdentityUser> SignInManager*@
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LearnSchoolApp - @ViewData["Title"]</title>
+    <title>LearnSchoolApp</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -50,7 +47,7 @@
                         @if (!User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">אדות</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutMe">אדות</a>
                             </li>
                         }
 
@@ -115,7 +112,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - LearnSchoolApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - LearnSchoolApp - <a asp-area="" asp-controller="Home" asp-action="AboutMe">About Me</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

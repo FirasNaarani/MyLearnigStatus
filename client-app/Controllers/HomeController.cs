@@ -32,12 +32,11 @@ namespace LearnSchoolApp.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult AboutMe()
         {
             return View();
         }
 
-        //[HttpGet("Login")]
         public IActionResult Login()
         {
             return View();
@@ -71,7 +70,18 @@ namespace LearnSchoolApp.Controllers
 
                 Console.WriteLine("Login");
 
-                return RedirectToAction("MyIndex",$"{user.userType}");
+                switch (user.userType)
+                {
+                    case UserType.Admin:
+                        return RedirectToAction("MyIndex", "Manager");
+                    case UserType.HeadOfDeprament:
+                        return RedirectToAction("MyIndex", "HeadOfDeprament");
+                    case UserType.Guid:
+                        return RedirectToAction("MyIndex", "Guide");
+                    case UserType.Student:
+                        return RedirectToAction("MyIndex", "Student");
+                }
+                return BadRequest();
             }
             else
             {

@@ -41,6 +41,14 @@ namespace LearnSchoolApp.Controllers
             return View(res);
         }
 
+        [ActionName("HeadOfDepramentProjects")]
+        [Authorize(Roles = "HeadOfDeprament")]
+        public ActionResult HeadOfDepramentProjects()
+        {
+            var ls = _projectService.GetProjects(GetHeadOfDepramentID()).ToList();
+            return View(ls);
+        }
+
         [ActionName("Details")]
         [Authorize(Roles = "Admin,HeadOfDeprament")]
         public ActionResult Details(string id)
@@ -152,6 +160,14 @@ namespace LearnSchoolApp.Controllers
                 {
                     if (_studentService.isValidProject(collection.studentId))
                     {
+                        if(collection.guideId != null && collection.guideName != null)
+                        {
+                            if (_headOfDepramentService.isValidGuide(collection.guideId, collection.guideName) == false && _guideService.isValidGuide(collection.guideId, collection.guideName) == false)
+                            {
+                                TempData["AlertMessage"] = $"המנחה לא קיים במערכת";
+                                return RedirectToAction("Index");
+                            }
+                        }
                         if (collection.assistantStudentId != null && collection.assistantStudentName != null)
                         {
                             if (_studentService.isValidStudent(collection.assistantStudentId, collection.assistantStudentName))
@@ -165,7 +181,6 @@ namespace LearnSchoolApp.Controllers
                                     TempData["AlertMessage"] = $"לסטודנט השותף קיים פרויקט";
                                     return RedirectToAction("Index");
                                 }
-
                             }
                             else
                             {
@@ -332,6 +347,7 @@ namespace LearnSchoolApp.Controllers
                 return View(collection);
             }
         }
+        
         [ActionName("Delete")]
         [Authorize(Roles = "Admin,HeadOfDeprament")]
         public ActionResult Delete(string id)
@@ -354,6 +370,10 @@ namespace LearnSchoolApp.Controllers
         {
             try
             {
+                var p = _projectService.GetProject(id);
+                _studentService.isProject(p.studentId, false);
+                if (p.assistantStudentId != null)
+                    _studentService.isProject(p.assistantStudentId, false);
                 _projectService.Delete(id);
                 return RedirectToAction("Index");
             }

@@ -50,7 +50,7 @@ namespace LearnSchoolApp.Services
 
         public List<Project> GetProjects(string guidId)
         {
-            var Projects = _project.Find(m => m.guideId == guidId).ToList();
+            var Projects = _project.Find(m => m.guideId == guidId && m.isActive == true).ToList();
             return Projects;
         }
 

@@ -103,7 +103,6 @@ C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\LearnSchoolApp.TagHelpers.
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\LearnSchoolApp.TagHelpers.output.cache
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\LearnSchoolApp.RazorCoreGenerate.cache
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
-C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
@@ -316,3 +315,6 @@ C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Project\GetPro
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Project\ProjectStatus.cshtml.g.cs
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Project\CreateStauts.cshtml.g.cs
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Project\EditProject.cshtml.g.cs
+C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\LearnSchoolApp.csproj.AssemblyReference.cache
+C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Home\AboutMe.cshtml.g.cs
+C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Project\HeadOfDepramentProjects.cshtml.g.cs
