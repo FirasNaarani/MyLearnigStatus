@@ -82,12 +82,6 @@ namespace LearnSchoolApp.Services
             return Status;
         }
 
-        //public Boolean isValidCredentials(string username, string password)
-        //{
-        //    Project Project = _project.Find(m => m.password == password && m.username == username && m.isActive == true).FirstOrDefault();
-        //    return Project != null;
-        //}
-
         public Boolean isDuplicateProject(string name, string studentId)
         {
             Project Project = _project.Find(m => m.name == name || m.studentId == studentId && m.isActive == true).FirstOrDefault();
@@ -166,16 +160,6 @@ namespace LearnSchoolApp.Services
             }
             return project;
         }
-
-        //public void UpdatePassword(string id, UpdatePassword manager)
-        //{
-        //    manager.password = EncryptDecryptPassword.EncryptPlainTextToCipherText(manager.password);
-        //    var filter = Builders<Project>.Filter.Where(_ => _.Id == id);
-        //    var update = Builders<Project>.Update
-        //                .Set(_ => _.password, manager.password);
-        //    var options = new FindOneAndUpdateOptions<Project>();
-        //    _project.FindOneAndUpdate(filter, update, options);
-        //}
 
         public void Delete(string id)
         {

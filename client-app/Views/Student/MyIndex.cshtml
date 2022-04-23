@@ -7,6 +7,7 @@
             background-size: cover;
             background-position: center;
             background-image: url(https://www.10wallpaper.com/wallpaper/2560x1600/1711/Study_desk_desk_lamp_notebook_Photo_HD_Wallpaper_2560x1600.jpg);
+            text-align: center;
         }
 
         footer {
@@ -17,7 +18,7 @@
             text-shadow: 0 0 1em snow;
             color: wheat;
         }
-        
+
         table {
             border-collapse: collapse;
             background-color: #f8f8f8;
@@ -44,19 +45,28 @@
         img {
             width: fit-content;
             height: fit-content;
-            border-radius:1em;
+            border-radius: 1em;
         }
+
+        .alert-warning {
+            box-shadow: 0 10px 10px #b08100;
+        }
+
+        .notes {
+            margin-right: 1em;
+        }
+
     </style>
 </head>
 <body>
-    <div class="text-center">
+    <div>
         <h4>@Model.name שלום</h4>
         <hr />
     </div>
     <table>
         <tr>
             <td rowspan="2"><img src="https://www.visualinfomedia.com/images/web-development-banner.png" /></td>
-            <td>
+            <td colspan="2">
                 <button style=" background-color: dodgerblue;">
                     @{
                         if (Model.isProject)
@@ -71,7 +81,37 @@
                 </button>
             </td>
         </tr>
+        @{
+            if (Model.isProject)
+            {
+                <tr>
+                    <td>
+                        <button style=" background-color:orange;">
+                            @Html.ActionLink("בדיקת התראות מראש המגמה", "CheckHeadNotes", new { id = Model.userId })
+                        </button>
+                    </td>
+                    <td>
+                        <button style=" background-color: greenyellow;">
+                            @Html.ActionLink("בדיקת התראות מהמנחה", "CheckGuidNotes", new { id = Model.userId })
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
     </table>
+    <br />
+    @if (TempData["HeadNotes"] != null)
+    {
+        <div class="alert alert-warning">
+            <i>@TempData["HeadNotes"]</i>
+        </div>
+    }
+    @if (TempData["GuidNotes"] != null)
+    {
+        <div class="alert alert-warning">
+            <i>@TempData["GuidNotes"]</i>
+        </div>
+    }
 </body>
 </html>
 

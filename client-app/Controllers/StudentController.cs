@@ -58,7 +58,7 @@ namespace LearnSchoolApp.Controllers
         {
             var studentID = GetStudentID();
             var currentStudent = _studentService.Get(studentID);
-            if(currentStudent != null)
+            if (currentStudent != null)
             {
                 return View(currentStudent);
             }
@@ -105,6 +105,52 @@ namespace LearnSchoolApp.Controllers
             if (_guideService.GetMyGuide(id) == null)
                 return NotFound();
             return View(_guideService.GetMyGuide(id));
+        }
+
+        [ActionName("CheckHeadNotes")]
+        [Authorize]
+        public ActionResult CheckHeadNotes(string id)
+        {
+            var student = _studentService.Get(id);
+            Console.WriteLine($"STUDENT {JsonConvert.SerializeObject(student)}");
+            var project = _projectService.GetMyProject(student.userId);
+            Console.WriteLine($"PROJECT {JsonConvert.SerializeObject(project)}");
+            var ls = _projectService.GetHeadStatuses(project.Id);
+            Console.WriteLine($"STATUSES {JsonConvert.SerializeObject(ls)}");
+            int conut = 0;
+            foreach (var item in ls)
+            {
+                if (!item.isPass)
+                    conut++;
+            }
+            if (conut > 0)
+                TempData["HeadNotes"] = $"יש {conut} הודעות חדשות, תעבור להנחיות ראש המגמה";
+            else
+                TempData["HeadNotes"] = $"אין הודעות חדשות מראש המגמה";
+            return RedirectToAction("MyIndex");
+        }
+
+        [ActionName("CheckGuidNotes")]
+        [Authorize]
+        public ActionResult CheckGuidNotes(string id)
+        {
+            var student = _studentService.Get(id);
+            Console.WriteLine($"STUDENT {JsonConvert.SerializeObject(student)}");
+            var project = _projectService.GetMyProject(student.userId);
+            Console.WriteLine($"PROJECT {JsonConvert.SerializeObject(project)}");
+            var ls = _projectService.GetGuidStatuses(project.Id);
+            Console.WriteLine($"STATUSES {JsonConvert.SerializeObject(ls)}");
+            int conut = 0;
+            foreach (var item in ls)
+            {
+                if (!item.isPass)
+                    conut++;
+            }
+            if (conut > 0)
+                TempData["GuidNotes"] = $"יש {conut} הודעות חדשות, תעבור להנחיות המנחה";
+            else
+                TempData["GuidNotes"] = $"אין הודעות חדשות מהמנחה";
+            return RedirectToAction("MyIndex");
         }
 
         [ActionName("ProjectStatus")]
@@ -222,7 +268,7 @@ namespace LearnSchoolApp.Controllers
 
         [ActionName("EditProject")]
         [Authorize(Roles = "Student")]
-        public ActionResult EditProject(int statusId,string projectId)
+        public ActionResult EditProject(int statusId, string projectId)
         {
             if (projectId == null)
                 return BadRequest();
@@ -244,7 +290,7 @@ namespace LearnSchoolApp.Controllers
             {
                 _projectService.UpdateGuideStatusPass(collection.projectId, collection);
                 TempData["AlertMessage"] = $"עריכת הניתונים בוצעה בהצלחה";
-                return RedirectToAction("ProjectStatus",new {id = collection.projectId });
+                return RedirectToAction("ProjectStatus", new { id = collection.projectId });
             }
             catch
             {
