@@ -50,90 +50,101 @@
         }
     </div>
     <center>
-        <table class="table text-center">
-            <thead>
-                <tr>
-                    <th>
-                        פרויקט מס
-                    </th>
-                    <th>
-                        שם פרויקט
-                    </th>
-                    <th>
-                        סטודנטים בפרויקט
-                    </th>
-                    <th>
-                        פרויקט סטטוס
-                    </th>
-                    <th>
-                        הנחיות ראש המגמה
-                    </th>
-                    <th>
-                        הנחיות המנחה
-                    </th>
-                    <th>
-                        הצעת פרויקט
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.name)
-                        </td>
-                        <td>
-                            <ol>
-                                <li>
-                                    <details>
-                                        <summary>@Html.DisplayFor(modelItem => item.studentName)</summary>
-                                        @Html.DisplayFor(modelItem => item.studentId)
-                                    </details>
-                                </li>
-                                @if (item.assistantStudentName != null)
-                                {
-                                    <li>
-                                        <details>
-                                            <summary>@Html.DisplayFor(modelItem => item.assistantStudentName)</summary>
-                                            @Html.DisplayFor(modelItem => item.assistantStudentId)
-                                        </details>
-                                    </li>
-                                }
-                            </ol>
-                        </td>
-                        <td>
-                            @{
-                                if (item.isPass)
-                                {
-                                    <i><b><label><ins>מאושר</ins></label></b></i>
-                                }
-                                else
-                                {
-                                    <i><b><label><ins>לא מאושר</ins></label></b></i>
-                                }
-                            }
-                        </td>
-                        <td>
-                            <div>@Html.ActionLink("פרטים", "ProjectStatus","Project", new { id = item.Id })</div>
-                        </td>
-                        <td>
-                            <div>@Html.ActionLink("פרטים", "ProjectStatus", new { id = item.Id })</div>
-                            @if (User.IsInRole("Guid"))
-                            {
-                                <div>@Html.ActionLink("הוספת הנחיה", "CreateStauts", new { id = item.Id })</div>
-                            }
-                        </td>
-                        <td>
-                            Z
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        @{
+            if (Model.Count() > 0)
+            {
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th>
+                                פרויקט מס
+                            </th>
+                            <th>
+                                שם פרויקט
+                            </th>
+                            <th>
+                                סטודנטים בפרויקט
+                            </th>
+                            <th>
+                                פרויקט סטטוס
+                            </th>
+                            <th>
+                                הנחיות ראש המגמה
+                            </th>
+                            <th>
+                                הנחיות המנחה
+                            </th>
+                            <th>
+                                הצעת פרויקט
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.name)
+                                </td>
+                                <td>
+                                    <ol>
+                                        <li>
+                                            <details>
+                                                <summary>@Html.DisplayFor(modelItem => item.studentName)</summary>
+                                                @Html.DisplayFor(modelItem => item.studentId)
+                                            </details>
+                                        </li>
+                                        @if (item.assistantStudentName != null)
+                                        {
+                                            <li>
+                                                <details>
+                                                    <summary>@Html.DisplayFor(modelItem => item.assistantStudentName)</summary>
+                                                    @Html.DisplayFor(modelItem => item.assistantStudentId)
+                                                </details>
+                                            </li>
+                                        }
+                                    </ol>
+                                </td>
+                                <td>
+                                    @{
+                                        if (item.isPass)
+                                        {
+                                            <i><b><label><ins>מאושר</ins></label></b></i>
+                                        }
+                                        else
+                                        {
+                                            <i><b><label><ins>לא מאושר</ins></label></b></i>
+                                        }
+                                    }
+                                </td>
+                                <td>
+                                    <div>@Html.ActionLink("פרטים", "ProjectStatus", "Project", new { id = item.Id })</div>
+                                </td>
+                                <td>
+                                    <div>@Html.ActionLink("פרטים", "ProjectStatus", new { id = item.Id })</div>
+                                    @if (User.IsInRole("Guid"))
+                                    {
+                                        <div>@Html.ActionLink("הוספת הנחיה", "CreateStauts", new { id = item.Id })</div>
+                                    }
+                                </td>
+                                <td>
+                                    Z
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="alert alert-danger">
+                    <h1>אין פרויקטים שייכים אליך במערכת</h1>
+                </div>
+            }
+        }
     </center>
 </body>
 </html>

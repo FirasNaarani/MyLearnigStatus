@@ -2,11 +2,13 @@
 using LearnSchoolApp.Models;
 using LearnSchoolApp.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -19,13 +21,15 @@ namespace LearnSchoolApp.Controllers
         private readonly IGuideService _guideService;
         private readonly IStudentService _studentService;
         private readonly IHeadOfDepramentService _headOfDepramentService;
+        private readonly IProjectProposalService _projectProposalService;
 
-        public ProjectController(ProjectService projectService, GuideService guideService, StudentService studentService, HeadOfDepramentService headOfDepramentService)
+        public ProjectController(ProjectService projectService, GuideService guideService, StudentService studentService, HeadOfDepramentService headOfDepramentService, ProjectProposalService projectProposalService)
         {
             _projectService = projectService;
             _guideService = guideService;
             _studentService = studentService;
             _headOfDepramentService = headOfDepramentService;
+            _projectProposalService = projectProposalService;
         }
 
         [ActionName("Index")]
@@ -188,6 +192,7 @@ namespace LearnSchoolApp.Controllers
                                 return RedirectToAction("Index");
                             }
                         }
+                        
                         _studentService.isProject(collection.studentId, true);
                         _projectService.Create(collection);
                         TempData["AlertMessage"] = $"הוספת פרויקט בוצעה בהצלחה";
@@ -347,7 +352,70 @@ namespace LearnSchoolApp.Controllers
                 return View(collection);
             }
         }
-        
+
+        [ActionName("CreateProjectProposal")]
+        [Authorize(Roles = "Admin,HeadOfDeprament")]
+        public IActionResult CreateProjectPropsal(string id)
+        {
+            if (id == null)
+                return BadRequest();
+
+            Project project = _projectService.GetProject(id);
+
+            if (project == null)
+                return NotFound();
+
+            ProjectProposal proposal = project.projectProposal;
+            proposal.projectId = project.Id;
+            _projectService.UpdateProjectProposal(proposal.projectId, proposal);
+            return View(proposal);
+        }
+
+        [HttpPost]
+        [ActionName("CreateProjectProposal")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateProjectPropsal(ProjectProposal proposal)
+        {
+            try
+            {
+                Console.WriteLine($"PROPOSAL>> {JsonConvert.SerializeObject(proposal)}");
+                //if (proposal.proposalPdf!= null)
+                //{
+                //    var project = _projectService.GetProject(proposal.projectId);
+                //    var path = Path.Combine(_hostingEnvironment.ContentRootPath, "wwwroot", proposal.proposalPdf.FileName);
+                //    proposal.proposalPdfUrl = path;
+                //    Console.WriteLine($"PATH>> {JsonConvert.SerializeObject(path)}");
+
+                //    using var fileStream = new FileStream(path, FileMode.Create);
+                //    await proposal.proposalPdf.CopyToAsync(fileStream);
+                //    _projectService.UpdateProjectProposal(proposal.projectId, proposal);
+
+                //    Console.WriteLine($"PDF>> {JsonConvert.SerializeObject(proposal.proposalPdf)}");
+                //}
+
+                if(proposal.proposalPdf != null)
+                {
+                            _projectProposalService.Create(proposal);
+
+                    if (proposal.proposalPdf.Length > 0 && proposal.proposalPdf.Length < 500000)
+                    {
+                        var project = _projectService.GetProject(proposal.projectId);
+                        using(var target = new MemoryStream())
+                        {
+                            proposal.proposalPdf.CopyTo(target);
+                            proposal.File = target.ToArray();
+                            _projectService.UpdateProjectProposal(proposal.projectId, proposal);
+                        }
+                    }
+                }
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new Result<ProjectProposal>(e.Message));
+            }
+        }
+
         [ActionName("Delete")]
         [Authorize(Roles = "Admin,HeadOfDeprament")]
         public ActionResult Delete(string id)
@@ -355,12 +423,12 @@ namespace LearnSchoolApp.Controllers
             if (id == null)
                 return BadRequest();
 
-            Project student = _projectService.Get(id);
+            Project project = _projectService.Get(id);
 
-            if (student == null)
+            if (project == null)
                 return NotFound();
 
-            return View(student);
+            return View(project);
         }
 
         [HttpPost]
@@ -379,7 +447,7 @@ namespace LearnSchoolApp.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(500, new Result<Student>(e.Message));
+                return StatusCode(500, new Result<Project>(e.Message));
             }
         }
     }

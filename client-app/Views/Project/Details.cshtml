@@ -43,10 +43,11 @@
                 if (User.IsInRole("HeadOfDeprament"))
                 {
                     @Html.ActionLink("עריכת מנחה", "EditGuide", new { id = Model.Id }) <label>| </label>
+                    @Html.ActionLink("עריכת הצעת פרויקט", "CreateProjectProposal", "Project", new { id = Model.Id }) <label>| </label>
                 }
                 if (User.IsInRole("Admin"))
                 {
-                    @Html.ActionLink("עריכת מנחה", "EditGuide", new { id = Model.Id }) <label>| </label>
+                    @Html.ActionLink("עריכת מנחה", "EditGuide", "Project", new { id = Model.Id }) <label>| </label>
                 }
             }
             @Html.ActionLink("מחיקה", "Delete", new { id = Model.Id })

@@ -57,6 +57,10 @@ namespace LearnSchoolApp
             Configuration.GetSection(nameof(ProjectDBSettings)));
             services.AddSingleton<IProjectDBSettings>(sp => sp.GetRequiredService<IOptions<ProjectDBSettings>>().Value);
 
+            services.Configure<ProjectProposalDBSettings>(
+            Configuration.GetSection(nameof(ProjectProposalDBSettings)));
+            services.AddSingleton<IProjectProposalDBSettings>(sp => sp.GetRequiredService<IOptions<ProjectProposalDBSettings>>().Value);
+
             services.Configure<ManagerDBSettings>(
             Configuration.GetSection(nameof(ManagerDBSettings)));
             services.AddSingleton<IManagerDBSettings>(sp => sp.GetRequiredService<IOptions<ManagerDBSettings>>().Value);
@@ -76,6 +80,7 @@ namespace LearnSchoolApp
             services.AddSingleton<GuideService>();
             services.AddSingleton<HeadOfDepramentService>();
             services.AddSingleton<ProjectService>();
+            services.AddSingleton<ProjectProposalService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -46,5 +46,7 @@ namespace LearnSchoolApp.Entities
         public List<Status> guidingStatuses { get; set; }
 
         public ProjectProposal projectProposal { get; set; }
+
+        public byte[] Attachment { get; set; }
     }
 }
