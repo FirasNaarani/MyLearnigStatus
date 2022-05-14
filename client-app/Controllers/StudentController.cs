@@ -112,11 +112,8 @@ namespace LearnSchoolApp.Controllers
         public ActionResult CheckHeadNotes(string id)
         {
             var student = _studentService.Get(id);
-            Console.WriteLine($"STUDENT {JsonConvert.SerializeObject(student)}");
             var project = _projectService.GetMyProject(student.userId);
-            Console.WriteLine($"PROJECT {JsonConvert.SerializeObject(project)}");
             var ls = _projectService.GetHeadStatuses(project.Id);
-            Console.WriteLine($"STATUSES {JsonConvert.SerializeObject(ls)}");
             int conut = 0;
             foreach (var item in ls)
             {
@@ -135,11 +132,8 @@ namespace LearnSchoolApp.Controllers
         public ActionResult CheckGuidNotes(string id)
         {
             var student = _studentService.Get(id);
-            Console.WriteLine($"STUDENT {JsonConvert.SerializeObject(student)}");
             var project = _projectService.GetMyProject(student.userId);
-            Console.WriteLine($"PROJECT {JsonConvert.SerializeObject(project)}");
             var ls = _projectService.GetGuidStatuses(project.Id);
-            Console.WriteLine($"STATUSES {JsonConvert.SerializeObject(ls)}");
             int conut = 0;
             foreach (var item in ls)
             {

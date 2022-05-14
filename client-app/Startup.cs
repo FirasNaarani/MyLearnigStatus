@@ -80,7 +80,6 @@ namespace LearnSchoolApp
             services.AddSingleton<GuideService>();
             services.AddSingleton<HeadOfDepramentService>();
             services.AddSingleton<ProjectService>();
-            services.AddSingleton<ProjectProposalService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -23,7 +23,6 @@ namespace LearnSchoolApp.Services
         Project Create(Project project);
         Project CreateGuideStauts(Project project, Status status);
         Project CreateHeadStauts(Project project, Status status);
-        void UpdateProjectProposal(string id, ProjectProposal propsal);
         void Delete(string id);
         void Update(string id, Project project);
         void UpdateGuide(string id, Project project);
@@ -115,7 +114,6 @@ namespace LearnSchoolApp.Services
             project.isPass = false;
             project.projectStatuses = new List<Status>();
             project.guidingStatuses = new List<Status>();
-            project.projectProposal = new ProjectProposal();
             try
             {
                 _project.InsertOne(project);
@@ -162,25 +160,6 @@ namespace LearnSchoolApp.Services
                 }
             }
             return project;
-        }
-
-        public void UpdateProjectProposal(string id, ProjectProposal propsal)
-        {
-            try
-            {
-                var filter = Builders<Project>.Filter.Where(_ => _.Id == id);
-                var update = Builders<Project>.Update
-                            .Set(_ => _.projectProposal, propsal);
-                var options = new FindOneAndUpdateOptions<Project>();
-                _project.UpdateOne(filter, update);
-            }
-            catch (Exception ex)
-            {
-                if (ex.Message.Contains("duplicate"))
-                {
-                    throw new Exception("duplicate propsal");
-                }
-            }
         }
 
         public void Delete(string id)
@@ -252,15 +231,12 @@ namespace LearnSchoolApp.Services
 
         public void UploadPDF(string id, Project project)
         {
-            //var filter = Builders<Project>.Filter.Where(_ => _.Id == id);
-            //var update = Builders<Project>.Update
-            //            .Set(_ => _.name, project.name)
-            //            .Set(_ => _.assistantStudentName, project.assistantStudentName)
-            //            .Set(_ => _.assistantStudentId, project.assistantStudentId)
-            //            .Set(_ => _.isPass, project.isPass);
-            //var options = new FindOneAndUpdateOptions<Project>();
-            //_project.FindOneAndUpdate(filter, update, options);
-            _project.ReplaceOneAsync(x => x.Id == project.Id, project);
+            var filter = Builders<Project>.Filter.Where(_ => _.Id == id);
+            var update = Builders<Project>.Update
+                        .Set(_ => _.isPass, true)
+                        .Set(_ => _.PDF, project.PDF);
+            var options = new FindOneAndUpdateOptions<Project>();
+            _project.FindOneAndUpdate(filter, update, options);
         }
     }
 }

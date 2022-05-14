@@ -6,22 +6,21 @@
         body {
             background-size: cover;
             background-position: center;
-            background-image: url(https://www.10wallpaper.com/wallpaper/2560x1600/1711/Study_desk_desk_lamp_notebook_Photo_HD_Wallpaper_2560x1600.jpg);
+            background-image: url(https://cdn1.vectorstock.com/i/1000x1000/63/40/background-pattern-with-computer-icons-vector-18526340.jpg);
         }
 
         footer {
-            background-color: #ddc4a8de;
+            background: rgb(255 255 255 / 80%);
         }
 
         h4 {
-            text-shadow: 0 0 1em snow;
-            color: wheat;
+            text-shadow: 0 0 1em #93358f;
         }
 
         table {
             border-collapse: collapse;
             background-color: #f8f8f8;
-            width: 100%;
+            width: 75%;
             border-radius: 1em;
             box-shadow: 0 10px 10px #033740;
         }
@@ -45,46 +44,54 @@
             width: fit-content;
             height: fit-content;
         }
+
+        .title {
+            background-color: #f8f8f8;
+            border-radius: 1em;
+            box-shadow: 0 10px 10px #033740;
+        }
     </style>
 </head>
 <body>
-    <div class="text-center">
+    <div class="text-center title">
         <h4>@Model.name שלום</h4>
         <hr />
     </div>
-    <table>
-        <tr>
-            <td rowspan="3"><img src="https://www.visualinfomedia.com/images/web-development-banner.png" /></td>
-            <td>
-                <button style=" background-color: greenyellow;">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">סטודנטים</a>
-                </button>
-            </td>
-            <td>
-                <button style=" background-color: dodgerblue;">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="Index">פרויקטים</a>
-                </button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button style=" background-color:orange;">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Guide" asp-action="Index">מנחים</a>
-                </button>
-            </td>
-            <td>
-                <button style=" background-color: brown;">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="HeadOfDeprament" asp-action="Index">ראשי מגמה</a>
-                </button>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" style="text-align:center">
-                <button style="background-color: mediumpurple;">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="HeadOfDepramentProjects">הפרויקטים שלי</a>
-                </button>
-            </td>
-        </tr>
-    </table>
+    <center>
+        <table>
+            <tr>
+                <td rowspan="3"><img src="https://www.visualinfomedia.com/images/web-development-banner.png" /></td>
+                <td>
+                    <button style=" background-color: greenyellow;">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">סטודנטים</a>
+                    </button>
+                </td>
+                <td>
+                    <button style=" background-color: dodgerblue;">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="Index">פרויקטים</a>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button style=" background-color:orange;">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Guide" asp-action="Index">מנחים</a>
+                    </button>
+                </td>
+                <td>
+                    <button style=" background-color: brown;">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="HeadOfDeprament" asp-action="Index">ראשי מגמה</a>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center">
+                    <button style="background-color: mediumpurple;">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="HeadOfDepramentProjects">הפרויקטים שלי</a>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </center>
 </body>
 </html>

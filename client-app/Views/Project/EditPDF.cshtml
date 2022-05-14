@@ -1,0 +1,140 @@
+﻿@model LearnSchoolApp.Entities.Project
+
+<html>
+<head>
+    <style>
+        body {
+            text-align: left;
+            background-image: url(https://media.istockphoto.com/vectors/watercolor-seamless-background-with-green-hexagon-tiles-vector-id1212124417?k=20&m=1212124417&s=612x612&w=0&h=DQ_M1UGj4e2JiJDs8SGJ3RgIk_8myxNuGtyb2OKQFeI=);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        footer {
+            background: rgb(255 255 255 / 80%);
+        }
+
+        table {
+            box-shadow: 0 10px 10px #033740;
+        }
+
+        td {
+            text-align: center;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #c0bd4f;
+        }
+
+        tr:nth-child(2n+1) {
+            background-color: #e7eae3;
+        }
+
+        input[type=text], input[type=number], input[type=password], input[type=email] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-center">
+        <h4>פרויקט</h4>
+        <hr />
+        <p>
+            @Html.ActionLink("חזרה לפרויקט", "Details", new { id = Model.Id })
+        </p>
+    </div>
+    <center>
+        <form asp-action="EditPDF" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group" hidden>
+                                <label asp-for="Id" class="control-label"></label>
+                                <input asp-for="Id" class="form-control" />
+                                <span asp-validation-for="Id" class="text-danger"></span>
+                            </div>
+                            <div class="form-group" hidden>
+                                <label asp-for="name" class="control-label"></label>
+                                <input asp-for="name" class="form-control" />
+                                <span asp-validation-for="name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group" hidden>
+                                <label asp-for="guideId" class="control-label"></label>
+                                <input asp-for="guideId" class="form-control" />
+                                <span asp-validation-for="guideId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group" hidden>
+                                <label asp-for="guideName" class="control-label"></label>
+                                <input asp-for="guideName" class="form-control" />
+                                <span asp-validation-for="guideName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group" hidden>
+                                <label asp-for="studentId" class="control-label"></label>
+                                <input asp-for="studentId" class="form-control" />
+                                <span asp-validation-for="studentId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group" hidden>
+                                <label asp-for="studentName" class="control-label"></label>
+                                <input asp-for="studentName" class="form-control" />
+                                <span asp-validation-for="studentName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group" hidden>
+                                <label asp-for="assistantStudentId" class="control-label"></label>
+                                <input asp-for="assistantStudentId" class="form-control" />
+                                <span asp-validation-for="assistantStudentId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group" hidden>
+                                <label asp-for="assistantStudentName" class="control-label"></label>
+                                <input asp-for="assistantStudentName" class="form-control" />
+                                <span asp-validation-for="assistantStudentName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group form-check" hidden>
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="isActive" /> @Html.DisplayNameFor(model => model.isActive)
+                                </label>
+                            </div>
+                            <div class="form-group form-check" hidden>
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="isPass" /> @Html.DisplayNameFor(model => model.isPass)
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="PDF" class="control-label">IMAGE</label>
+                                <input type="file" name="PDF" accept=".jpg" class="form-control" />
+                                <span asp-validation-for="PDF" class="text-danger"></span>
+                            </div>
+                        </td>
+                        <td>
+                            <b><label class="control-label">הצעת פרויקט</label></b>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" style="text-align:center">
+                            <div class="form-group">
+                                <input type="submit" value="שמירה" class="btn btn-primary" />
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </form>
+    </center>
+</body>
+</html>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

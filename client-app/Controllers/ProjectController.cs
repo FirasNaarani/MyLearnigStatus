@@ -8,8 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -21,15 +25,13 @@ namespace LearnSchoolApp.Controllers
         private readonly IGuideService _guideService;
         private readonly IStudentService _studentService;
         private readonly IHeadOfDepramentService _headOfDepramentService;
-        private readonly IProjectProposalService _projectProposalService;
 
-        public ProjectController(ProjectService projectService, GuideService guideService, StudentService studentService, HeadOfDepramentService headOfDepramentService, ProjectProposalService projectProposalService)
+        public ProjectController(ProjectService projectService, GuideService guideService, StudentService studentService, HeadOfDepramentService headOfDepramentService)
         {
             _projectService = projectService;
             _guideService = guideService;
             _studentService = studentService;
             _headOfDepramentService = headOfDepramentService;
-            _projectProposalService = projectProposalService;
         }
 
         [ActionName("Index")]
@@ -164,7 +166,7 @@ namespace LearnSchoolApp.Controllers
                 {
                     if (_studentService.isValidProject(collection.studentId))
                     {
-                        if(collection.guideId != null && collection.guideName != null)
+                        if (collection.guideId != null && collection.guideName != null)
                         {
                             if (_headOfDepramentService.isValidGuide(collection.guideId, collection.guideName) == false && _guideService.isValidGuide(collection.guideId, collection.guideName) == false)
                             {
@@ -192,7 +194,7 @@ namespace LearnSchoolApp.Controllers
                                 return RedirectToAction("Index");
                             }
                         }
-                        
+
                         _studentService.isProject(collection.studentId, true);
                         _projectService.Create(collection);
                         TempData["AlertMessage"] = $"הוספת פרויקט בוצעה בהצלחה";
@@ -235,7 +237,7 @@ namespace LearnSchoolApp.Controllers
         {
             try
             {
-                if ((collection.assistantStudentId != null && collection.assistantStudentName != null)&&(collection.assistantStudentId != "" && collection.assistantStudentName != ""))
+                if ((collection.assistantStudentId != null && collection.assistantStudentName != null) && (collection.assistantStudentId != "" && collection.assistantStudentName != ""))
                 {
                     if (_studentService.isValidStudent(collection.assistantStudentId, collection.assistantStudentName))
                     {
@@ -294,7 +296,7 @@ namespace LearnSchoolApp.Controllers
         {
             try
             {
-                if (collection.guideId != null && collection.guideName!= null)
+                if (collection.guideId != null && collection.guideName != null)
                 {
                     if (_guideService.isValidGuide(collection.guideId, collection.guideName))
                     {
@@ -353,7 +355,7 @@ namespace LearnSchoolApp.Controllers
             }
         }
 
-        [ActionName("CreateProjectProposal")]
+        [ActionName("EditPDF")]
         [Authorize(Roles = "Admin,HeadOfDeprament")]
         public IActionResult CreateProjectPropsal(string id)
         {
@@ -365,55 +367,57 @@ namespace LearnSchoolApp.Controllers
             if (project == null)
                 return NotFound();
 
-            ProjectProposal proposal = project.projectProposal;
-            proposal.projectId = project.Id;
-            _projectService.UpdateProjectProposal(proposal.projectId, proposal);
-            return View(proposal);
+            return View(project);
         }
 
         [HttpPost]
-        [ActionName("CreateProjectProposal")]
+        [ActionName("EditPDF")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateProjectPropsal(ProjectProposal proposal)
+        public IActionResult EditPDF(Project project, IFormFile PDF)
         {
             try
             {
-                Console.WriteLine($"PROPOSAL>> {JsonConvert.SerializeObject(proposal)}");
-                //if (proposal.proposalPdf!= null)
-                //{
-                //    var project = _projectService.GetProject(proposal.projectId);
-                //    var path = Path.Combine(_hostingEnvironment.ContentRootPath, "wwwroot", proposal.proposalPdf.FileName);
-                //    proposal.proposalPdfUrl = path;
-                //    Console.WriteLine($"PATH>> {JsonConvert.SerializeObject(path)}");
-
-                //    using var fileStream = new FileStream(path, FileMode.Create);
-                //    await proposal.proposalPdf.CopyToAsync(fileStream);
-                //    _projectService.UpdateProjectProposal(proposal.projectId, proposal);
-
-                //    Console.WriteLine($"PDF>> {JsonConvert.SerializeObject(proposal.proposalPdf)}");
-                //}
-
-                if(proposal.proposalPdf != null)
+                if (PDF != null)
                 {
-                            _projectProposalService.Create(proposal);
+                    MemoryStream memoryStream = new MemoryStream();
+                    PDF.OpenReadStream().CopyTo(memoryStream);
+                    project.PDF = Convert.ToBase64String(memoryStream.ToArray());
 
-                    if (proposal.proposalPdf.Length > 0 && proposal.proposalPdf.Length < 500000)
+                    if (project.PDF.Length > 0 && project.PDF.Length < 4000000)
                     {
-                        var project = _projectService.GetProject(proposal.projectId);
-                        using(var target = new MemoryStream())
-                        {
-                            proposal.proposalPdf.CopyTo(target);
-                            proposal.File = target.ToArray();
-                            _projectService.UpdateProjectProposal(proposal.projectId, proposal);
-                        }
+                        _projectService.UploadPDF(project.Id, project);
+                        TempData["AlertMessage"] = $"העלאת מסמכים בוצעה בהצלחה";
                     }
+                    else
+                    {
+                        TempData["AlertMessage"] = $"גודל המסמכים גדול יותר מדי, תנסה מואחר יותר";
+                    }
+                }
+                else
+                {
+                    TempData["AlertMessage"] = $"לא ניתן להעלאת מסמכים";
                 }
                 return RedirectToAction("Index");
             }
             catch (Exception e)
             {
-                return StatusCode(500, new Result<ProjectProposal>(e.Message));
+                return StatusCode(500, new Result<Project>(e.Message));
             }
+        }
+
+        [ActionName("FileView")]
+        [Authorize]
+        public IActionResult FileView(string id)
+        {
+            if (id == null)
+                return BadRequest();
+
+            Project project = _projectService.GetMyProject(id);
+
+            if (project == null)
+                return NotFound();
+
+            return View(project);
         }
 
         [ActionName("Delete")]

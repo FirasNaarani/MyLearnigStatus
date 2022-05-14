@@ -5,14 +5,14 @@
     <style>
         body {
             text-align: left;
-            background-image: url(https://wallpapercave.com/wp/wp5306486.jpg);
+            background-image: url(https://media.istockphoto.com/vectors/watercolor-seamless-background-with-green-hexagon-tiles-vector-id1212124417?k=20&m=1212124417&s=612x612&w=0&h=DQ_M1UGj4e2JiJDs8SGJ3RgIk_8myxNuGtyb2OKQFeI=);
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
         }
 
         footer {
-            background-color: #ddc4a8de;
+            background: rgb(255 255 255 / 80%);
         }
 
         table {
@@ -43,7 +43,7 @@
                 if (User.IsInRole("HeadOfDeprament"))
                 {
                     @Html.ActionLink("עריכת מנחה", "EditGuide", new { id = Model.Id }) <label>| </label>
-                    @Html.ActionLink("עריכת הצעת פרויקט", "CreateProjectProposal", "Project", new { id = Model.Id }) <label>| </label>
+                    @Html.ActionLink("עריכת הצעת פרויקט", "EditPDF", "Project", new { id = Model.Id }) <label>| </label>
                 }
                 if (User.IsInRole("Admin"))
                 {
@@ -160,6 +160,24 @@
                     </td>
                     <td>
                         <b>פרויקט</b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @{
+                            if (Model.PDF != null)
+                            {
+                                @Html.ActionLink("צפיה", "FileView", new { id = Model.studentId })
+                            }
+                            else
+                            {
+                                <i><b><label><ins>עדיין לא התקבל אישור על הצעת פרויקט</ins></label></b></i>
+                            }
+                        }
+                    </td>
+                    <td>
+                        <b>הצעת פרויקט</b>
                     </td>
                 </tr>
             </tbody>

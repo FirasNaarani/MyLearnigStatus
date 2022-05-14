@@ -289,7 +289,6 @@ C:\GitHub\MyLearnigStatus\client-app\bin\Debug\net5.0\runtimes\win-x64\native\Mi
 C:\GitHub\MyLearnigStatus\client-app\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 C:\GitHub\MyLearnigStatus\client-app\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
 C:\GitHub\MyLearnigStatus\client-app\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
-C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Home\Logout.cshtml.g.cs
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Student\MyIndex.cshtml.g.cs
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Guide\MyIndex.cshtml.g.cs
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\HeadOfDeprament\Index.cshtml.g.cs
@@ -318,5 +317,5 @@ C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Project\EditPr
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\LearnSchoolApp.csproj.AssemblyReference.cache
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Home\AboutMe.cshtml.g.cs
 C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Project\HeadOfDepramentProjects.cshtml.g.cs
-C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Project\CreateProjectProposal.cshtml.g.cs
-C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Project\CreatePDF.cshtml.g.cs
+C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Project\EditPDF.cshtml.g.cs
+C:\GitHub\MyLearnigStatus\client-app\obj\Debug\net5.0\Razor\Views\Project\FileView.cshtml.g.cs

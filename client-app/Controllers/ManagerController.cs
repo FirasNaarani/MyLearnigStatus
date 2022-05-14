@@ -59,6 +59,19 @@ namespace LearnSchoolApp.Controllers
             return null;
         }
 
+        [ActionName("MyInfo")]
+        [Authorize(Roles = "Admin")]
+        public ActionResult MyInfo()
+        {
+            var AdminID = GetAdminID();
+            var currentAdmin = _managerService.Get(AdminID);
+            if (currentAdmin != null)
+            {
+                return View(currentAdmin);
+            }
+            return RedirectToAction("MyInfo");
+        }
+
         [ActionName("Details")]
         [Authorize(Roles = "Admin")]
         public ActionResult Details(string id)
