@@ -99,8 +99,10 @@
             }
         }
     </table>
+
     <br />
-    @if (TempData["HeadNotes"] != null)
+
+       @if (TempData["HeadNotes"] != null)
     {
         <div class="text-center alert alert-warning">
             <i>@TempData["HeadNotes"]</i>
@@ -112,6 +114,112 @@
             <i>@TempData["GuidNotes"]</i>
         </div>
     }
+ 
+    <div class="text-center title">
+        <table class="table text-center">
+            <thead>
+                <tr>
+                    <th width="50%">
+                        הנחיות ראש המגמה
+                    </th>
+
+                    <th width="50%">
+                        הנחיות המנחה
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>
+                        @if (TempData["HeadListNotes"] != null)
+                        {
+                            <table class="table text-center">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            מאושר
+                                        </th>
+                                        <th>
+                                            סטטוס
+                                        </th>
+                                        <th>
+                                            תאריך
+                                        </th>
+                                        <th>
+                                            'מס
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in TempData["HeadListNotes"] as List<LearnSchoolApp.Entities.Status>)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.isPass)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.currentStatus)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.date)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Id)
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    </td>
+
+                    <td>
+                        @if (TempData["GuidListNotes"] != null)
+                        {
+                            <table class="table text-center">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            מאושר
+                                        </th>
+                                        <th>
+                                            סטטוס
+                                        </th>
+                                        <th>
+                                            תאריך
+                                        </th>
+                                        <th>
+                                            'מס
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in TempData["GuidListNotes"] as List<LearnSchoolApp.Entities.Status>)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.isPass)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.currentStatus)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.date)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Id)
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
 

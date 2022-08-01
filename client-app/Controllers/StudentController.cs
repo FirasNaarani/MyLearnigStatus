@@ -60,6 +60,8 @@ namespace LearnSchoolApp.Controllers
             var currentStudent = _studentService.Get(studentID);
             if (currentStudent != null)
             {
+                DisplayGuidNotes(studentID);
+                DisplayHeadNotes(studentID);
                 return View(currentStudent);
             }
             return RedirectToAction("MyIndex");
@@ -127,6 +129,22 @@ namespace LearnSchoolApp.Controllers
             return RedirectToAction("MyIndex");
         }
 
+        public void DisplayHeadNotes(string id)
+        {
+            var student = _studentService.Get(id);
+            var project = _projectService.GetMyProject(student.userId);
+
+            if(project != null)
+            {
+                var ls = _projectService.GetHeadStatuses(project.Id);
+           
+                if (ls != null)
+                    TempData["HeadListNotes"] = ls;
+                else
+                    TempData["HeadListNotes"] = null;
+            }
+        }
+
         [ActionName("CheckGuidNotes")]
         [Authorize]
         public ActionResult CheckGuidNotes(string id)
@@ -145,6 +163,22 @@ namespace LearnSchoolApp.Controllers
             else
                 TempData["GuidNotes"] = $"אין הודעות חדשות מהמנחה";
             return RedirectToAction("MyIndex");
+        }
+
+        public void DisplayGuidNotes(string id)
+        {
+            var student = _studentService.Get(id);
+            var project = _projectService.GetMyProject(student.userId);
+
+            if(project != null)
+            {
+                var ls = _projectService.GetGuidStatuses(project.Id);
+            
+                if (ls != null)
+                    TempData["GuidListNotes"] = ls;
+                else
+                    TempData["GuidListNotes"] = null;
+            }
         }
 
         [ActionName("ProjectStatus")]

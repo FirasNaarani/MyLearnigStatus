@@ -1,28 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\GitHub\\MyLearnigStatus\\client-app\\LearnSchoolApp.csproj": {}
+    "D:\\GitHub\\MyLearnigStatus\\client-app\\LearnSchoolApp.csproj": {}
   },
   "projects": {
-    "C:\\GitHub\\MyLearnigStatus\\client-app\\LearnSchoolApp.csproj": {
+    "D:\\GitHub\\MyLearnigStatus\\client-app\\LearnSchoolApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\GitHub\\MyLearnigStatus\\client-app\\LearnSchoolApp.csproj",
+        "projectUniqueName": "D:\\GitHub\\MyLearnigStatus\\client-app\\LearnSchoolApp.csproj",
         "projectName": "LearnSchoolApp",
-        "projectPath": "C:\\GitHub\\MyLearnigStatus\\client-app\\LearnSchoolApp.csproj",
+        "projectPath": "D:\\GitHub\\MyLearnigStatus\\client-app\\LearnSchoolApp.csproj",
         "packagesPath": "C:\\Users\\firas\\.nuget\\packages\\",
-        "outputPath": "C:\\GitHub\\MyLearnigStatus\\client-app\\obj\\",
+        "outputPath": "D:\\GitHub\\MyLearnigStatus\\client-app\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
           "C:\\Users\\firas\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -108,7 +105,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }
